@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign UP</title>
+        <link rel="stylesheet" href="./css/signup.css">
+    </head>
+    <body>
+        <div>
+            <table border="1">
+                <tr>
+                    <td>
+                        <form action="./php/signup.php" method="POST">
+                            <table border="1">
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="text" name="uname" id="" placeholder="Username" pattern="[a-z]{1,15}" title="Only lower characters are allowed." required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="text" name="email" id="" placeholder="Email ID" title="" oninput="checkmail(this)" required>
+                                        <script>
+                                            function checkmail(mail) {
+                                                if(!((mail.value).match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))) {
+                                                    mail.setCustomValidity("Email ID format must be match!!");
+                                                } else {
+                                                    mail.setCustomValidity("");
+                                                }
+                                            }
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="text" name="phone" id="" placeholder="Mobile No" pattern="[0-9]{10}" title="only 10 numerical value allowed." required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="">Date of Birth: </label>
+                                    </td>
+                                    <td>
+                                        <input type="date" name="dob" id="" title="select your borth date." required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="">Gender: </label>
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="gender" id="" value="male" required>
+                                        <label for="">Male</label>
+                                        <input type="radio" name="gender" id="" value="female">
+                                        <label for="">Female</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="password" name="pass" id="pass" placeholder="Password" 
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}"
+                                        title="Password must contain: at least one number, at least one uppercase and lowercase letter, at least 8 or more character" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="password" name="cpass" id="cpass" placeholder="Confirm Password" required oninput="check(this)">
+                                        <script>
+                                            function check(inp) {
+                                                if(inp.value != document.getElementById("pass").value) {
+                                                    inp.setCustomValidity("Password must be match!!");
+                                                } else {
+                                                    inp.setCustomValidity("");
+                                                }
+                                            }
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="reset" value="Clear" id="">
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="SignUp" id="">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <hr>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>Already have Account? <a href="./signin.html">SignIn</a></p>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign IN</title>
+        <!-- <link rel="stylesheet" href="./css/signin.css"> -->
+    </head>
+    <body>
+        <div id="maindiv">
+            <table border="1">
+                <tr>
+                    <td>
+                        <form action="./php/signin.php" method="post">
+                            <table border="1">
+                                <tr>
+                                    <td>
+                                        <input type="text" name="email" id="" placeholder="Email ID" title="" oninput="checkmail(this)" required>
+                                        <script>
+                                            function checkmail(mail) {
+                                                if(!((mail.value).match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))) {
+                                                    mail.setCustomValidity("Email ID format must be match!!");
+                                                } else {
+                                                    mail.setCustomValidity("");
+                                                }
+                                            }
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="password" name="pass" id="" placeholder="Password" 
+                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}"
+                                        title="Password must contain: at least one number, at least one uppercase and lowercase letter, at least 8 or more character" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" value="Sign IN" id="">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <hr>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="./forgotpass.php">Forgot Passowrd?</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p>Not Registered yet? <a href="./signup.html">SignUp</a></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+    </body>
+</html>
