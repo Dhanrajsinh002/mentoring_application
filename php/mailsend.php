@@ -4,6 +4,7 @@ session_start();
 $fmail = $_SESSION['mail'];
 $user = $_SESSION['uname'];
 $code = $_SESSION['tempcode'];
+echo $code;
 $send;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -53,7 +54,15 @@ try {
             <table>
                 <tr>
                     <td>
-                        <input type="number" name="passcode" id="" placeholder="Reset Code" required>
+                        <input type="number" name="passcode" id="" placeholder="Enter Reset Code" maxlength = "6" pattern = "[0-9]{6}" oninput="check(this)" required>
+                        <script>
+                            function check(num) {
+                                let code = <?php echo $code; ?>;
+                                if(num.value != code) {
+                                    inp.setCustomValidity("Verification Code is not Matching!!");
+                                }
+                            }
+                        </script>
                     </td>
                 </tr>
                 <tr>

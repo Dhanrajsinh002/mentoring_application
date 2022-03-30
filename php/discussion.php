@@ -85,7 +85,26 @@ session_start();
                 if($_SESSION['role'] == 'mentor_details') {
                     ?>
                     <script>
-                        $('#bt').html(`<tr><td><button onclick='window.location.href="./crtmnteegrp.php"'>Create Group</button></td> </tr>`);
+                        $('#bt').append('<tr>'+
+                                        '<table>'+
+                                        '<tr>'+
+                                        '<td>'+
+                                        '<form action = "./crtmnteegrp.php" method = "post">'+
+                                        '<table>'+
+                                        '<tr>'+
+                                        '    <td>'+
+                                        '        <input type="text" name="gname" placeholder="Enter Group Name" pattern="[a-z]{1,15}" title="Only lower characters are allowed." required>'+
+                                        '    </td>'+
+                                        '    <td>'+
+                                        '        <input type="submit" value="Create Group">'+
+                                        '    </td>'+
+                                        '</tr>'+
+                                        '</table>'+
+                                        '</form>'+
+                                        '</td>'+
+                                        '</tr>'+
+                                        '</table>'+
+                                        '</tr>');
                         // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <!-- <button>Create Group</button> -->

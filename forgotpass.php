@@ -3,7 +3,46 @@ session_start();
 ?>
 
 <?php
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if(($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST["cpass"])) {
+    $server_name = "localhost";
+    $user_name = "root";
+    $password = "";
+    $db_name = "mentoring_application";
+    $pass = $_POST["cpass"];
+
+    $unm = $_SESSION['uname'];
+    $mail = $_SESSION["mail"];
+
+    function role($text) {
+        preg_match_all("/@[\._a-zA-Z0-9-]+/i",$text,$matches);
+        return $matches[0];
+    }
+    $role = role($mail);
+
+    $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
+    if(!$conn) {
+        die("Connection Failed: ".mysqli_connect_error());
+    }
+    else {
+        if($role[0] == "@marwadiuniversity.ac.in") {
+            $upd = "UPDATE mentee_details SET password = '$pass' WHERE first_name = '$unm'";
+            echo $upd;
+            $exe = $conn->query($upd);
+        }
+        else if($role[0] == "@marwadieducation.edu.in") {
+            $upd = "UPDATE mentor_details SET password = '$pass' WHERE first_name = '$unm'";
+            echo $upd;
+            $exe = $conn->query($upd);
+        }
+        else {
+            $upd = "UPDATE parent_details SET password = '$pass' WHERE first_name = '$unm'";
+            echo $upd;
+            $exe = $conn->query($upd);
+        }
+        
+    }
+}
+if(($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST["passcode"])) {
     if($_POST['passcode'] == $_SESSION['tempcode']) {
         ?>
         <!DOCTYPE html>
@@ -13,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </head>
             <body>
                 <div>
-                    <form action="./php/forpass.php" method="post">
+                    <form action="./forgotpass.php" method="post">
                         <table>
                             <tr>
                                 <td>
@@ -84,6 +123,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         </body>
     </html>
     <?php
-    echo "NOT POST";
 }
 ?>

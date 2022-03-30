@@ -31,12 +31,9 @@ session_start();
             </div>    
         </div>
         <div id="menu"></div>
-        <!-- <div id="getdetail">
-            <form action="">
-                <table>
-                </table>
-            </form>
-        </div> -->
+        <div id="getdetail">
+            <!-- <form action="" id="getdetails" xl-form></form> -->
+        </div>
         
         <script>$(document).ready(function(){});</script>
         <?php 
@@ -83,34 +80,32 @@ session_start();
                     if($row != 0) {
                         $col = $conn->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'mentoring_application' AND TABLE_NAME = '$table'");
                         $type = $conn->query("DESCRIBE $table");
-                        while($row = $type->fetch_assoc()) {
+                        while($row = /* $type */ $col->fetch_assoc()) {
                             $res[] = $row;
                         }
                         $columnArr = array_column($res, 'COLUMN_NAME');
-                        // print_r($columnArr);
-                        // print_r(count($columnArr));
+                        print_r($columnArr);
+                        print_r(count($columnArr));
                         ?>
-                            <script>
-                                var form = document.createElement("form");
-                                form.setAttribute("method","post");
-                                form.setAttribute("action","#");
-                            </script>
+                        <script>
+                            document.getElementById("getdetail").style.display = "block";
+                            $("#getdetail").append(`<table><form id="dtform"></form></table>`);
+                        </script>
                         <?php
-
                         for($i = 1; $i < count($columnArr)-2; $i++) {
                             ?>
                             <script>
-                                var <?php $columnArr[$i]?> = document.createElement("input");
-                                <?php $columnArr[$i]?>.setAttribute("type","text");
-                                form.appendChild(<?php $columnArr[$i]?>);
+                                let el = document.createElement("input");
+                                el.type = "text";
+                                el.placeholder = "<?php echo $columnArr[$i]; ?>";
+                                el.id = "<?php echo $columnArr[$i]; ?>";
+                                                        
+                                let form = document.getElementById("dtform");
+                                form.appendChild(el);
+                                // $("#dtform").append();
                             </script>
                             <?php
                         }
-                        ?>
-                        <script>
-                            document.getElementsByTagName("body")[0].appendChild(form);
-                        </script>
-                        <?php
                     }
                     // if($exenull->num_rows > 0) {
                     //     while($nrow = $exenull->fetch_assoc()) {

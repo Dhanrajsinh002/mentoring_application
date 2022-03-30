@@ -9,13 +9,58 @@ session_start();
     <body>
         <div>
             <table border="1" id="mnlst">
-            <tr> <td>ID</td> <td>GR</td> <td>Enrollment</td> <td>Name</td> <td>Stream</td> <td>Department</td> <td>ADD</td> </tr>
+                <!-- <tr>
+                    <td>
+                        <form action="" method="post">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="gname" placeholder="Enter Group Name" pattern="[a-z]{1,15}" title="Only lower characters are allowed." required>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr> -->
+                <tr> <td>ID</td> <td>GR</td> <td>Enrollment</td> <td>Name</td> <td>Stream</td> <td>Department</td> <td>ADD</td> </tr>
+            </table>
+        </div>
+        <div>
+            <table>
+            <tr id="showstud"></tr>
+            </table>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <form action="./crtmnteegrp.php" method="post">
+                            <input type="submit" value="Confirm to Add" name="cta" id="">
+                        </form>
+                    </td>
+                </tr>
             </table>
         </div>
     </body>
 </html>
 
 <?php
+if(isset($_POST['gname'])) {
+    ?>
+    <script>
+        localStorage.setItem("gname","<?php echo $_POST["gname"]; ?>");
+    </script>
+    <?php
+}
+
+if(isset($_POST["cta"])) {
+    $stcnt = "<script>localStorage.length</script>";
+    echo $stcnt;
+    // $gname = $_POST["gname"];
+    // $crt = "CREATE TABLE $gname (mentor_id,mentee_id)";
+    // $ins = "INSERT INTO $gname VALUES"
+}
+
 $server_name = "localhost";
 $user_name = "root";
 $password = "";
@@ -31,7 +76,13 @@ if(!$conn) {
         while($row = $exe->fetch_assoc()) {
         ?>
         <script>
-            $("#mnlst").append(`<tr> <td> <?php echo $row["mentee_id"] ?> </td> <td> <?php echo $row["gr_no"]?> </td> <td> <?php echo $row["enrollment_no"]?> </td> <td> <?php echo $row["first_name"]?> </td> <td> <?php echo $row["stream"]?> </td> <td> <?php echo $row["department"]?> </td> <td><button>ADD</button></td> </tr>`);
+            $("#mnlst").append(`<tr> <td> <?php echo $row["mentee_id"] ?> </td> <td> <?php echo $row["gr_no"]?> </td> <td> <?php echo $row["enrollment_no"]?> </td> <td> <?php echo $row["first_name"]?> </td> <td> <?php echo $row["stream"]?> </td> <td> <?php echo $row["department"]?> </td> <td><button onclick="addStud(<?php echo $row["mentee_id"] ?>)">ADD</button></td> </tr>`);
+        </script>
+        <script>
+            function addStud(id) {
+                localStorage.setItem("id"+id,id);
+                $("#showstud").append("<td>"+localStorage.getItem("id"+id,id)+"</td>");
+            }
         </script>
         <?php
         }
