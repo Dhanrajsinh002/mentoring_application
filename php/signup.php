@@ -13,16 +13,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST["gender"];
     $pass = $_POST["cpass"];
 
-    echo "Username ".$name ."<br>";
-    echo "Phone ".$phone."<br>";
-    echo "EMAIL ".$mail."<br>";
-    echo "DOB ".$dob."<br>";
-    echo "GENDER ".$gender."<br>";
-    echo "PASSWORD ".$pass."<br>";
+    // echo "Username ".$name ."<br>";
+    // echo "Phone ".$phone."<br>";
+    // echo "EMAIL ".$mail."<br>";
+    // echo "DOB ".$dob."<br>";
+    // echo "GENDER ".$gender."<br>";
+    // echo "PASSWORD ".$pass."<br>";
 
     $mrole = role($mail);
-    echo "ROLE ".$mrole[0];
-    echo "ROLE TYPE ".gettype($mrole[0]);
+    // echo "ROLE ".$mrole[0]."<br>";
+    // echo "ROLE TYPE ".gettype($mrole[0]);
     
     $server_name = "localhost";
     $user_name = "root";
@@ -33,18 +33,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!$conn) {
         die("Connection Failed: ".mysqli_connect_error());
     } else {
-        $sel = "SELECT me.first_name, me.mobile_no, me.email_id, mo.first_name, mo.mobile_no, mo.email_id, pa.first_name, pa.mobile_no, pa.email_id
-                    FROM mentee_details me, mentor_details mo, parent_details pa 
-                    WHERE me.first_name = '$name' OR me.mobile_no = '$phone' OR me.email_id = '$mail' OR
-                            mo.first_name = '$name' OR mo.mobile_no = '$phone' OR mo.email_id = '$mail' OR
-                            pa.first_name = '$name' OR pa.mobile_no = '$phone' OR pa.email_id = '$mail'";
+        // $sel = "SELECT me.first_name AS mtfn, me.mobile_no AS mtmn, me.email_id AS mtei, mo.first_name AS mrfn, mo.mobile_no AS mrmn, mo.email_id AS mrei, pa.first_name AS pafn, pa.mobile_no AS pamn, pa.email_id AS paei
+                    // -- FROM mentee_details me, mentor_details mo, parent_details pa 
+                    // -- WHERE me.first_name = '$name' OR me.mobile_no = $phone OR me.email_id = '$mail' OR
+                            // -- mo.first_name = '$name' OR mo.mobile_no = $phone OR mo.email_id = '$mail' OR
+                            // -- pa.first_name = '$name' OR pa.mobile_no = $phone OR pa.email_id = '$mail'";
+        $sel = "SELECT me.first_name AS mtfn, me.mobile_no AS mtmn, me.email_id AS mtei, mo.first_name AS mrfn, mo.mobile_no AS mrmn, mo.email_id AS mrei, pa.first_name AS pafn, pa.mobile_no AS pamn, pa.email_id AS paei FROM mentee_details me, mentor_details mo, parent_details pa WHERE me.first_name = '$name' OR me.mobile_no = $phone OR me.email_id = '$mail' OR mo.first_name = '$name' OR mo.mobile_no = $phone OR mo.email_id = '$mail' OR pa.first_name = '$name' OR pa.mobile_no = $phone OR pa.email_id = '$mail'";
+        // exit(0);
         $exe = $conn->query($sel);
 
         if($exe->num_rows > 0) {
             while($row = $exe->fetch_assoc()) {
-                if(($row['me.first_name'] == $name) || ($row['mo.first_name'] == $name) || ($row['pa.first_name'] == $name)
-                    ($row['me.mobile_no'] == $phone) || ($row['mo.mobile_no'] == $phone) || ($row['pa.mobile_no'] == $phone)
-                    ($row['me.email_id'] == $mail) || ($row['me.email_id'] == $mail) || ($row['me.email_id'] == $mail)) {
+                if(($row['mtfn'] == $name) || ($row['mrfn'] == $name) || ($row['pafn'] == $name) ||
+                    ($row['mtmn'] == $phone) || ($row['mrmn'] == $phone) || ($row['pamn'] == $phone) ||
+                    ($row['mtei'] == $mail) || ($row['mrei'] == $mail) || ($row['paei'] == $mail)) {
                         ?>
                         <script>
                             if(confirm("Entered Credintials already Exits!!\nTry with diffferent Credentials..") == true) {
@@ -54,31 +56,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         </script>
                         <?php
-                } else {
-                    if($mrole[0] == "@marwadiuniversity.ac.in") {
-                        $ins = "INSERT INTO mentee_details (first_name,email_id,mobile_no,dob,gender,password,in_group,status) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass',0,1)";
-                        $conn->query($ins);
-                        header("Location:../signin.html");
-                        // insertData($name,$phone,$mail);
-                    }
-            
-                    else if($mrole[0] == "@marwadieducation.edu.in") {
-                        $ins = "INSERT INTO mentor_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
-                        $conn->query($ins);
-                        header("Location:../signin.html");
-                        // insertData($name,$phone,$mail);
-                    }
-            
-                    else {
-                        $ins = "INSERT INTO parent_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
-                        $conn->query($ins);
-                        header("Location:../signin.html");
-                        // insertData($name,$phone,$mail);
-                    }
                 }
             }
 
         } else {
+            if($mrole[0] == "@marwadiuniversity.ac.in") {
+                $ins = "INSERT INTO mentee_details (first_name,email_id,mobile_no,dob,gender,password,in_group,status) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass',0,1)";
+                $conn->query($ins);
+                header("Location:../signin.html");
+                // insertData($name,$phone,$mail);
+            }
+    
+            else if($mrole[0] == "@marwadieducation.edu.in") {
+                $ins = "INSERT INTO mentor_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
+                $conn->query($ins);
+                header("Location:../signin.html");
+                // insertData($name,$phone,$mail);
+            }
+    
+            else {
+                $ins = "INSERT INTO parent_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
+                $conn->query($ins);
+                header("Location:../signin.html");
+                // insertData($name,$phone,$mail);
+            }
         }        
     }
 
