@@ -5,7 +5,57 @@ session_start();
     <head>
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="../css/home.css">
+        <script>
+            var gid;
+            function showChat(gpid) {
+                gid = gpid;
+                // alert(gpid);
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {group_id: gpid}
+                })
+                .done(function (response) {$("#showchats").append(`<tr><td>${response}</td></tr>`)})
+                $("#chat").css("display","block");
+                // document.getElementById("chat").style.display = 'block';
+            }
+
+            function sendMenteeChat(message) {
+                if(mntmsg == "") {} else {
+                    $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {msg: message,gp_id: gid}
+                    })
+                    .done(function (response) {$("#grps").append(`<tr><td>${response}</td></tr>`)})
+                    $("#chat").css("display","block");
+                }
+                
+            }
+
+            function sendMentorChat(message) {
+                // alert(message);
+                if(message == "") {} else {
+                    $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {msg: message,gp_id: gid}
+                    })
+                    .done(function (response) {alert(response)}) //$("#grps").append(`<tr><td>${response}</td></tr>`)
+                    $("#chat").css("display","block");
+                }
+                
+            }
+
+            function back() {
+                document.getElementById("chat").style.display = 'none';
+            }
+
+            // alert(gid+"\n"+msg);
+        </script>
+        <!-- <link rel="stylesheet" href="../css/home.css"> -->
+        <link rel="stylesheet" href="../css/discussion.css">
+
     </head>
     <body>
         <div id="header">
@@ -29,19 +79,98 @@ session_start();
                 </table>
             </div>    
         </div>
-        <div id="menu">
-            
-        </div>
-        <div>
-            <table id="bt">
+        <div id="menu"></div>
+        <div id="mentee">
+            <table>
+                <tr>
+                    <td>
+                        <table id="showChatMant"></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <form>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type = "text" id="mentee_message" name="mentee_message" placeholder = "Enter Your Question" required>
+                                        </td>
+                                        <td>
+                                            <input type="file" name="mfile" id="">
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Post" onclick="sendMenteeChat(sendMenteeChat(document.getElementById('mentee_message').value)" name="" id="">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
-        <!-- <div id="getdetail">
-            <form action="">
-                <table>
-                </table>
-            </form>
-        </div> -->
+        <div id="mentor">
+            <table>
+                <tr>
+                    <td>
+                        <div id="chat">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <table id="showchats">
+                                                <!-- <tr></tr> -->
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <form>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <input type = "text" id="mentor_message" name="mentor_message" placeholder = "Enter Your Question" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="file" name="myfile" id="">
+                                                        </td>
+                                                        <td>
+                                                            <input type="submit" value="Post" onclick="sendMentorChat(document.getElementById('mentor_message').value)" name="" id="">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button onclick="back()">Back</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <table id="bt"></table>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <table id="grps">
+                                <tr>
+                                    <th>Groups</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
         
         <script>$(document).ready(function(){});</script>
         <?php 
@@ -54,6 +183,7 @@ session_start();
                 <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
                 </ul>`);
             </script>
             <?php
@@ -85,6 +215,8 @@ session_start();
                 if($_SESSION['role'] == 'mentor_details') {
                     ?>
                     <script>
+                        $("#mentee").hide();
+                        $("#mentor").show();
                         $('#bt').append('<tr>'+
                                         '<table>'+
                                         '<tr>'+
@@ -109,52 +241,40 @@ session_start();
                     </script>
                     <!-- <button>Create Group</button> -->
                     <?php
-                } else {
-                    echo "ASDFGH";
-                }
-
-                /* if($exenull = mysqli_query($conn,$null)) {
-                    $row = mysqli_num_rows($exenull);
-                    // echo $row;
-                    if($row != 0) {
-                        $col = $conn->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'mentoring_application' AND TABLE_NAME = '$table'");
-                        $type = $conn->query("DESCRIBE $table");
-                        while($row = $type->fetch_assoc()) {
-                            $res[] = $row;
-                        }
-                        $columnArr = array_column($res, 'COLUMN_NAME');
-                        // print_r($columnArr);
-                        // print_r(count($columnArr));
-                        ?>
-                            <script>
-                                var form = document.createElement("form");
-                                form.setAttribute("method","post");
-                                form.setAttribute("action","#");
-                            </script>
-                        <?php
-
-                        for($i = 1; $i < count($columnArr)-2; $i++) {
+                    $selgrp = "SELECT group_name, group_id FROM group_details WHERE group_id IN (SELECT group_id FROM group_member WHERE mentor_id = $uid)";
+                    $exeslgp = $conn->query($selgrp);
+                    if($exeslgp->num_rows > 0) {
+                        while($row = $exeslgp->fetch_assoc()) {
                             ?>
                             <script>
-                                var <?php $columnArr[$i]?> = document.createElement("input");
-                                <?php $columnArr[$i]?>.setAttribute("type","text");
-                                form.appendChild(<?php $columnArr[$i]?>);
+                                $("#grps").append("<tr> <td> <button onclick='showChat(<?php echo $row["group_id"]; ?>)'><?php echo $row["group_name"]; ?></button> </td> </tr>");
                             </script>
                             <?php
                         }
-                        ?>
-                        <script>
-                            document.getElementsByTagName("body")[0].appendChild(form);
-                        </script>
-                        <?php
                     }
-                    // if($exenull->num_rows > 0) {
-                    //     while($nrow = $exenull->fetch_assoc()) {
-                    //         echo $nrow;
-                    //     }
-                    // }
-                } */
+                }
 
+                if($_SESSION['role'] == 'mentee_details') {
+                    ?>
+                    <script>
+                        $("#mentee").show();
+                        $("#mentor").hide();
+                    </script>
+                    <?php
+                    $uid = $_SESSION['uid'];
+                    $sel = "SELECT discussion, sender_name FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
+                    // echo $sel;
+                    $exe = $conn->query($sel);
+                    if($exe->num_rows > 0) {
+                        while($row = $exe->fetch_assoc()) {
+                            ?>
+                            <script>
+                                $("#showChatMant").append("<tr> <td><b><?php echo $row['sender_name'];?></b></td> <td><?php echo $row['discussion']?></td> </tr>");
+                            </script>
+                            <?php
+                        }
+                    }
+                }
             }      
         }
         else {

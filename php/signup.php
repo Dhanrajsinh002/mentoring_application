@@ -1,4 +1,10 @@
 <?php
+
+function role($text) {
+    preg_match_all("/@[\._a-zA-Z0-9-]+/i",$text,$matches);
+    return $matches[0];
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["uname"];
     $phone = (int)$_POST["phone"];
@@ -7,16 +13,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST["gender"];
     $pass = $_POST["cpass"];
 
-    echo $name ."<br>";
-    echo $phone."<br>";
-    echo $mail ."<br>";
+    echo "Username ".$name ."<br>";
+    echo "Phone ".$phone."<br>";
+    echo "EMAIL ".$mail."<br>";
+    echo "DOB ".$dob."<br>";
+    echo "GENDER ".$gender."<br>";
+    echo "PASSWORD ".$pass."<br>";
 
-    function role($text) {
-        preg_match_all("/@[\._a-zA-Z0-9-]+/i",$text,$matches);
-        return $matches[0];
-    }
-
-    $role = role($mail);
+    $mrole = role($mail);
+    echo "ROLE ".$mrole[0];
+    echo "ROLE TYPE ".gettype($mrole[0]);
     
     $server_name = "localhost";
     $user_name = "root";
@@ -34,45 +40,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             pa.first_name = '$name' OR pa.mobile_no = '$phone' OR pa.email_id = '$mail'";
         $exe = $conn->query($sel);
 
-        if($role[0] == "@marwadiuniversity.ac.in") {
-            $ins = "INSERT INTO mentee_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
-            header("Location:../signin.html");
-            // insertData($name,$phone,$mail);
-        }
+        if($exe->num_rows > 0) {
+            while($row = $exe->fetch_assoc()) {
+                if(($row['me.first_name'] == $name) || ($row['mo.first_name'] == $name) || ($row['pa.first_name'] == $name)
+                    ($row['me.mobile_no'] == $phone) || ($row['mo.mobile_no'] == $phone) || ($row['pa.mobile_no'] == $phone)
+                    ($row['me.email_id'] == $mail) || ($row['me.email_id'] == $mail) || ($row['me.email_id'] == $mail)) {
+                        ?>
+                        <script>
+                            if(confirm("Entered Credintials already Exits!!\nTry with diffferent Credentials..") == true) {
+                                window.location.href = "../signup.html";
+                            } else {
+                                window.location.href = "../signup.html";
+                            }
+                        </script>
+                        <?php
+                } else {
+                    if($mrole[0] == "@marwadiuniversity.ac.in") {
+                        $ins = "INSERT INTO mentee_details (first_name,email_id,mobile_no,dob,gender,password,in_group,status) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass',0,1)";
+                        $conn->query($ins);
+                        header("Location:../signin.html");
+                        // insertData($name,$phone,$mail);
+                    }
+            
+                    else if($mrole[0] == "@marwadieducation.edu.in") {
+                        $ins = "INSERT INTO mentor_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
+                        $conn->query($ins);
+                        header("Location:../signin.html");
+                        // insertData($name,$phone,$mail);
+                    }
+            
+                    else {
+                        $ins = "INSERT INTO parent_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
+                        $conn->query($ins);
+                        header("Location:../signin.html");
+                        // insertData($name,$phone,$mail);
+                    }
+                }
+            }
 
-        else if($role[0] == "@marwadieducation.edu.in") {
-            $ins = "INSERT INTO mentor_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
-            header("Location:../signin.html");
-            // insertData($name,$phone,$mail);
-        }
-
-        else {
-            $ins = "INSERT INTO parent_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
-            header("Location:../signin.html");
-            // insertData($name,$phone,$mail);
-        }
-
-        // function insertData($name,$phone,$mail) {
-        //     $sel = "SELECT me.first_name, me.mobile_no, me.email_id, mo.first_name, mo.mobile_no, mo.email_id, pa.first_name, pa.mobile_no, pa.email_id
-        //             FROM mentee_details me, mentor_details mo, parent_details pa 
-        //             WHERE me.first_name = '$name' OR me.mobile_no = '$phone' OR me.email_id = '$mail' OR
-        //                     mo.first_name = '$name' OR mo.mobile_no = '$phone' OR mo.email_id = '$mail' OR
-        //                     pa.first_name = '$name' OR pa.mobile_no = '$phone' OR pa.email_id = '$mail'";
-        //     $exe = $GLOBALS['conn']->query($sel);
-    
-        //     if($exe->num_rows > 0) {
-        //         while($row = $exe->fetch_assoc()) {
-        //             echo "<script type='text/javascript'>alert('User Already Exist with entered credentials!!');</script>";
-        //             //echo "User ID: ". $row["uname"] ."<br>User Name: ". $row["uphone"] ."<br>User Email: ". $row["umail"];
-        //         }
-        //         // header("Location:../signup.html");
-        //     }
-        //     else {
-        //         //echo "No Results Found!";
-        //         //$ins = "INSERT INTO mentee_details (first_name,email_id,mobile_no,dob,gender,) VALUES ()";
-        //     }
-        // }
-        
+        } else {
+        }        
     }
 
     mysqli_close($conn);

@@ -30,10 +30,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     if($row["password"] == $pass) {
                         $_SESSION["role"] = "mentee_details";
                         $_SESSION["uid"] = $row["mentee_id"];
+                        $_SESSION["uname"] = $row["first_name"];
                         header('Location:./home.php');
                     }
                     else {
-                        echo "Invalid Email ID or Password";
+                        ?>
+                        <script>
+                            if(confirm("Invalid Email ID or Password!!") == true) {
+                                window.location.href = "../signin.html";
+                            } else {
+                                window.location.href = "../signin.html";
+                            }
+                        </script>
+                        <?php
+                        // echo "Invalid Email ID or Password";
                     }
                 }
             }
@@ -53,10 +63,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     if($row["password"] == $pass) {
                         $_SESSION["role"] = "mentor_details";
                         $_SESSION["uid"] = $row["mentor_id"];
+                        $_SESSION["uname"] = $row["first_name"];
                         header('Location:./home.php');
                     }
                     else {
-                        echo "Invalid Email ID or Password";
+                        ?>
+                        <script>
+                            if(confirm("Invalid Email ID or Password!!") == true) {
+                                window.location.href = "../signin.html";
+                            } else {
+                                window.location.href = "../signin.html";
+                            }
+                        </script>
+                        <?php
+                        // echo "Invalid Email ID or Password";
                     }
                 }
             }
@@ -74,10 +94,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     if($row["password"] == $pass) {
                         $_SESSION["role"] = "parent_details";
                         $_SESSION["uid"] = $row["parent_id"];
+                        $_SESSION["uname"] = $row["first_name"];
                         header('Location:./home.php');
                     }
                     else {
-                        echo "Invalid Email ID or Password";
+                        ?>
+                        <script>
+                            if(confirm("Invalid Email ID or Password!!") == true) {
+                                window.location.href = "../signin.html";
+                            } else {
+                                window.location.href = "../signin.html";
+                            }
+                        </script>
+                        <?php
+                        // echo "Invalid Email ID or Password";
                     }
                 }
             }

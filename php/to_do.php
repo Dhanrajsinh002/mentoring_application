@@ -12,7 +12,7 @@ session_start();
             <div id="h1">
                 <img src="../images/image-removebg-preview.png" alt="#LOGO">
             </div>
-            <div id="h2">Discussion</div>    
+            <div id="h2">To Do</div>    
             <div id="h3">
                 <table id="ht">
                     <!-- <tr>
@@ -46,6 +46,7 @@ session_start();
                 <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
             </ul>
             <?php
             $table = $_SESSION["role"];

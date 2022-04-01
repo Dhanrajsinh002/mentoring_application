@@ -1,0 +1,30 @@
+#header {
+    background-color: aquamarine;
+    text-align: center;
+    display: flex;
+}
+
+#header > div {
+    width: 100%;
+    margin: 10px;
+    padding: 20px;
+    font-size: 20px;
+}
+
+#header > #h1 > img {
+    height: 50px;
+    width: 100px;
+}
+
+#chat {
+    position: absolute;
+    top: 35%;
+    left: 25%;
+    margin-top: -200px;
+    margin-left: -200px;
+    height: 600px;
+    width: 1100px;
+    border-radius: 15px;
+    display: none;
+    background-color: chartreuse;
+}
