@@ -1,0 +1,12 @@
+#mentor_part {
+    position: absolute;
+    top: 35%;
+    left: 25%;
+    margin-top: -200px;
+    margin-left: -200px;
+    height: 600px;
+    width: 1100px;
+    border-radius: 15px;
+    display: none;
+    background-color: chartreuse;
+}

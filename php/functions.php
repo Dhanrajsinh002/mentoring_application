@@ -28,16 +28,33 @@ if(isset($_POST["group_id"])) {
     }
 }
 
-if(isset($_POST["msg"])) {
-    $gid = $_POST['gp_id'];
-    $msg = $_POST['msg'];
+if(isset($_POST["mntrmsg"])) {
+    $gid = $_POST['mntr_gp_id'];
+    $mntrmsg = $_POST['mntrmsg'];
     $unm = $_SESSION["uname"];
     // echo "GID ".$gid."\n";
-    // echo "MSG ".$msg."\n";
+    // echo "MSG ".$mntrmsg."\n";
     // echo "UNM ".$unm."\n";
     // exit(0);
-    $insd = "INSERT INTO discussions VALUES ($gid,'$msg','$unm')";
+    $insd = "INSERT INTO discussions VALUES ($gid,'$mntrmsg','$unm')";
+    // echo $insd;
+    // exit(0);
     $conn->query($insd);
+}
+
+if(isset($_POST["mentee_msg"])) {
+    $gid = $_SESSION['mnt_grp_id'];
+    $mntmsg = $_POST['mentee_msg'];
+    $unm = $_SESSION["uname"];
+    echo "GID ".$gid;
+    echo "<br>MSG ".$mntmsg;
+    echo "<br>UNM ".$unm;
+    // exit(0);
+    $insmenmsg = "INSERT INTO discussions VALUES ($gid,'$mntmsg','$unm')";
+    echo "<br>".$insmenmsg;
+    // exit(0);
+    $conn->query($insmenmsg);
+    header("Location:./discussion.php");
 }
 
 if(isset($_POST["mdfygrp"])) {
@@ -120,5 +137,42 @@ if(isset($_POST["admntid"])) {
     $exe = $conn->query($ins);
     $upd = "UPDATE mentee_details SET in_group = 1 WHERE mentee_id = $mtid";
     $exe = $conn->query($upd);
+}
+
+// MENTOR TO DO SELECT OLD CHATS
+
+if(isset($_POST["post_mnt_id"])) {
+    // echo $_POST["mnt_id"];
+    $mid = $_POST["post_mnt_id"];
+    $uid = $_SESSION["uid"];
+    $role = $_SESSION["role"];
+    $seltodo = "SELECT task, date, 
+                (select first_name from mentee_details where mentee_id in 
+                    (select mentee_id from to_do where mentee_id = $mid)) as Mentee_Name,
+                (select first_name from mentor_details where mentor_id in
+                    (select mentor_id from to_do where mentor_id = $uid)) as Mentor_Name
+                FROM to_do";
+    $exe = $conn->query($seltodo);
+    if($exe->num_rows > 0) {
+        // if($role == "mentor_details") {
+            
+        // }
+        while($row = $exe->fetch_assoc()) {
+            // echo "TASK ".$row["task"]."<br>"."DATE ".$row["date"]."<br>"."MNT-NAME ".$row["Mentee_Name"]."<br>"."MNTR-NAME ".;
+            echo "<tr><td>(".$row['date'].")</td><td>".$row["Mentor_Name"]."</td><td>: - </td><td>".$row['task']."</td></tr>";
+        }
+    }
+
+}
+
+// MENTOR ASSIGN TODO TO MENTEE
+
+if(isset($_POST["post_td_msg"])) {
+    $msg = $_POST["post_td_msg"];
+    $mnt_id = $_POST["post_ment_id"];
+    $uid = $_SESSION["uid"];
+    $dt = date('Y-m-d');
+    $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$dt')";
+    $conn->query($instodo);
 }
 ?>

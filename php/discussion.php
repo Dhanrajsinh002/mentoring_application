@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Welcome to Portal</title>
@@ -29,29 +30,29 @@ session_start();
                 // document.getElementById("chat").style.display = 'block';
             }
 
-            function sendMenteeChat(message) {
-                if(mntmsg == "") {} else {
+            function sendMenteeChat(mntmessage) {
+                if(mntmessage == "") {} else {
                     $.ajax({
                     method: "post",
                     url: "./functions.php",
-                    data: {msg: message,gp_id: gid}
+                    data: {mentee_msg: mntmessage}
                     })
-                    .done(function (response) {$("#grps").html(response)})
+                    .done(function (response) {$("#grps").html(response)}) // $("#grps").html(response)
                     // $("#chat").css("display","block");
                 }
                 
             }
 
-            function sendMentorChat(message) {
+            function sendMentorChat(mntrmessage) {
                 // alert(message);
-                if(message == "") {} else {
+                if(mntrmessage == "") {} else {
                     $.ajax({
                     method: "post",
                     url: "./functions.php",
-                    data: {msg: message,gp_id: gid}
+                    data: {mntrmsg: mntrmessage,mntr_gp_id: gid}
                     })
-                    .done(function (response) {alert(response)}) //$("#grps").append(`<tr><td>${response}</td></tr>`)
-                    $("#chat").css("display","block");
+                    .done(function (response) {console.log(response)}) //$("#grps").append(`<tr><td>${response}</td></tr>`)
+                    // $("#chat").css("display","block");
                 }
                 
             }
@@ -139,16 +140,16 @@ session_start();
                     <td>
                         <div>
                             <form>
+                            <!-- <form action="./functions.php" method="post"> -->
                                 <table>
                                     <tr>
                                         <td>
                                             <input type = "text" id="mentee_message" name="mentee_message" placeholder = "Enter Your Question" required>
+                                            <!-- <input type = "text" id="mentee_message" name="mntmsg" placeholder = "Enter Your Question" required> -->
                                         </td>
                                         <td>
-                                            <input type="file" name="mfile" id="">
-                                        </td>
-                                        <td>
-                                            <input type="submit" value="Post" onclick="sendMenteeChat(sendMenteeChat(document.getElementById('mentee_message').value)" name="" id="">
+                                            <input type="submit" value="Post" onclick="sendMenteeChat(document.getElementById('mentee_message').value)" name="" id="">
+                                            <!-- <input type="submit" value="Post" name="" id=""> -->
                                         </td>
                                     </tr>
                                 </table>
@@ -167,7 +168,7 @@ session_start();
                                 <tr>
                                     <td>
                                         <div style="overflow: auto;">
-                                            <table border="1" id="showchats">
+                                            <table id="showchats">
                                                 <!-- <tr></tr> -->
                                             </table>
                                         </div>
@@ -194,16 +195,16 @@ session_start();
                                     <td>
                                         <div style="overflow: auto;">
                                             <form>
+                                            <!-- <form action="./functions.php" method="post"> -->
                                                 <table>
                                                     <tr>
                                                         <td>
                                                             <input type = "text" id="mentor_message" name="mentor_message" placeholder = "Enter Your Question" required>
-                                                        </td>
-                                                        <td>
-                                                            <input type="file" name="myfile" id="">
+                                                            <!-- <input type = "text" id="mentor_message" name="mntrmsg" placeholder = "Enter Your Question" required> -->
                                                         </td>
                                                         <td>
                                                             <input type="submit" value="Post" onclick="sendMentorChat(document.getElementById('mentor_message').value)" name="" id="">
+                                                            <!-- <input type="submit" value="Post" name="" id=""> -->
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -330,6 +331,16 @@ session_start();
                     </script>
                     <?php
                     $uid = $_SESSION['uid'];
+                    $selgrp = "SELECT group_id FROM group_member WHERE mentee_id = $uid";
+                    $exe = $conn->query($selgrp);
+                    if($exe->num_rows > 0) {
+                        while($row = $exe->fetch_assoc()) {
+                            $_SESSION['mnt_grp_id'] = $row['group_id'];
+                            ?>
+                                <script>alert(<?php echo $_SESSION['mnt_grp_id'];?>);</script>
+                            <?php
+                        }
+                    }
                     $sel = "SELECT discussion, sender_name FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
                     // echo $sel;
                     $exe = $conn->query($sel);

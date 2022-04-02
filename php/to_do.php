@@ -6,6 +6,33 @@ session_start();
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="../css/home.css">
+        <link rel="stylesheet" href="../css/to_do.css">
+        <script>
+            var mnt_id;
+
+            function assignTodo(mentee_id) {
+                mnt_id = mentee_id;
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {post_mnt_id: mentee_id}
+                }).done(function (response) {$("#messages").append(responses)})
+                $("#mentor_part").css("display","block");
+                // $("#messages").append(responses);
+            }
+
+            function asgnTodoMnt(todo_message) {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {post_td_msg: todo_message,post_ment_id: mnt_id}
+                }).done(function (response) {console.log(response)})
+            }
+
+            function back() {
+                $("#mentor_part").css("display","none");
+            }
+        </script>
     </head>
     <body>
         <div id="header">
@@ -29,7 +56,58 @@ session_start();
                 </table>
             </div>    
         </div>
-
+        <div id="menu"></div>
+        <div id="main">
+            <div id="list"></div>
+        </div>
+        <div id="mentor_part">
+            <table width="100%" height="100%" border="1">
+                <tr>
+                    <td>
+                        <div>
+                            <table id="messages">
+                                <!-- <tr>
+                                    <td>
+                                        for messages
+                                    </td>
+                                </tr> -->
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <form action="">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <!-- for input field -->
+                                                        <input type="text" name="todo_message" id="todo_message" required>
+                                                    </td>
+                                                    <td>
+                                                        <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value)" value="Post">
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" name="" id="">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <button onclick="back()">Back</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <!-- <div id="getdetail">
             <form action="">
                 <table>
@@ -41,13 +119,16 @@ session_start();
         <?php 
         if(isset($_SESSION["role"])) {
             ?>
-            <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+            <script>
+                $("#menu").html(`
+                <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
                 <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
                 <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-            </ul>
+                </ul>`);
+            </script>
             <?php
             $table = $_SESSION["role"];
             $id = explode('_',$_SESSION["role"],2);
@@ -74,47 +155,59 @@ session_start();
                     <?php
                 }
 
-                /* if($exenull = mysqli_query($conn,$null)) {
-                    $row = mysqli_num_rows($exenull);
-                    // echo $row;
-                    if($row != 0) {
-                        $col = $conn->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'mentoring_application' AND TABLE_NAME = '$table'");
-                        $type = $conn->query("DESCRIBE $table");
-                        while($row = $type->fetch_assoc()) {
-                            $res[] = $row;
-                        }
-                        $columnArr = array_column($res, 'COLUMN_NAME');
-                        // print_r($columnArr);
-                        // print_r(count($columnArr));
+                if($_SESSION['role'] == 'mentor_details') {
+                    $selmnt = "SELECT mentee_id, gr_no, enrollment_no, first_name, middle_name,
+                                last_name, mobile_no, dob, gender, semester, stream, department
+                                FROM mentee_details WHERE mentee_id IN 
+                                (SELECT mentee_id FROM group_member WHERE mentor_id = $uid)";
+                    $exe = $conn->query($selmnt);
+                    if($exe->num_rows > 0) {
                         ?>
                             <script>
-                                var form = document.createElement("form");
-                                form.setAttribute("method","post");
-                                form.setAttribute("action","#");
+                                $("#list").html(`<table width="100%" id="listtable">
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>GR No</th>
+                                                        <th>Enrollment No</th>
+                                                        <th>First Name</th>
+                                                        <th>Middle Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Mobile No</th>
+                                                        <th>Gender</th>
+                                                        <th>Semester</th>
+                                                        <th>Stream</th>
+                                                        <th>Department</th>
+                                                        <th>To-Do</th>
+                                                    </tr>
+                                                </table>`);
                             </script>
                         <?php
-
-                        for($i = 1; $i < count($columnArr)-2; $i++) {
+                        while($row = $exe->fetch_assoc()) {
                             ?>
                             <script>
-                                var <?php $columnArr[$i]?> = document.createElement("input");
-                                <?php $columnArr[$i]?>.setAttribute("type","text");
-                                form.appendChild(<?php $columnArr[$i]?>);
+                                $("#listtable").append(`<tr align="center">
+                                                        <td><?php echo $row["mentee_id"]; ?></td>
+                                                        <td><?php echo $row["gr_no"]; ?></td>
+                                                        <td><?php echo $row["enrollment_no"]; ?></td>
+                                                        <td><?php echo $row["first_name"]; ?></td>
+                                                        <td><?php echo $row["middle_name"]; ?></td>
+                                                        <td><?php echo $row["last_name"]; ?></td>
+                                                        <td><?php echo $row["mobile_no"]; ?></td>
+                                                        <td><?php echo $row["gender"]; ?></td>
+                                                        <td><?php echo $row["semester"]; ?></td>
+                                                        <td><?php echo $row["stream"]; ?></td>
+                                                        <td><?php echo $row["department"]; ?></td>
+                                                        <td><button onclick="assignTodo(<?php echo $row["mentee_id"]; ?>)">Assign To-Do</button></td>
+                                                    </tr>`);
                             </script>
                             <?php
                         }
-                        ?>
-                        <script>
-                            document.getElementsByTagName("body")[0].appendChild(form);
-                        </script>
-                        <?php
                     }
-                    // if($exenull->num_rows > 0) {
-                    //     while($nrow = $exenull->fetch_assoc()) {
-                    //         echo $nrow;
-                    //     }
-                    // }
-                } */
+                }
+
+                if($_SESSION['role'] == 'mentee_details') {
+                    
+                }
 
             }      
         }

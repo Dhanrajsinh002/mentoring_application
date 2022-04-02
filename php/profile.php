@@ -29,6 +29,7 @@ session_start();
                 </table>
             </div>    
         </div>
+        <div id="menu"></div>
 
         <!-- <div id="getdetail">
             <form action="">
@@ -41,13 +42,16 @@ session_start();
         <?php 
         if(isset($_SESSION["role"])) {
             ?>
-            <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+            <script>
+                $("#menu").html(`
+                <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
                 <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
                 <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
                 <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-            </ul>
+                </ul>`);
+            </script>
             <?php
             $table = $_SESSION["role"];
             $id = explode('_',$_SESSION["role"],2);
