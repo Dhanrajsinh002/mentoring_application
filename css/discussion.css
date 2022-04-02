@@ -28,3 +28,7 @@
     display: none;
     background-color: chartreuse;
 }
+
+#chat div {
+    overflow: auto;
+}

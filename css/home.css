@@ -45,6 +45,7 @@ button {
     height: 400px;
     width: 400px;
     border-radius: 15px;
+    background-color: black;
     display: none;
 }
 

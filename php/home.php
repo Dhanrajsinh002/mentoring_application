@@ -89,30 +89,49 @@ session_start();
                         print_r(count($columnArr));
                         ?>
                         <script>
+                            // $("#getdetail").css("display","block");
                             document.getElementById("getdetail").style.display = "block";
-                            $("#getdetail").append(`<table><form id="dtform"></form></table>`);
+                            $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
                         </script>
                         <?php
                         for($i = 1; $i < count($columnArr)-2; $i++) {
                             ?>
                             <script>
-                                let el = document.createElement("input");
+                                var el = document.createElement("input");
                                 el.type = "text";
                                 el.placeholder = "<?php echo $columnArr[$i]; ?>";
                                 el.id = "<?php echo $columnArr[$i]; ?>";
                                                         
-                                let form = document.getElementById("dtform");
+                                var form = document.getElementById("dtform");
                                 form.appendChild(el);
-                                // $("#dtform").append();
+                                $("#dtform").append();
                             </script>
                             <?php
                         }
+                        ?>
+                            <script>
+                                var el = document.createElement("input");
+                                el.type = "submit";
+                                el.value = "Update";
+                                var form = document.getElementById("dtform");
+                                form.appendChild(el);
+                                $("#dtform").append();
+                            </script>
+                        <?php
                     }
                     // if($exenull->num_rows > 0) {
                     //     while($nrow = $exenull->fetch_assoc()) {
                     //         echo $nrow;
                     //     }
                     // }
+                }
+                else {
+                    ?>
+                        <script>
+                            // $("#getdetail").css("display","block");
+                            document.getElementById("getdetail").style.display = "block";
+                        </script>
+                    <?php
                 }
 
             }      

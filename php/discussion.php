@@ -7,16 +7,25 @@ session_start();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             var gid;
+            var flag = 0;
+            var True = "<?php echo ($_SESSION['role']); ?>";
+            // alert("");
             function showChat(gpid) {
                 gid = gpid;
                 // alert(gpid);
+                $("#chat").css("display","block");
                 $.ajax({
                     method: "post",
                     url: "./functions.php",
                     data: {group_id: gpid}
                 })
-                .done(function (response) {$("#showchats").append(`<tr><td>${response}</td></tr>`)})
-                $("#chat").css("display","block");
+                .done(function (response) {
+                    if(True == 'mentor_details') {
+                        $("#showchats").html(response)
+                    } else {
+                        $("#showChatMant").html(response)
+                    }
+                })
                 // document.getElementById("chat").style.display = 'block';
             }
 
@@ -27,8 +36,8 @@ session_start();
                     url: "./functions.php",
                     data: {msg: message,gp_id: gid}
                     })
-                    .done(function (response) {$("#grps").append(`<tr><td>${response}</td></tr>`)})
-                    $("#chat").css("display","block");
+                    .done(function (response) {$("#grps").html(response)})
+                    // $("#chat").css("display","block");
                 }
                 
             }
@@ -49,6 +58,45 @@ session_start();
 
             function back() {
                 document.getElementById("chat").style.display = 'none';
+            }
+
+            function editGrp() {
+                if(flag == 0) {
+                    flag = 1;
+                    $("#divmdgrp").css("display","block");
+                    $.ajax({
+                        method: "post",
+                        url: "./functions.php",
+                        data: {gp_id: gid,mdfygrp: 1}
+                    })
+                    .done(function (response) {
+                        $("#mdfygrp1").html(response);
+                    })
+                } else {
+                    flag = 0;
+                    $("#divmdgrp").css("display","none");
+                }
+            }
+
+            function rmvMnt(id) {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data : {rmmntid: id}
+                }).done(function (response) {
+                    $(`#${id}`).remove();
+                })
+            }
+
+            function addMnt(id) {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {admntid: id}
+                })
+                .done(function (response) {
+                    $(`#${id}`).remove();
+                })
             }
 
             // alert(gid+"\n"+msg);
@@ -111,23 +159,40 @@ session_start();
             </table>
         </div>
         <div id="mentor">
-            <table>
+            <table border="1">
                 <tr>
                     <td>
                         <div id="chat">
-                            <table>
+                            <table border="1">
                                 <tr>
                                     <td>
-                                        <div>
-                                            <table id="showchats">
+                                        <div style="overflow: auto;">
+                                            <table border="1" id="showchats">
                                                 <!-- <tr></tr> -->
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="display: none; overflow: auto; width: 540px" id="divmdgrp">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <table id="mdfygrp1" border="1">
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table id="mdfygrp2" border="1"></table>
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div>
+                                        <div style="overflow: auto;">
                                             <form>
                                                 <table>
                                                     <tr>
@@ -144,6 +209,9 @@ session_start();
                                                 </table>
                                             </form>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <button onclick="editGrp()">Edit Group</button>
                                     </td>
                                     <td>
                                         <button onclick="back()">Back</button>
