@@ -1,0 +1,69 @@
+[
+{"type":"header","version":"5.1.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"mentoring_application"},
+{"type":"table","name":"discussions","database":"mentoring_application","data":
+[
+{"group_id":"1","discussion":"asd","sender_name":"ASD"},
+{"group_id":"2","discussion":"Hello Pratham. This is ASD","sender_name":"ASD"},
+{"group_id":"1","discussion":"Hello Dhanrajsinh","sender_name":"ASD"},
+{"group_id":"1","discussion":"Hello Belvin","sender_name":"ASD"},
+{"group_id":"4","discussion":"Hello Kaushal","sender_name":"ASD"},
+{"group_id":"4","discussion":"QWERTYUIOP","sender_name":"ASD"},
+{"group_id":"5","discussion":"ASDFGHJKL","sender_name":"pratham"},
+{"group_id":"5","discussion":"Hello Pratham","sender_name":"ASD"}
+]
+}
+,{"type":"table","name":"group_details","database":"mentoring_application","data":
+[
+{"group_id":"4","group_name":"group"},
+{"group_id":"5","group_name":"ertyghujiko"}
+]
+}
+,{"type":"table","name":"group_member","database":"mentoring_application","data":
+[
+{"group_id":"4","mentor_id":"1","mentee_id":"1"},
+{"group_id":"4","mentor_id":"1","mentee_id":"2"},
+{"group_id":"4","mentor_id":"1","mentee_id":"9"},
+{"group_id":"5","mentor_id":"1","mentee_id":"8"}
+]
+}
+,{"type":"table","name":"mentee_details","database":"mentoring_application","data":
+[
+{"mentee_id":"1","gr_no":"111609","enrollment_no":"92110133001","first_name":"dhanrajsinh","middle_name":"jyotindrasinh","last_name":"parmar","mobile_no":"7433035109","dob":"2002-08-19","gender":"male","semester":"4","stream":"B.Tech","department":"ICT","email_id":"dhanrajsinh.parmar111609@marwadiuniversity.ac.in","password":"Dhanrajsinh123","in_group":"1","status":"1"},
+{"mentee_id":"2","gr_no":"111610","enrollment_no":"92110133002","first_name":"Devang","middle_name":"abc","last_name":"qwe","mobile_no":"7539518426","dob":"2022-03-01","gender":"female","semester":"5","stream":"B.Tech","department":"ICT","email_id":"abs@gmail.com","password":"asdZXC123","in_group":"1","status":"1"},
+{"mentee_id":"3","gr_no":"111611","enrollment_no":"92110133003","first_name":"zxc","middle_name":"abc","last_name":"qwe","mobile_no":"7539518421","dob":"2022-03-01","gender":"male","semester":"5","stream":"B.Tech","department":"ICT","email_id":"asd@gmail.com","password":"asdZXC123","in_group":"0","status":"1"},
+{"mentee_id":"4","gr_no":"111612","enrollment_no":"92110133004","first_name":"vbn","middle_name":"abc","last_name":"qwe","mobile_no":"7539518422","dob":"2022-03-01","gender":"male","semester":"5","stream":"B.Tech","department":"ICT","email_id":"zxc@gmail.com","password":"asdZXC123","in_group":"0","status":"1"},
+{"mentee_id":"5","gr_no":"111613","enrollment_no":"92110133005","first_name":"bnm","middle_name":"abc","last_name":"qwe","mobile_no":"7539518423","dob":"2022-03-01","gender":"male","semester":"5","stream":"B.Tech","department":"ICT","email_id":"bnm@gmail.com","password":"asdZXC123","in_group":"0","status":"1"},
+{"mentee_id":"6","gr_no":"111614","enrollment_no":"92110133006","first_name":"res","middle_name":"top","last_name":"bottom","mobile_no":"9874563215","dob":"2022-03-15","gender":"female","semester":"3","stream":"Diploma","department":"CE","email_id":"top@gmail.com","password":"TOPbot123","in_group":"0","status":"1"},
+{"mentee_id":"7","gr_no":"111615","enrollment_no":"92110133007","first_name":"sel","middle_name":"top","last_name":"bottom","mobile_no":"9874563216","dob":"2002-12-10","gender":"female","semester":"3","stream":"Diploma","department":"IT","email_id":"sel@gmail.com","password":"SELres123","in_group":"0","status":"0"},
+{"mentee_id":"8","gr_no":"0","enrollment_no":"0","first_name":"pratham","middle_name":"","last_name":"","mobile_no":"7990974178","dob":"2022-04-01","gender":"male","semester":"0","stream":"","department":"","email_id":"pratham.buddhadev111596@marwadiuniversity.ac.in","password":"Optimus@619","in_group":"1","status":"1"},
+{"mentee_id":"9","gr_no":"0","enrollment_no":"0","first_name":"kaushal","middle_name":"","last_name":"","mobile_no":"4567891230","dob":"2022-04-08","gender":"male","semester":"0","stream":"","department":"","email_id":"kaushal.faldu109119@marwadiuniversity.ac.in","password":"Kaushal123","in_group":"1","status":"1"}
+]
+}
+,{"type":"table","name":"mentor_details","database":"mentoring_application","data":
+[
+{"mentor_id":"1","first_name":"ASD","middle_name":"","last_name":"","mobile_no":"9824777575","dob":"0000-00-00","gender":"","department":"","stream":"","qualification":"","email_id":"asd@marwadieducation.edu.in","password":"ASDqwe123","status":"1"}
+]
+}
+,{"type":"table","name":"parent_details","database":"mentoring_application","data":
+[
+{"parent_id":"1","first_name":"","middle_name":"","last_name":"","mobile_no":"9624010494","dob":"0000-00-00","gender":"","occupation":"","email_id":"","password":"","status":"1"},
+{"parent_id":"2","first_name":"Devang","middle_name":"abc","last_name":"qwe","mobile_no":"7539518426","dob":"2022-03-01","gender":"male","occupation":"Business Man","email_id":"abs@gmail.com","password":"Devang123","status":"1"}
+]
+}
+,{"type":"table","name":"relation","database":"mentoring_application","data":
+[
+
+]
+}
+,{"type":"table","name":"temp","database":"mentoring_application","data":
+[
+
+]
+}
+,{"type":"table","name":"to_do","database":"mentoring_application","data":
+[
+
+]
+}
+]
