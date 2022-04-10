@@ -1,15 +1,16 @@
+<!DOCTYPE html>
 <?php
 session_start();
 ?>
-<!DOCTYPE html>
 <html>
     <head>
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>$(document).ready(function(){});</script>
         <script>
             var gid;
             var flag = 0;
-            var True = "<?php echo ($_SESSION['role']); ?>";
+            var True1 = "<?php echo ($_SESSION['role']); ?>";
             // alert("");
             function showChat(gpid) {
                 gid = gpid;
@@ -21,7 +22,7 @@ session_start();
                     data: {group_id: gpid}
                 })
                 .done(function (response) {
-                    if(True == 'mentor_details') {
+                    if(True1 == 'mentor_details') {
                         $("#showchats").html(response)
                     } else {
                         $("#showChatMant").html(response)
@@ -31,30 +32,31 @@ session_start();
             }
 
             function sendMenteeChat(mntmessage) {
+                // console.log("MENTEE_MSG CALLED");
                 if(mntmessage == "") {} else {
+                    // console.log("MENTEE_MSG CALLED");
                     $.ajax({
-                    method: "post",
-                    url: "./functions.php",
-                    data: {mentee_msg: mntmessage}
+                        method: "post",
+                        url: "./functions.php",
+                        data: {mentee_msg: mntmessage}
                     })
-                    .done(function (response) {$("#grps").html(response)}) // $("#grps").html(response)
+                    .done(function (response) {alert(response)}) // $("#grps").html(response)
+                    // console.log("MENTEE_MSG CALLED");
                     // $("#chat").css("display","block");
                 }
-                
             }
 
             function sendMentorChat(mntrmessage) {
                 // alert(message);
                 if(mntrmessage == "") {} else {
                     $.ajax({
-                    method: "post",
-                    url: "./functions.php",
-                    data: {mntrmsg: mntrmessage,mntr_gp_id: gid}
+                        method: "post",
+                        url: "./functions.php",
+                        data: {mntrmsg: mntrmessage,mntr_gp_id: gid}
                     })
                     .done(function (response) {console.log(response)}) //$("#grps").append(`<tr><td>${response}</td></tr>`)
                     // $("#chat").css("display","block");
                 }
-                
             }
 
             function back() {
@@ -129,132 +131,9 @@ session_start();
             </div>    
         </div>
         <div id="menu"></div>
-        <div id="mentee">
-            <table>
-                <tr>
-                    <td>
-                        <table id="showChatMant"></table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <form>
-                            <!-- <form action="./functions.php" method="post"> -->
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <input type = "text" id="mentee_message" name="mentee_message" placeholder = "Enter Your Question" required>
-                                            <!-- <input type = "text" id="mentee_message" name="mntmsg" placeholder = "Enter Your Question" required> -->
-                                        </td>
-                                        <td>
-                                            <input type="submit" value="Post" onclick="sendMenteeChat(document.getElementById('mentee_message').value)" name="" id="">
-                                            <!-- <input type="submit" value="Post" name="" id=""> -->
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="mentor">
-            <table border="1">
-                <tr>
-                    <td>
-                        <div id="chat">
-                            <table border="1">
-                                <tr>
-                                    <td>
-                                        <div style="overflow: auto;">
-                                            <table id="showchats">
-                                                <!-- <tr></tr> -->
-                                            </table>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="display: none; overflow: auto; width: 540px" id="divmdgrp">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <table id="mdfygrp1" border="1">
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <table id="mdfygrp2" border="1"></table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div style="overflow: auto;">
-                                            <form>
-                                            <!-- <form action="./functions.php" method="post"> -->
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <input type = "text" id="mentor_message" name="mentor_message" placeholder = "Enter Your Question" required>
-                                                            <!-- <input type = "text" id="mentor_message" name="mntrmsg" placeholder = "Enter Your Question" required> -->
-                                                        </td>
-                                                        <td>
-                                                            <input type="submit" value="Post" onclick="sendMentorChat(document.getElementById('mentor_message').value)" name="" id="">
-                                                            <!-- <input type="submit" value="Post" name="" id=""> -->
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button onclick="editGrp()">Edit Group</button>
-                                    </td>
-                                    <td>
-                                        <button onclick="back()">Back</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            <table id="bt"></table>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <table id="grps">
-                                <tr>
-                                    <th>Groups</th>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        
-        <script>$(document).ready(function(){});</script>
-        <?php 
+        <?php
         if(isset($_SESSION["role"])) {
             ?>
-            <script>
-                $("#menu").html(`
-                <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                </ul>`);
-            </script>
             <?php
             $table = $_SESSION["role"];
             $id = explode('_',$_SESSION["role"],2);
@@ -283,9 +162,103 @@ session_start();
 
                 if($_SESSION['role'] == 'mentor_details') {
                     ?>
+
+                    <div id="mentor">
+                        <table border="1">
+                            <tr>
+                                <td>
+                                    <div id="chat">
+                                        <table border="1">
+                                            <tr>
+                                                <td>
+                                                    <div style="overflow: auto;">
+                                                        <table id="showchats">
+                                                            <!-- <tr></tr> -->
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div style="display: none; overflow: auto; width: 540px" id="divmdgrp">
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <table id="mdfygrp1" border="1">
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <table id="mdfygrp2" border="1"></table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div style="overflow: auto;">
+                                                        <form>
+                                                        <!-- <form action="./functions.php" method="post"> -->
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type = "text" id="mentor_message" name="mentor_message" placeholder = "Enter Your Question" required>
+                                                                        <!-- <input type = "text" id="mentor_message" name="mntrmsg" placeholder = "Enter Your Question" required> -->
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="submit" value="Post" onclick="sendMentorChat(document.getElementById('mentor_message').value)" name="" id="">
+                                                                        <!-- <input type="submit" value="Post" name="" id=""> -->
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button onclick="editGrp()">Edit Group</button>
+                                                </td>
+                                                <td>
+                                                    <button onclick="back()">Back</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <table id="bt"></table>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <table id="grps">
+                                            <tr>
+                                                <th>Groups</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
                     <script>
-                        $("#mentee").hide();
-                        $("#mentor").show();
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication With Mentees</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <script>
+                        /* $("#mentee").hide();
+                        $("#mentor").show(); */
                         $('#bt').append('<tr>'+
                                         '<table>'+
                                         '<tr>'+
@@ -325,10 +298,52 @@ session_start();
 
                 if($_SESSION['role'] == 'mentee_details') {
                     ?>
+
+                    <div id="mentee">
+                        <table>
+                            <tr>
+                                <td>
+                                    <table id="showChatMant"></table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <form>
+                                        <!-- <form action="./functions.php" method="post"> -->
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input type = "text" id="mentee_message" name="mentee_message" placeholder = "Enter Your Question" required>
+                                                        <!-- <input type = "text" id="mentee_message" name="mntmsg" placeholder = "Enter Your Question" required> -->
+                                                    </td>
+                                                    <td>
+                                                        <input type="submit" value="Post" onclick="sendMenteeChat(document.getElementById('mentee_message').value)" name="" id="">
+                                                        <!-- <input type="submit" value="Post" name="" id=""> -->
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
                     <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <!-- <script>
                         $("#mentee").show();
                         $("#mentor").hide();
-                    </script>
+                    </script> -->
                     <?php
                     $uid = $_SESSION['uid'];
                     $selgrp = "SELECT group_id FROM group_member WHERE mentee_id = $uid";
@@ -336,9 +351,9 @@ session_start();
                     if($exe->num_rows > 0) {
                         while($row = $exe->fetch_assoc()) {
                             $_SESSION['mnt_grp_id'] = $row['group_id'];
-                            ?>
+                            /* ?>
                                 <script>alert(<?php echo $_SESSION['mnt_grp_id'];?>);</script>
-                            <?php
+                            <?php */
                         }
                     }
                     $sel = "SELECT discussion, sender_name FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
@@ -354,6 +369,21 @@ session_start();
                         }
                     }
                 }
+
+                if($_SESSION['role'] == 'parent_details') {
+                    ?>
+                    <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Mentor</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <?php
+                }
             }      
         }
         else {
@@ -364,6 +394,5 @@ session_start();
             <?php
         }
         ?>
-
     </body>
 </html>

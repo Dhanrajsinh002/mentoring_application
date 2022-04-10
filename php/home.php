@@ -7,6 +7,12 @@ session_start();
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="../css/home.css">
+        <script>$(document).ready(function(){});</script>
+        <script>
+            function updateValue() {
+                
+            }
+        </script>
     </head>
     <body>
         <div id="header">
@@ -31,24 +37,16 @@ session_start();
             </div>    
         </div>
         <div id="menu"></div>
-        <div id="getdetail">
-            <!-- <form action="" id="getdetails" xl-form></form> -->
+        <div id="getdetail" style = "text-align: center; position: absolute; top: 50%; left: 50%; margin-top: -200px; 
+                                    margin-left: -200px; height: 400px; width: 400px; 
+                                    border-radius: 15px; background-color: white; display: none;">
+            <form id="getdetails" ></form>
         </div>
         
-        <script>$(document).ready(function(){});</script>
-        <?php 
+        
+        <?php
         if(isset($_SESSION["role"])) {
             ?>
-            <script>
-                $("#menu").html(`
-                <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                </ul>`);
-            </script>
             <?php
             $table = $_SESSION["role"];
             $id = explode('_',$_SESSION["role"],2);
@@ -60,13 +58,17 @@ session_start();
             $db_name = "mentoring_application";
 
             $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
-            if(!$conn) {
+            if(!$conn) 
+            {
                 die("Connection Failed: ".mysqli_connect_error());
-            } else {
+            } 
+            else 
+            {
                 $sel = "SELECT first_name FROM $table WHERE ".$id[0]."_id = $uid";
                 $null = "SELECT * FROM $table WHERE middle_name = '' AND ".$id[0]."_id = $uid";
                 $exe = $conn->query($sel);
-                while($row = $exe->fetch_assoc()) {
+                while($row = $exe->fetch_assoc())
+                {
                     ?>
                     <script>
                         $('#ht').html(`<tr> <td><p><?php echo $row["first_name"] ?></p></td> <td><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
@@ -75,68 +77,152 @@ session_start();
                     <?php
                 }
 
-                if($exenull = mysqli_query($conn,$null)) {
+                if($_SESSION['role'] == 'mentor_details') 
+                {
+                    ?>
+                    <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication With Mentees</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <?php
+                }
+
+                if($_SESSION['role'] == 'mentee_details') 
+                {
+                    ?>
+                    <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <?php
+                }
+
+                if($_SESSION['role'] == 'parent_details') 
+                {
+                    ?>
+                    <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Mentor</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <?php
+                }
+
+                if($exenull = mysqli_query($conn,$null)) 
+                {
                     $row = mysqli_num_rows($exenull);
                     // echo $row;
-                    if($row != 0) {
+                    if($row != 0) 
+                    {
                         $col = $conn->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'mentoring_application' AND TABLE_NAME = '$table'");
                         $type = $conn->query("DESCRIBE $table");
-                        while($row = /* $type */ $col->fetch_assoc()) {
-                            $res[] = $row;
+                        
+                        while($rows = /* $type */ $col->fetch_assoc()) 
+                        {
+                            $res[] = $rows;
                         }
+
                         $columnArr = array_column($res, 'COLUMN_NAME');
-                        print_r($columnArr);
-                        print_r(count($columnArr));
+                        // print_r($columnArr);
+                        // print_r(count($columnArr));
                         ?>
                         <script>
                             // $("#getdetail").css("display","block");
                             document.getElementById("getdetail").style.display = "block";
-                            $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
+                            // $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
                         </script>
                         <?php
-                        for($i = 1; $i < count($columnArr)-2; $i++) {
-                            ?>
-                            <script>
-                                var el = document.createElement("input");
-                                el.type = "text";
-                                el.placeholder = "<?php echo $columnArr[$i]; ?>";
-                                el.id = "<?php echo $columnArr[$i]; ?>";
-                                                        
-                                var form = document.getElementById("dtform");
-                                form.appendChild(el);
-                                $("#dtform").append();
-                            </script>
-                            <?php
+                        $arr = array();
+                        while($nullrow = $exenull->fetch_assoc()) 
+                        {
+                            for($i = 1; $i < count($columnArr)-2; $i++) 
+                            {
+                                $data = $columnArr[$i];
+                                array_push($arr,"document.getElementById('$data').value");
+                                if(!($nullrow[$data])) 
+                                {
+                                    ?>
+                                    <script>
+                                        var el = document.createElement("input");
+                                        el.type = "text";
+                                        el.placeholder = "<?php echo $data; ?>";
+                                        el.id = "<?php echo $data; ?>";
+                                        el.style = "width: 80%; height: 30%; margin: 5px";
+                                        el.value = "<?php echo $nullrow[$data] ?>";
+                                        
+                                        var form = document.getElementById("getdetails");
+                                        form.appendChild(el);
+                                        $("#getdetails").append();
+                                    </script>
+                                    <?php
+                                }
+                                
+                                else
+                                
+                                {
+                                    ?>
+                                    <script>
+                                        var el = document.createElement("input");
+                                        el.type = "text";
+                                        el.placeholder = "<?php echo $data; ?>";
+                                        el.id = "<?php echo $data; ?>";
+                                        el.style = "width: 80%; margin: 5px";
+                                        el.value = "<?php echo $nullrow[$data] ?>";
+                                        el.setAttribute("disabled","disabled");
+
+                                        var form = document.getElementById("getdetails");
+                                        form.appendChild(el);
+                                        $("#getdetails").append();
+                                    </script>
+                                    <?php
+                                }
+                            }    
                         }
                         ?>
                             <script>
                                 var el = document.createElement("input");
                                 el.type = "submit";
-                                el.value = "Update";
-                                var form = document.getElementById("dtform");
+                                el.value = "Update Info";
+                                el.onclick = "updateValue()";
+                                var form = document.getElementById("getdetails");
                                 form.appendChild(el);
-                                $("#dtform").append();
+                                $("#getdetails").append();
                             </script>
                         <?php
+                        
                     }
-                    // if($exenull->num_rows > 0) {
-                    //     while($nrow = $exenull->fetch_assoc()) {
-                    //         echo $nrow;
-                    //     }
-                    // }
                 }
-                else {
+                else 
+                {
                     ?>
                         <script>
                             // $("#getdetail").css("display","block");
-                            document.getElementById("getdetail").style.display = "block";
+                            document.getElementById("getdetail").style.display = "none";
                         </script>
                     <?php
                 }
-
-            }      
+            }
         }
-        else {
+        else 
+        {
             ?>
             <script>
                 $('#ht').html(`<tr> <td><button onclick='window.location.href = "../signin.html"'>Sign IN</button></td> <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> <td><button onclick='window.location.href = "../signup.html"'>Sign UP</button></td> </tr>`);

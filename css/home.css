@@ -42,10 +42,10 @@ button {
     left: 50%;
     margin-top: -200px;
     margin-left: -200px;
-    height: 400px;
+    height: fit-content;
     width: 400px;
     border-radius: 15px;
-    background-color: springgreen;
+    background-color: white;
     display: none;
 }
 
@@ -55,4 +55,8 @@ button {
     text-align: center;
     font-size: 30px;
     font-family: sans-serif;
+}
+
+input[type=text] {
+    width: max-content;
 }

@@ -7,6 +7,8 @@ $password = "";
 $db_name = "mentoring_application";
 $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
 
+$today = date("Y-m-d H:i:s");
+
 if(isset($_POST["cta"])) {
     $mtid = $_POST["mentee_id"];
     $gid = $_SESSION['gid'];
@@ -19,11 +21,11 @@ if(isset($_POST["cta"])) {
 
 if(isset($_POST["group_id"])) {
     $gpid = $_POST["group_id"];
-    $sel = "SELECT discussion, sender_name FROM discussions WHERE group_id = $gpid";
+    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id = $gpid";
     $exe = $conn->query($sel);
     if($exe->num_rows > 0) {
         while ($row = $exe->fetch_assoc()) {
-            echo "<tr><td>".$row['sender_name']."</td><td> : - </td><td>".$row['discussion']."</td></tr>";
+            echo "<tr> <td> <b> [ </b>".$row['date_time']."<b> ] </b></td> <td><b>".$row['sender_name']."</b></td><td> : - </td><td>".$row['discussion']."</td></tr>";
         }
     }
 }
@@ -32,13 +34,7 @@ if(isset($_POST["mntrmsg"])) {
     $gid = $_POST['mntr_gp_id'];
     $mntrmsg = $_POST['mntrmsg'];
     $unm = $_SESSION["uname"];
-    // echo "GID ".$gid."\n";
-    // echo "MSG ".$mntrmsg."\n";
-    // echo "UNM ".$unm."\n";
-    // exit(0);
-    $insd = "INSERT INTO discussions VALUES ($gid,'$mntrmsg','$unm')";
-    // echo $insd;
-    // exit(0);
+    $insd = "INSERT INTO discussions VALUES ($gid,'$mntrmsg','$unm',current_timestamp())";
     $conn->query($insd);
 }
 
@@ -46,15 +42,8 @@ if(isset($_POST["mentee_msg"])) {
     $gid = $_SESSION['mnt_grp_id'];
     $mntmsg = $_POST['mentee_msg'];
     $unm = $_SESSION["uname"];
-    echo "GID ".$gid;
-    echo "<br>MSG ".$mntmsg;
-    echo "<br>UNM ".$unm;
-    // exit(0);
-    $insmenmsg = "INSERT INTO discussions VALUES ($gid,'$mntmsg','$unm')";
-    echo "<br>".$insmenmsg;
-    // exit(0);
+    $insmenmsg = "INSERT INTO discussions VALUES ($gid,'$mntmsg','$unm',current_timestamp())";
     $conn->query($insmenmsg);
-    header("Location:./discussion.php");
 }
 
 if(isset($_POST["mdfygrp"])) {
@@ -174,5 +163,9 @@ if(isset($_POST["post_td_msg"])) {
     $dt = date('Y-m-d');
     $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$dt')";
     $conn->query($instodo);
+}
+
+if(isset($_POST["prntmsg"])) {
+    echo $_POST["prntmsg"];
 }
 ?>

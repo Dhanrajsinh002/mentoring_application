@@ -41,18 +41,6 @@ session_start();
         <script>$(document).ready(function(){});</script>
         <?php 
         if(isset($_SESSION["role"])) {
-            ?>
-            <script>
-                $("#menu").html(`
-                <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
-                <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                </ul>`);
-            </script>
-            <?php
             $table = $_SESSION["role"];
             $id = explode('_',$_SESSION["role"],2);
             $uid = $_SESSION["uid"];
@@ -74,6 +62,52 @@ session_start();
                     <script>
                         $('#ht').html(`<tr> <td><p><?php echo $row["first_name"] ?></p></td> <td><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
                         // document.getElementById("getdetail").style.display = 'block';
+                    </script>
+                    <?php
+                }
+
+                if($_SESSION['role'] == 'mentor_details') {
+                    ?>
+                    <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication With Mentees</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <?php
+                }
+
+                if($_SESSION['role'] == 'mentee_details') {
+                    ?>
+                    <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
+                    </script>
+                    <?php
+                }
+
+                if($_SESSION['role'] == 'parent_details') {
+                    ?>
+                    <script>
+                        $("#menu").html(`
+                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Mentor</a></li>
+                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        </ul>`);
                     </script>
                     <?php
                 }
@@ -120,7 +154,7 @@ session_start();
                     // }
                 } */
 
-            }      
+            }
         }
         else {
             ?>

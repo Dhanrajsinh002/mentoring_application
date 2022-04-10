@@ -33,12 +33,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!$conn) {
         die("Connection Failed: ".mysqli_connect_error());
     } else {
-        // $sel = "SELECT me.first_name AS mtfn, me.mobile_no AS mtmn, me.email_id AS mtei, mo.first_name AS mrfn, mo.mobile_no AS mrmn, mo.email_id AS mrei, pa.first_name AS pafn, pa.mobile_no AS pamn, pa.email_id AS paei
-                    // -- FROM mentee_details me, mentor_details mo, parent_details pa 
-                    // -- WHERE me.first_name = '$name' OR me.mobile_no = $phone OR me.email_id = '$mail' OR
-                            // -- mo.first_name = '$name' OR mo.mobile_no = $phone OR mo.email_id = '$mail' OR
-                            // -- pa.first_name = '$name' OR pa.mobile_no = $phone OR pa.email_id = '$mail'";
-        $sel = "SELECT me.first_name AS mtfn, me.mobile_no AS mtmn, me.email_id AS mtei, mo.first_name AS mrfn, mo.mobile_no AS mrmn, mo.email_id AS mrei, pa.first_name AS pafn, pa.mobile_no AS pamn, pa.email_id AS paei FROM mentee_details me, mentor_details mo, parent_details pa WHERE me.first_name = '$name' OR me.mobile_no = $phone OR me.email_id = '$mail' OR mo.first_name = '$name' OR mo.mobile_no = $phone OR mo.email_id = '$mail' OR pa.first_name = '$name' OR pa.mobile_no = $phone OR pa.email_id = '$mail'";
+        $sel = "SELECT me.first_name AS mtfn, me.mobile_no AS mtmn, me.email_id AS mtei, 
+                mo.first_name AS mrfn, mo.mobile_no AS mrmn, mo.email_id AS mrei, pa.first_name AS pafn, 
+                pa.mobile_no AS pamn, pa.email_id AS paei FROM mentee_details me, mentor_details mo, 
+                parent_details pa WHERE me.first_name = '$name' OR me.mobile_no = $phone OR me.email_id = '$mail'
+                OR mo.first_name = '$name' OR mo.mobile_no = $phone OR mo.email_id = '$mail'
+                OR pa.first_name = '$name' OR pa.mobile_no = $phone OR pa.email_id = '$mail'";
         // exit(0);
         $exe = $conn->query($sel);
 
@@ -49,7 +49,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     ($row['mtei'] == $mail) || ($row['mrei'] == $mail) || ($row['paei'] == $mail)) {
                         ?>
                         <script>
-                            if(confirm("Entered Credintials already Exits!!\nTry with diffferent Credentials..") == true) {
+                            if(confirm("Entered Credintials already Exits!!\n
+                                        Try with diffferent Credentials..") == true) {
                                 window.location.href = "../signup.html";
                             } else {
                                 window.location.href = "../signup.html";
@@ -74,11 +75,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 // insertData($name,$phone,$mail);
             }
     
-            else {
+            else if($mrole[0] == "@gmail.com") {
                 $ins = "INSERT INTO parent_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
                 $conn->query($ins);
                 header("Location:../signin.html");
                 // insertData($name,$phone,$mail);
+            }
+
+            else {
+                ?>
+                <script>
+                    if(confirm("Entered Email ID : - <?php echo $mail; ?> is not valid ID!!") == true) {
+                        window.location.href = "./signup.html.html";
+                    } else {
+                        window.location.href = "./signup.html.html";
+                    }
+                </script>
+                <?php
             }
         }        
     }
