@@ -1,4 +1,5 @@
-date entry in chat
-separate id for mentor & mentee
-discussion - commu. - to-do (re order)
-add different sign for all three users to identify
+(done) -> date entry in chat
+(undone) -> separate id for mentor & mentee
+(undone) -> discussion - commu. - to-do (re order)
+(undone) -> add different sign for all three users to identify
+(undone) -> show recent activity in home page for respective user
