@@ -1,3 +1,8 @@
+body {
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    background-color: #1e1c22;
+}
+
 #maindiv {
     position: absolute;
     top: 50%;
@@ -7,10 +12,11 @@
     height: 400px;
     width: 400px;
     border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 2px 20px 4px #b4cefb;
     text-align: center;
     font-size: 25px;
-    font-family: cursive;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #maindiv > table {
@@ -23,12 +29,33 @@
     height: 100%;
 }
 
-input[type="text"] {
+input {
     text-align: center;
-    width: 100%;
+    margin-top: 5%;
+    width: 90%;
+    font-size: 20px;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
 }
 
-input[type="password"] {
-    text-align: center;
-    width: 100%;
+input[type="submit"] {
+    height: fit-content;
+    width: fit-content;
+    font-size: 20px;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
 }
+
+a {
+    text-decoration: none;
+}
+/* input[type="password"] {
+    text-align: center;
+    width: 80%;
+} */

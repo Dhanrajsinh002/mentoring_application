@@ -47,6 +47,7 @@ button {
     border-radius: 15px;
     background-color: white;
     display: none;
+    /* border-color: black; */
 }
 
 #detailtable {
