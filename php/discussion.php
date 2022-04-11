@@ -356,14 +356,14 @@ session_start();
                             <?php */
                         }
                     }
-                    $sel = "SELECT discussion, sender_name FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
+                    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
                     // echo $sel;
                     $exe = $conn->query($sel);
                     if($exe->num_rows > 0) {
                         while($row = $exe->fetch_assoc()) {
                             ?>
                             <script>
-                                $("#showChatMant").append("<tr> <td><b><?php echo $row['sender_name'];?></b></td> <td><?php echo $row['discussion']?></td> </tr>");
+                                $("#showChatMant").append("<tr> <td> <b> [ </b><?php echo $row['date_time']; ?><b> ] </b></td> <td><b><?php echo $row['sender_name'];?></b></td> <td><?php echo $row['discussion']?></td> </tr>");
                             </script>
                             <?php
                         }
