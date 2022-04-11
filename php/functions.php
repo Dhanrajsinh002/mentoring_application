@@ -21,7 +21,7 @@ if(isset($_POST["cta"])) {
 
 if(isset($_POST["group_id"])) {
     $gpid = $_POST["group_id"];
-    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id = $gpid";
+    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id = $gpid ORDER BY date_time DESC";
     // $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
     $exe = $conn->query($sel);
     if($exe->num_rows > 0) {
@@ -88,7 +88,7 @@ if(isset($_POST["mdfygrp"])) {
                     <td>".$row["semester"]."</td> 
                     <td>".$row["stream"]."</td> 
                     <td>".$row["department"]."</td>
-                    <td><button onclick=rmvMnt(".$row['mentee_id'].")>Remove</button></td>
+                    <td><button style='width: 100%; background-color: red; color: white; height: 100%' onclick=rmvMnt(".$row['mentee_id'].")>Remove</button></td>
                     </tr>";
         }
     }
@@ -110,7 +110,7 @@ if(isset($_POST["mdfygrp"])) {
                     <td>".$row["semester"]."</td> 
                     <td>".$row["stream"]."</td> 
                     <td>".$row["department"]."</td>
-                    <td><button onclick=addMnt(".$row['mentee_id'].")>Add</button></td>
+                    <td><button style='width: 100%; background-color: lightskyblue; color: white; height: 100%' onclick=addMnt(".$row['mentee_id'].")>Add</button></td>
                     </tr>";
         }
     }

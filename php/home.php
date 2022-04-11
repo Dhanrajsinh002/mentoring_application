@@ -1,5 +1,6 @@
 <?php
 session_start();
+$arr = array();
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,9 @@ session_start();
         <script>$(document).ready(function(){});</script>
         <script>
             function updateValue() {
-                console.log("NJKBUIBWV");
+                var cnt = <?php echo count($arr); ?>;
+                // console.log("NJKBUIBWV");
+                // alert("NJKBUIBWV");
             }
         </script>
     </head>
@@ -150,7 +153,7 @@ session_start();
                             // $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
                         </script>
                         <?php
-                        $arr = array();
+                        
                         while($nullrow = $exenull->fetch_assoc()) 
                         {
                             for($i = 1; $i < count($columnArr)-2; $i++) 
@@ -201,7 +204,8 @@ session_start();
                                 var el = document.createElement("input");
                                 el.type = "submit";
                                 el.value = "Update Info";
-                                el.onclick = "updateValue()";
+                                // el.onclick = "updateValue()";
+                                el.setAttribute("onclick","updateValue()");
                                 var form = document.getElementById("getdetails");
                                 form.appendChild(el);
                                 $("#getdetails").append();

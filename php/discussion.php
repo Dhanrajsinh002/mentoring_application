@@ -178,7 +178,7 @@ session_start();
                             <tr>
                                 <td>
                                     <div id="chat">
-                                        <table width="100%" >
+                                        <table width="100%" height="100%" border="1">
                                             <tr>
                                                 <td>
                                                     <div style="overflow: auto;">
@@ -187,12 +187,47 @@ session_start();
                                                         </table>
                                                     </div>
                                                 </td>
+                                            </tr>
+                                            <tr>
                                                 <td>
-                                                    <div style="display: none; overflow: auto; width: 540px" id="divmdgrp">
-                                                        <table>
+                                                    <table style="text-align: center;" width="100%" border="1">
+                                                        <tr>
+                                                            <td>
+                                                                <div style="overflow: auto;">
+                                                                    <form>
+                                                                    <!-- <form action="./functions.php" method="post"> -->
+                                                                        <table>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type = "text" id="mentor_message" name="mentor_message" placeholder = "Enter Your Question" required>
+                                                                                    <!-- <input type = "text" id="mentor_message" name="mntrmsg" placeholder = "Enter Your Question" required> -->
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="submit" value="Post" onclick="sendMentorChat(document.getElementById('mentor_message').value)" name="" id="">
+                                                                                    <!-- <input type="submit" value="Post" name="" id=""> -->
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </form>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="editGrp()">Edit Group</button>
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="back()">Back</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <div style="display: none; overflow: auto; width: 100%" id="divmdgrp">
+                                                        <table style="text-align: center">
                                                             <tr>
                                                                 <td>
-                                                                    <table id="mdfygrp1">
+                                                                    <table id="mdfygrp1" border="1">
                                                                     </table>
                                                                 </td>
                                                             </tr>
@@ -203,31 +238,6 @@ session_start();
                                                             </tr>
                                                         </table>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div style="overflow: auto;">
-                                                        <form>
-                                                        <!-- <form action="./functions.php" method="post"> -->
-                                                            <table>
-                                                                <tr>
-                                                                    <td>
-                                                                        <input type = "text" id="mentor_message" name="mentor_message" placeholder = "Enter Your Question" required>
-                                                                        <!-- <input type = "text" id="mentor_message" name="mntrmsg" placeholder = "Enter Your Question" required> -->
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="submit" value="Post" onclick="sendMentorChat(document.getElementById('mentor_message').value)" name="" id="">
-                                                                        <!-- <input type="submit" value="Post" name="" id=""> -->
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button onclick="editGrp()">Edit Group</button>
-                                                    <button onclick="back()">Back</button>
                                                 </td>
                                             </tr>
                                         </table>
