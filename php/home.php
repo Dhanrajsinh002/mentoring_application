@@ -10,7 +10,7 @@ session_start();
         <script>$(document).ready(function(){});</script>
         <script>
             function updateValue() {
-                
+                console.log("NJKBUIBWV");
             }
         </script>
     </head>

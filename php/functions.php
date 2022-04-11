@@ -31,6 +31,13 @@ if(isset($_POST["group_id"])) {
     }
 }
 
+if(isset($_POST["gp_nm"])) {
+    $nm = $_POST["gp_nm"];
+    $ins = "INSERT INTO group_details (group_name) VALUES ('$nm')";
+    echo $ins;
+    // $conn->query($ins);
+}
+
 if(isset($_POST["mntrmsg"])) {
     $gid = $_POST['mntr_gp_id'];
     $mntrmsg = $_POST['mntrmsg'];

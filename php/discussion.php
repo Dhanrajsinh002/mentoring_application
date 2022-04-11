@@ -12,6 +12,15 @@ session_start();
             var flag = 0;
             var True1 = "<?php echo ($_SESSION['role']); ?>";
             // alert("");
+
+            function createGroup(grp_name) {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {gp_nm: grp_name}
+                }).done(function (response) {console.log(response)})
+            }
+
             function showChat(gpid) {
                 gid = gpid;
                 // alert(gpid);
@@ -263,12 +272,14 @@ session_start();
                                         '<tr>'+
                                         '<td>'+
                                         '<form action = "./crtmnteegrp.php" method = "post">'+
+                                        // '<form>'+
                                         '<table>'+
                                         '<tr>'+
                                         '    <td>'+
-                                        '        <input type="text" name="gname" placeholder="Enter Group Name" pattern="[a-z]{1,15}" title="Only lower characters are allowed." required>'+
+                                        '        <input type="text" name="gname" id="gname" placeholder="Enter Group Name" pattern="[a-z]{1,15}" title="Only lower characters are allowed." required>'+
                                         '    </td>'+
                                         '    <td>'+
+                                        // '        <input type="submit" onclick="createGroup(document.getElementById("gname").value)" value="Create Group">'+
                                         '        <input type="submit" value="Create Group">'+
                                         '    </td>'+
                                         '</tr>'+
