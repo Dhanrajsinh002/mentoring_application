@@ -121,11 +121,13 @@ if(isset($_POST["rmmntid"])) {
 if(isset($_POST["admntid"])) {
     // echo $_POST["admntid"];
     $mtid = $_POST["admntid"];
-    $gid = $_SESSION['gid'];
+    $gid = $_POST['grp_id'];
     $mtrid = $_SESSION["uid"];
     $ins = "INSERT INTO group_member VALUES ($gid,$mtrid,$mtid)";
+    // echo $ins;
     $exe = $conn->query($ins);
     $upd = "UPDATE mentee_details SET in_group = 1 WHERE mentee_id = $mtid";
+    // echo $upd;
     $exe = $conn->query($upd);
 }
 

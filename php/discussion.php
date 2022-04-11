@@ -95,9 +95,10 @@ session_start();
                 $.ajax({
                     method: "post",
                     url: "./functions.php",
-                    data: {admntid: id}
+                    data: {admntid: id, grp_id: gid}
                 })
                 .done(function (response) {
+                    // alert(response);
                     $(`#${id}`).remove();
                 })
             }
