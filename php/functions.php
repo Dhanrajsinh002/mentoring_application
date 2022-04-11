@@ -21,8 +21,8 @@ if(isset($_POST["cta"])) {
 
 if(isset($_POST["group_id"])) {
     $gpid = $_POST["group_id"];
-    // $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id = $gpid";
-    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
+    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id = $gpid";
+    // $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
     $exe = $conn->query($sel);
     if($exe->num_rows > 0) {
         while ($row = $exe->fetch_assoc()) {

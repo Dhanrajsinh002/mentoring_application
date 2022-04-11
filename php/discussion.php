@@ -164,11 +164,11 @@ session_start();
                     ?>
 
                     <div id="mentor">
-                        <table border="1">
+                        <table>
                             <tr>
                                 <td>
                                     <div id="chat">
-                                        <table border="1">
+                                        <table width="100%" >
                                             <tr>
                                                 <td>
                                                     <div style="overflow: auto;">
@@ -182,13 +182,13 @@ session_start();
                                                         <table>
                                                             <tr>
                                                                 <td>
-                                                                    <table id="mdfygrp1" border="1">
+                                                                    <table id="mdfygrp1">
                                                                     </table>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <table id="mdfygrp2" border="1"></table>
+                                                                    <table id="mdfygrp2"></table>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -217,8 +217,6 @@ session_start();
                                                 </td>
                                                 <td>
                                                     <button onclick="editGrp()">Edit Group</button>
-                                                </td>
-                                                <td>
                                                     <button onclick="back()">Back</button>
                                                 </td>
                                             </tr>

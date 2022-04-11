@@ -1,3 +1,4 @@
 date entry in chat
 separate id for mentor & mentee
 discussion - commu. - to-do (re order)
+add different sign for all three users to identify
