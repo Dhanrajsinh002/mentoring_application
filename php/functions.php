@@ -88,7 +88,7 @@ if(isset($_POST["mdfygrp"])) {
                     <td>".$row["semester"]."</td> 
                     <td>".$row["stream"]."</td> 
                     <td>".$row["department"]."</td>
-                    <td><button style='width: 100%; background-color: red; color: white; height: 100%' onclick=rmvMnt(".$row['mentee_id'].")>Remove</button></td>
+                    <td><button style='width: 100%; background-color: red; border-radius: 5px; border: none; color: white; height: 100%' onclick=rmvMnt(".$row['mentee_id'].")>Remove</button></td>
                     </tr>";
         }
     }
@@ -110,7 +110,7 @@ if(isset($_POST["mdfygrp"])) {
                     <td>".$row["semester"]."</td> 
                     <td>".$row["stream"]."</td> 
                     <td>".$row["department"]."</td>
-                    <td><button style='width: 100%; background-color: lightskyblue; color: white; height: 100%' onclick=addMnt(".$row['mentee_id'].")>Add</button></td>
+                    <td><button style='width: 100%; background-color: lightskyblue; border-radius: 5px; border: none; color: white; height: 100%' onclick=addMnt(".$row['mentee_id'].")>Add</button></td>
                     </tr>";
         }
     }

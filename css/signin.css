@@ -1,6 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&family=Varela+Round&display=swap');
 body {
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    background-color: #1e1c22;
+    background-color: #D1D8EC;
 }
 
 #maindiv {
@@ -12,11 +12,15 @@ body {
     height: 400px;
     width: 400px;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 2px 20px 4px #b4cefb;
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    background: #D1D8EC;
+    -webkit-box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
     text-align: center;
     font-size: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 #maindiv > table {
@@ -33,22 +37,29 @@ input {
     text-align: center;
     margin-top: 5%;
     width: 90%;
+    height: 50px;
     font-size: 20px;
-    background-color: transparent;
-    border: 1px solid black;
+    /* background-color: transparent; */
+    border: none;
     border-radius: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    cursor: pointer;
+    font-family: 'Varela Round', sans-serif;
+    /* cursor: pointer; */
+    border-radius: 50px;
+background: #e0e0e0;
+box-shadow: inset 20px 20px 60px #bebebe,
+            inset -20px -20px 60px #ffffff;
 }
 
 input[type="submit"] {
-    height: fit-content;
-    width: fit-content;
+    /* padding: 1%; */
     font-size: 20px;
-    background-color: transparent;
-    border: 1px solid black;
-    border-radius: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: lightskyblue;
+    /* border: 1px solid black; */
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow:  20px 20px 49px #bebebe,
+                -20px -20px 49px #ffffff;
+    font-family: 'Varela Round', sans-serif;
     cursor: pointer;
 }
 

@@ -178,7 +178,7 @@ session_start();
                             <tr>
                                 <td>
                                     <div id="chat">
-                                        <table width="100%" height="100%" border="1">
+                                        <table style="background: #e0e0e0; box-shadow:  20px 20px 60px #111111, -20px -20px 60px #ffffff;" width="100%" height="100%" >
                                             <tr>
                                                 <td>
                                                     <div style="overflow: auto;">
@@ -190,7 +190,7 @@ session_start();
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <table style="text-align: center;" width="100%" border="1">
+                                                    <table style="text-align: center;" width="100%" >
                                                         <tr>
                                                             <td>
                                                                 <div style="overflow: auto;">
@@ -227,7 +227,7 @@ session_start();
                                                         <table style="text-align: center">
                                                             <tr>
                                                                 <td>
-                                                                    <table id="mdfygrp1" border="1">
+                                                                    <table id="mdfygrp1" >
                                                                     </table>
                                                                 </td>
                                                             </tr>
