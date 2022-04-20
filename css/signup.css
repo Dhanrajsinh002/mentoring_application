@@ -7,7 +7,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -250px;
+    margin-top: -280px;
     margin-left: -200px;
     height: max-content;
     width: 400px;
@@ -17,7 +17,8 @@ body {
     border-radius: 50px;
     background: #9fc7e7;
     -webkit-box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow:  14px 14px 28px #5a5a5a,
+             -14px -14px 28px #ffffff;
     text-align: center;
     /* font-size: 25px; */
     font-family: 'Varela Round', sans-serif;
@@ -37,11 +38,12 @@ input[type="text"] {
     text-align: center;
     margin-top: 5%;
     width: 90%;
-    height: 30px;
+    height: 40px;
     font-size: 20px;
     /* background-color: transparent; */
     border: none;
     border-radius: 25px;
+    outline: #47a2ec;
     font-family: 'Varela Round', sans-serif;
     /* cursor: pointer; */
     border-radius: 50px;
@@ -54,8 +56,9 @@ input[type="password"] {
     text-align: center;
     margin-top: 5%;
     width: 90%;
-    height: 30px;
+    height: 40px;
     font-size: 20px;
+    outline: #47a2ec;
     /* background-color: transparent; */
     border: none;
     border-radius: 25px;
@@ -65,6 +68,13 @@ input[type="password"] {
     background: #e0e0e0;
     box-shadow: inset 11px 11px 22px #949494,
             inset -11px -11px 22px #ffffff;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    /* display: none; */
+    text-align: center;
+    -webkit-appearance: none;
 }
 
 input[type="date"] {
@@ -73,6 +83,7 @@ input[type="date"] {
     width: 90%;
     height: 30px;
     font-size: 20px;
+    outline: #47a2ec;
     /* background-color: transparent; */
     border: none;
     border-radius: 25px;
@@ -84,25 +95,10 @@ input[type="date"] {
             inset -11px -11px 22px #ffffff;
 }
 
-input[type="reset"] {
-    margin-top: 15%;
-    font-size: 20px;
-    width: 80%;
-    border-radius: 50px;
-    border: none;
-    background: #47a2ec;
-    box-shadow:  5px 5px 10px #5a5a5a,
-             -5px -5px 10px #ffffff;
-    font-family: 'Varela Round', sans-serif;
-    cursor: pointer;
-    transition: 0.3s linear;
-}
-
-
-
-input[type="submit"] {
+input[type="submit"], input[type="reset"] {
     margin-top: 15%;
     width: 80%;
+    height: max-content;
     font-size: 20px;
     border-radius: 50px;
     border: none;

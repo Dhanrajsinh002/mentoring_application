@@ -11,40 +11,84 @@ $arr = array();
         <script>$(document).ready(function(){});</script>
         <script>
             function updateValue() {
-                var cnt = <?php echo count($arr); ?>;
+                // console.log(<?php echo count($_SESSION["upd_clmn_nm_arr"]) ?>);
+                // console.log(<?php echo $_SESSION["upd_clmn_nm_arr"][0] ?>);
+                var arr = [];
+                <?php
+                for($i = 0; $i < count($_SESSION["upd_clmn_nm_arr"]); $i++) {
+                    ?>
+                    arr.push(<?php echo $_SESSION["upd_clmn_nm_arr"][$i] ?>)
+                    <?php
+                }
+                ?>
+                // console.log(arr);
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {upd_clmn_nm_arr: arr}
+                }).done(function (response) {console.log(response)})
                 // console.log("NJKBUIBWV");
                 // alert("NJKBUIBWV");
             }
         </script>
     </head>
     <body>
-        <div id="header">
-            <div id="h1">
-                <img src="../images/image-removebg-preview.png" alt="#LOGO">
-            </div>
-            <div id="h2">Welcome to Application</div>    
-            <div id="h3">
-                <table id="ht">
-                    <!-- <tr>
-                        <td>
-                            <button onclick="window.location.href = './signin.html'">Sign IN</button>
-                        </td>
-                        <td>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td>
-                            <button onclick="window.location.href = './signup.html'">Sign UP</button>
-                        </td>
-                    </tr> -->
-                </table>
-            </div>    
-        </div>
-        <div id="menu"></div>
-        <div id="getdetail" style = "text-align: center; position: absolute; top: 50%; left: 50%; margin-top: -200px; 
+        <table border="1" width="100%">
+            <tr>
+                <td>
+                    <div id="header">
+                        <table border="1" width="100%" style="text-align: center;">
+                            <tr>
+                                <td width="22%">
+                                    <div id="h1">
+                                        <img style="width: 200px;" src="../images/image-removebg-preview.png" alt="#LOGO">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div id="h2"><h1>Welcome to Application</h1></div>
+                                </td>
+
+                                <td width="30%">
+                                    <div id="h3">
+                                        <table id="ht" border="1" width="100%">
+                                            <!-- <tr>
+                                                <td>
+                                                    <button onclick="window.location.href = './signin.html'">Sign IN</button>
+                                                </td>
+                                                <td>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+                                                <td>
+                                                    <button onclick="window.location.href = './signup.html'">Sign UP</button>
+                                                </td>
+                                            </tr> -->
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div style="background-color: #333" id="menu"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td id="body"></td>
+            </tr>
+        </table>
+        
+        
+        <!-- <div id="getdetail" style = "text-align: center; position: absolute; top: 50%; left: 50%; margin-top: -200px; 
                                     margin-left: -200px; height: 400px; width: 400px; 
                                     border-radius: 15px; background-color: white; display: none;">
             <form id="getdetails" ></form>
-        </div>
+        </div> -->
         
         
         <?php
@@ -74,7 +118,7 @@ $arr = array();
                 {
                     ?>
                     <script>
-                        $('#ht').html(`<tr> <td><p><?php echo $row["first_name"] ?></p></td> <td><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
+                        $('#ht').html(`<tr> <td><p><?php echo ucwords($id[0])."&nbsp;".$row["first_name"] ?></p></td> <td align="right"><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
                         // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <?php
@@ -85,14 +129,26 @@ $arr = array();
                     ?>
                     <script>
                         $("#menu").html(`
+                            <table width="100%">
+                                <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communicate With Mentees</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                </tr>
+                            </table>
+                        `);
+                        /* $("#menu").html(`
                         <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li onmouseover="this.style.background-color='aquamarine'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
                         <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication With Mentees</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                        </ul>`);
+                        </ul>`); */
                     </script>
                     <?php
                 }
@@ -103,7 +159,7 @@ $arr = array();
                     <script>
                         $("#menu").html(`
                         <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li onmouseover="this.style.background-color='aquamarine'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
                         <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
@@ -119,7 +175,7 @@ $arr = array();
                     <script>
                         $("#menu").html(`
                         <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
+                        <li onmouseover="this.style.background-color='aquamarine'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
                         <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Mentor</a></li>
@@ -149,6 +205,7 @@ $arr = array();
                         ?>
                         <script>
                             // $("#getdetail").css("display","block");
+                            var form = document.getElementById("body");
                             document.getElementById("getdetail").style.display = "block";
                             // $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
                         </script>
@@ -168,12 +225,12 @@ $arr = array();
                                         el.type = "text";
                                         el.placeholder = "<?php echo $data; ?>";
                                         el.id = "<?php echo $data; ?>";
-                                        el.style = "width: 80%; height: 30%; margin: 5px";
+                                        el.style = "text-align: center; width: 80%; height: 30%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
                                         
-                                        var form = document.getElementById("getdetails");
+                                        // var form = document.getElementById("body");
                                         form.appendChild(el);
-                                        $("#getdetails").append();
+                                        $("#body").append();
                                     </script>
                                     <?php
                                 }
@@ -187,28 +244,30 @@ $arr = array();
                                         el.type = "text";
                                         el.placeholder = "<?php echo $data; ?>";
                                         el.id = "<?php echo $data; ?>";
-                                        el.style = "width: 80%; margin: 5px";
+                                        el.style = "text-align: center; width: 80%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
                                         el.setAttribute("disabled","disabled");
 
-                                        var form = document.getElementById("getdetails");
+                                        // var form = document.getElementById("body");
                                         form.appendChild(el);
-                                        $("#getdetails").append();
+                                        $("#body").append();
                                     </script>
                                     <?php
                                 }
-                            }    
+                            }
+                            $_SESSION["upd_clmn_nm_arr"] = $arr;
                         }
                         ?>
                             <script>
                                 var el = document.createElement("input");
                                 el.type = "submit";
+                                el.style = "text-align: center; width: 80%; margin: 5px";
                                 el.value = "Update Info";
                                 // el.onclick = "updateValue()";
                                 el.setAttribute("onclick","updateValue()");
-                                var form = document.getElementById("getdetails");
+                                // var form = document.getElementById("body");
                                 form.appendChild(el);
-                                $("#getdetails").append();
+                                $("#body").append();
                             </script>
                         <?php
                         

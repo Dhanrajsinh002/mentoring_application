@@ -175,7 +175,15 @@ if(isset($_POST["post_td_msg"])) {
     $conn->query($instodo);
 }
 
-if(isset($_POST["prntmsg"])) {
-    echo $_POST["prntmsg"];
+if(isset($_POST["upd_clmn_nm_arr"])) {
+    // $split = $_SESSION["upd_clmn_nm_arr"][0];
+    $res = preg_match("/'([^']+)'/", $_SESSION["upd_clmn_nm_arr"][0], $m);
+    echo $m[1];
+    // // exit(0);
+    // $table = $_SESSION['role'];
+    for($i = 0; $i < count($_POST["upd_clmn_nm_arr"]); $i++) {
+        echo $_POST["upd_clmn_nm_arr"][$i];
+        // $upd = "UPDATE $table SET "
+    }
 }
 ?>

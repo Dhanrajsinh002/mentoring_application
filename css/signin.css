@@ -17,7 +17,8 @@ body {
     border-radius: 50px;
     background: #9fc7e7;
     -webkit-box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
-    box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow:  14px 14px 28px #5a5a5a,
+             -14px -14px 28px #ffffff;
     text-align: center;
     font-size: 25px;
     font-family: 'Varela Round', sans-serif;
@@ -48,6 +49,7 @@ input {
     background: #e0e0e0;
     box-shadow: inset 11px 11px 22px #949494,
             inset -11px -11px 22px #ffffff;
+    outline: #47a2ec;
 }
 
 input[type="submit"] {

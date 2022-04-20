@@ -41,7 +41,10 @@
                                         <label for="">Date of Birth: </label>
                                     </td>
                                     <td>
-                                        <input type="date" name="dob" id="" title="select your borth date." required>
+                                        <input type="date" name="dob" id="dob" placeholder="Date" title="select your borth date." required>
+                                        <script>
+                                            document.getElementById('dob').max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+                                        </script>
                                     </td>
                                 </tr>
                                 <tr>
