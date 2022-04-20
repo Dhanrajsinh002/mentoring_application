@@ -11,13 +11,11 @@ $arr = array();
         <script>$(document).ready(function(){});</script>
         <script>
             function updateValue() {
-                // console.log(<?php echo count($_SESSION["upd_clmn_nm_arr"]) ?>);
-                // console.log(<?php echo $_SESSION["upd_clmn_nm_arr"][0] ?>);
                 var arr = [];
                 <?php
-                for($i = 0; $i < count($_SESSION["upd_clmn_nm_arr"]); $i++) {
+                for($i = 0; $i < count($_SESSION["upd_arr"]); $i++) {
                     ?>
-                    arr.push(<?php echo $_SESSION["upd_clmn_nm_arr"][$i] ?>)
+                    arr.push(<?php echo $_SESSION["upd_arr"][$i] ?>)
                     <?php
                 }
                 ?>
@@ -25,7 +23,7 @@ $arr = array();
                 $.ajax({
                     method: "post",
                     url: "./functions.php",
-                    data: {upd_clmn_nm_arr: arr}
+                    data: {upd_arr: arr}
                 }).done(function (response) {console.log(response)})
                 // console.log("NJKBUIBWV");
                 // alert("NJKBUIBWV");
@@ -255,7 +253,7 @@ $arr = array();
                                     <?php
                                 }
                             }
-                            $_SESSION["upd_clmn_nm_arr"] = $arr;
+                            $_SESSION["upd_arr"] = $arr;
                         }
                         ?>
                             <script>
