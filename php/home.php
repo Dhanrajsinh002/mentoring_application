@@ -1,5 +1,6 @@
 <?php
 session_start();
+// $_SESSION["upd_arr"];
 $arr = array();
 ?>
 <!DOCTYPE html>
@@ -9,26 +10,7 @@ $arr = array();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="../css/home.css">
         <script>$(document).ready(function(){});</script>
-        <script>
-            function updateValue() {
-                var arr = [];
-                <?php
-                for($i = 0; $i < count($_SESSION["upd_arr"]); $i++) {
-                    ?>
-                    arr.push(<?php echo $_SESSION["upd_arr"][$i] ?>)
-                    <?php
-                }
-                ?>
-                // console.log(arr);
-                $.ajax({
-                    method: "post",
-                    url: "./functions.php",
-                    data: {upd_arr: arr}
-                }).done(function (response) {console.log(response)})
-                // console.log("NJKBUIBWV");
-                // alert("NJKBUIBWV");
-            }
-        </script>
+        
     </head>
     <body>
         <table border="1" width="100%">
@@ -203,8 +185,9 @@ $arr = array();
                         ?>
                         <script>
                             // $("#getdetail").css("display","block");
-                            var form = document.getElementById("body");
-                            document.getElementById("getdetail").style.display = "block";
+                            // var form = document.getElementById("body");
+                            var form = document.createElement("form");
+                            // document.getElementById("getdetail").style.display = "block";
                             // $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
                         </script>
                         <?php
@@ -225,10 +208,12 @@ $arr = array();
                                         el.id = "<?php echo $data; ?>";
                                         el.style = "text-align: center; width: 80%; height: 30%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
+                                        el.setAttribute("required","");
+                                        // el.required = true;
                                         
                                         // var form = document.getElementById("body");
                                         form.appendChild(el);
-                                        $("#body").append();
+                                        // $("#body").append(form);
                                     </script>
                                     <?php
                                 }
@@ -245,10 +230,12 @@ $arr = array();
                                         el.style = "text-align: center; width: 80%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
                                         el.setAttribute("disabled","disabled");
+                                        // el.setAttribute("required","required");
 
                                         // var form = document.getElementById("body");
                                         form.appendChild(el);
-                                        $("#body").append();
+                                        // document.body.appendChild(form)
+                                        // $("#body").append(form);
                                     </script>
                                     <?php
                                 }
@@ -256,6 +243,33 @@ $arr = array();
                             $_SESSION["upd_arr"] = $arr;
                         }
                         ?>
+                            <script>
+                                function updateValue() {
+                                    var arr = [];
+                                    <?php
+                                    for($i = 0; $i < count($_SESSION["upd_arr"]); $i++) {
+                                        ?>
+                                        if(<?php echo $_SESSION["upd_arr"][$i] ?> == "") {
+                                            return false;
+                                        } else {
+                                            arr.push(<?php echo $_SESSION["upd_arr"][$i] ?>)
+                                        }
+                                        <?php
+                                    }
+                                    ?>
+                                    // console.log(arr);
+                                    $.ajax({
+                                        method: "post",
+                                        url: "./functions.php",
+                                        data: {upd_arr: arr}
+                                    }).done(function (response) {
+                                        location.reload();
+                                        console.log(response)
+                                    })
+                                    // console.log("NJKBUIBWV");
+                                    // alert("NJKBUIBWV");
+                                }
+                            </script>
                             <script>
                                 var el = document.createElement("input");
                                 el.type = "submit";
@@ -265,7 +279,7 @@ $arr = array();
                                 el.setAttribute("onclick","updateValue()");
                                 // var form = document.getElementById("body");
                                 form.appendChild(el);
-                                $("#body").append();
+                                $("#body").append(form);
                             </script>
                         <?php
                         

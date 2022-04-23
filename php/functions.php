@@ -8,6 +8,8 @@ $db_name = "mentoring_application";
 $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
 
 $today = date("Y-m-d H:i:s");
+$id = explode('_',$_SESSION["role"],2);
+$uid = $_SESSION["uid"];
 
 if(isset($_POST["cta"])) {
     $mtid = $_POST["mentee_id"];
@@ -177,13 +179,19 @@ if(isset($_POST["post_td_msg"])) {
 
 if(isset($_POST["upd_arr"])) {
     // $split = $_SESSION["upd_arr"][0];
-    $res = preg_match("/'([^']+)'/", $_SESSION["upd_arr"][0], $m);
-    echo $m[1];
+    // $res = preg_match("/'([^']+)'/", $_SESSION["upd_arr"][0], $m);
+    // $updv = $m[1];
     // // exit(0);
-    // $table = $_SESSION['role'];
+    $table = $_SESSION['role'];
     for($i = 0; $i < count($_POST["upd_arr"]); $i++) {
-        echo $_POST["upd_arr"][$i];
-        // $upd = "UPDATE $table SET "
+        $res = preg_match("/'([^']+)'/", $_SESSION["upd_arr"][$i], $m);
+        $updv = $m[1];
+        // echo $updv."->".$_POST["upd_arr"][$i]."\n";
+        $data = $_POST["upd_arr"][$i];
+        $upd = "UPDATE $table SET $updv = '$data' WHERE ".$id[0]."_id = $uid";
+        // echo $upd."\n";
+        $conn->query($upd);
     }
+    // echo $id[0]."_id = ".$uid;
 }
 ?>
