@@ -64,6 +64,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if($mrole[0] == "@marwadiuniversity.ac.in") {
                 $ins = "INSERT INTO mentee_details (first_name,email_id,mobile_no,dob,gender,password,in_group,status) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass',0,1)";
                 $conn->query($ins);
+                $sel = "SELECT mentee_id FROM mentee_details WHERE first_name = '$name'";
+                if($exe = $conn->query($sel)) {
+                    while($row = $exe->fetch_assoc()) {
+                        $ins1 = "INSERT INTO relation (mentee_id) VALUE (".$row["mentee_id"].")";
+                        $conn->query($ins1);
+                    }
+                }
                 header("Location:../signin.html");
                 // insertData($name,$phone,$mail);
             }

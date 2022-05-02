@@ -1,0 +1,297 @@
+
+<!--
+Table data for `discussions`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''discussions'''
+|-
+ ! group_id
+ ! discussion
+ ! sender_name
+ ! date_time
+|-
+ | 4
+ | asd
+ | ASD
+ | 2022-04-09 14:35:05
+|-
+ | 4
+ | HELLO DEVANG
+ | dhanrajsinh
+ | 2022-04-11 09:45:58
+|-
+ | 4
+ | hello world
+ | dhanrajsinh
+ | 2022-04-11 10:22:00
+|-
+ | 4
+ | how are you?
+ | dhanrajsinh
+ | 2022-04-11 10:22:11
+|-
+ | 4
+ | HELLO PRATHAM`
+ | user
+ | 2022-04-11 11:20:56
+|-
+ | 4
+ | QWERTYUIOP
+ | ASD
+ | 2022-04-11 15:03:43
+|-
+ | 4
+ | hellooo bsdkkkkkkk
+ | ASD
+ | 2022-04-20 15:09:19
+|}
+
+
+<!--
+Table data for `group_details`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''group_details'''
+|-
+ ! group_id
+ ! group_name
+|-
+ | 4
+ | group
+|-
+ | 5
+ | ertyghujiko
+|-
+ | 7
+ | bsdk
+|}
+
+
+<!--
+Table data for `group_member`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''group_member'''
+|-
+ ! group_id
+ ! mentor_id
+ ! mentee_id
+|-
+ | 4
+ | 1
+ | 1
+|-
+ | 4
+ | 1
+ | 2
+|-
+ | 4
+ | 1
+ | 9
+|-
+ | 5
+ | 1
+ | 8
+|-
+ | 4
+ | 1
+ | 10
+|-
+ | 4
+ | 1
+ | 6
+|}
+
+
+<!--
+Table data for `mentee_details`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''mentee_details'''
+|-
+ ! mentee_id
+ ! gr_no
+ ! enrollment_no
+ ! first_name
+ ! middle_name
+ ! last_name
+ ! mobile_no
+ ! dob
+ ! gender
+ ! semester
+ ! stream
+ ! department
+ ! email_id
+ ! password
+ ! in_group
+ ! status
+|-
+ | 1
+ | 111609
+ | 92110133001
+ | dhanrajsinh
+ | jyotindrasinh
+ | parmar
+ | 7433035109
+ | 2002-08-19
+ | male
+ | 4
+ | B.Tech
+ | ICT
+ | dhanrajsinh.parmar111609@marwadiuniversity.ac.in
+ | Dhanrajsinh123
+ | 1
+ | 1
+|-
+ | 12
+ | 111596
+ | 92110133003
+ | pratham
+ | bhaveshbhai
+ | buddhadev
+ | 7894561230
+ | 2022-04-25
+ | male
+ | 4
+ | B.Tech
+ | ICT
+ | prtham.buddhadev111596@marwadiuniversity.ac.in
+ | Pratham@123
+ | 0
+ | 1
+|}
+
+
+<!--
+Table data for `mentor_details`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''mentor_details'''
+|-
+ ! mentor_id
+ ! first_name
+ ! middle_name
+ ! last_name
+ ! mobile_no
+ ! dob
+ ! gender
+ ! department
+ ! stream
+ ! qualification
+ ! email_id
+ ! password
+ ! status
+|-
+ | 1
+ | ASD
+ | ZXC
+ | QWE
+ | 9824777575
+ | 0000-00-00
+ | male
+ | ICT
+ | BTECH
+ | PHD
+ | asd@marwadieducation.edu.in
+ | ASDqwe123
+ | 1
+|}
+
+
+<!--
+Table data for `parent_details`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''parent_details'''
+|-
+ ! parent_id
+ ! first_name
+ ! middle_name
+ ! last_name
+ ! mobile_no
+ ! dob
+ ! gender
+ ! occupation
+ ! email_id
+ ! password
+ ! status
+|-
+ | 1
+ | 
+ | 
+ | 
+ | 9624010494
+ | 0000-00-00
+ | 
+ | 
+ | 
+ | 
+ | 1
+|-
+ | 2
+ | Devang
+ | abc
+ | qwe
+ | 7539518426
+ | 2022-03-01
+ | male
+ | Business Man
+ | abs@gmail.com
+ | Devang123
+ | 1
+|}
+
+
+<!--
+Table data for `relation`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''relation'''
+|-
+ ! mentee_id
+ ! mentor_id
+ ! parent_id
+|-
+ | 1
+ | 0
+ | 0
+|-
+ | 12
+ | 0
+ | 0
+|}
+
+
+<!--
+Table data for `temp`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''temp'''
+|-
+ ! uname
+ ! uphone
+ ! umail
+|}
+
+
+<!--
+Table data for `to_do`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''to_do'''
+|-
+ ! mentor_id
+ ! mentee_id
+ ! task
+ ! date
+|}
+

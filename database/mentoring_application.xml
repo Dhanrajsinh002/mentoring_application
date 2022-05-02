@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Host: 127.0.0.1
-- Generation Time: Apr 05, 2022 at 05:42 AM
+- Generation Time: Apr 29, 2022 at 08:25 AM
 - Server version: 10.4.22-MariaDB
 - PHP Version: 8.1.2
 -->
@@ -20,7 +20,8 @@
                 CREATE TABLE `discussions` (
                   `group_id` int(3) NOT NULL,
                   `discussion` varchar(5000) NOT NULL,
-                  `sender_name` varchar(20) NOT NULL
+                  `sender_name` varchar(20) NOT NULL,
+                  `date_time` datetime DEFAULT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             </pma:table>
             <pma:table name="group_details">
@@ -28,7 +29,7 @@
                   `group_id` int(3) NOT NULL AUTO_INCREMENT,
                   `group_name` varchar(50) NOT NULL,
                   PRIMARY KEY (`group_id`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
             </pma:table>
             <pma:table name="group_member">
                 CREATE TABLE `group_member` (
@@ -56,7 +57,7 @@
                   `in_group` tinyint(1) NOT NULL,
                   `status` tinyint(1) NOT NULL,
                   PRIMARY KEY (`mentee_id`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
             </pma:table>
             <pma:table name="mentor_details">
                 CREATE TABLE `mentor_details` (
@@ -90,11 +91,11 @@
                   `password` varchar(15) NOT NULL,
                   `status` tinyint(1) NOT NULL,
                   PRIMARY KEY (`parent_id`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
             </pma:table>
             <pma:table name="relation">
                 CREATE TABLE `relation` (
-                  `mentee_id` int(3) NOT NULL AUTO_INCREMENT,
+                  `mentee_id` int(3) NOT NULL,
                   `mentor_id` int(3) NOT NULL,
                   `parent_id` int(3) NOT NULL,
                   PRIMARY KEY (`mentee_id`)
@@ -124,44 +125,46 @@
     <database name="mentoring_application">
         <!-- Table discussions -->
         <table name="discussions">
-            <column name="group_id">1</column>
+            <column name="group_id">4</column>
             <column name="discussion">asd</column>
             <column name="sender_name">ASD</column>
-        </table>
-        <table name="discussions">
-            <column name="group_id">2</column>
-            <column name="discussion">Hello Pratham. This is ASD</column>
-            <column name="sender_name">ASD</column>
-        </table>
-        <table name="discussions">
-            <column name="group_id">1</column>
-            <column name="discussion">Hello Dhanrajsinh</column>
-            <column name="sender_name">ASD</column>
-        </table>
-        <table name="discussions">
-            <column name="group_id">1</column>
-            <column name="discussion">Hello Belvin</column>
-            <column name="sender_name">ASD</column>
+            <column name="date_time">2022-04-09 14:35:05</column>
         </table>
         <table name="discussions">
             <column name="group_id">4</column>
-            <column name="discussion">Hello Kaushal</column>
-            <column name="sender_name">ASD</column>
+            <column name="discussion">HELLO DEVANG</column>
+            <column name="sender_name">dhanrajsinh</column>
+            <column name="date_time">2022-04-11 09:45:58</column>
+        </table>
+        <table name="discussions">
+            <column name="group_id">4</column>
+            <column name="discussion">hello world</column>
+            <column name="sender_name">dhanrajsinh</column>
+            <column name="date_time">2022-04-11 10:22:00</column>
+        </table>
+        <table name="discussions">
+            <column name="group_id">4</column>
+            <column name="discussion">how are you?</column>
+            <column name="sender_name">dhanrajsinh</column>
+            <column name="date_time">2022-04-11 10:22:11</column>
+        </table>
+        <table name="discussions">
+            <column name="group_id">4</column>
+            <column name="discussion">HELLO PRATHAM`</column>
+            <column name="sender_name">user</column>
+            <column name="date_time">2022-04-11 11:20:56</column>
         </table>
         <table name="discussions">
             <column name="group_id">4</column>
             <column name="discussion">QWERTYUIOP</column>
             <column name="sender_name">ASD</column>
+            <column name="date_time">2022-04-11 15:03:43</column>
         </table>
         <table name="discussions">
-            <column name="group_id">5</column>
-            <column name="discussion">ASDFGHJKL</column>
-            <column name="sender_name">pratham</column>
-        </table>
-        <table name="discussions">
-            <column name="group_id">5</column>
-            <column name="discussion">Hello Pratham</column>
+            <column name="group_id">4</column>
+            <column name="discussion">hellooo bsdkkkkkkk</column>
             <column name="sender_name">ASD</column>
+            <column name="date_time">2022-04-20 15:09:19</column>
         </table>
         <!-- Table group_details -->
         <table name="group_details">
@@ -171,6 +174,10 @@
         <table name="group_details">
             <column name="group_id">5</column>
             <column name="group_name">ertyghujiko</column>
+        </table>
+        <table name="group_details">
+            <column name="group_id">7</column>
+            <column name="group_name">bsdk</column>
         </table>
         <!-- Table group_member -->
         <table name="group_member">
@@ -193,6 +200,16 @@
             <column name="mentor_id">1</column>
             <column name="mentee_id">8</column>
         </table>
+        <table name="group_member">
+            <column name="group_id">4</column>
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">10</column>
+        </table>
+        <table name="group_member">
+            <column name="group_id">4</column>
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">6</column>
+        </table>
         <!-- Table mentee_details -->
         <table name="mentee_details">
             <column name="mentee_id">1</column>
@@ -213,161 +230,35 @@
             <column name="status">1</column>
         </table>
         <table name="mentee_details">
-            <column name="mentee_id">2</column>
-            <column name="gr_no">111610</column>
-            <column name="enrollment_no">92110133002</column>
-            <column name="first_name">Devang</column>
-            <column name="middle_name">abc</column>
-            <column name="last_name">qwe</column>
-            <column name="mobile_no">7539518426</column>
-            <column name="dob">2022-03-01</column>
-            <column name="gender">female</column>
-            <column name="semester">5</column>
-            <column name="stream">B.Tech</column>
-            <column name="department">ICT</column>
-            <column name="email_id">abs@gmail.com</column>
-            <column name="password">asdZXC123</column>
-            <column name="in_group">1</column>
-            <column name="status">1</column>
-        </table>
-        <table name="mentee_details">
-            <column name="mentee_id">3</column>
-            <column name="gr_no">111611</column>
+            <column name="mentee_id">12</column>
+            <column name="gr_no">111596</column>
             <column name="enrollment_no">92110133003</column>
-            <column name="first_name">zxc</column>
-            <column name="middle_name">abc</column>
-            <column name="last_name">qwe</column>
-            <column name="mobile_no">7539518421</column>
-            <column name="dob">2022-03-01</column>
-            <column name="gender">male</column>
-            <column name="semester">5</column>
-            <column name="stream">B.Tech</column>
-            <column name="department">ICT</column>
-            <column name="email_id">asd@gmail.com</column>
-            <column name="password">asdZXC123</column>
-            <column name="in_group">0</column>
-            <column name="status">1</column>
-        </table>
-        <table name="mentee_details">
-            <column name="mentee_id">4</column>
-            <column name="gr_no">111612</column>
-            <column name="enrollment_no">92110133004</column>
-            <column name="first_name">vbn</column>
-            <column name="middle_name">abc</column>
-            <column name="last_name">qwe</column>
-            <column name="mobile_no">7539518422</column>
-            <column name="dob">2022-03-01</column>
-            <column name="gender">male</column>
-            <column name="semester">5</column>
-            <column name="stream">B.Tech</column>
-            <column name="department">ICT</column>
-            <column name="email_id">zxc@gmail.com</column>
-            <column name="password">asdZXC123</column>
-            <column name="in_group">0</column>
-            <column name="status">1</column>
-        </table>
-        <table name="mentee_details">
-            <column name="mentee_id">5</column>
-            <column name="gr_no">111613</column>
-            <column name="enrollment_no">92110133005</column>
-            <column name="first_name">bnm</column>
-            <column name="middle_name">abc</column>
-            <column name="last_name">qwe</column>
-            <column name="mobile_no">7539518423</column>
-            <column name="dob">2022-03-01</column>
-            <column name="gender">male</column>
-            <column name="semester">5</column>
-            <column name="stream">B.Tech</column>
-            <column name="department">ICT</column>
-            <column name="email_id">bnm@gmail.com</column>
-            <column name="password">asdZXC123</column>
-            <column name="in_group">0</column>
-            <column name="status">1</column>
-        </table>
-        <table name="mentee_details">
-            <column name="mentee_id">6</column>
-            <column name="gr_no">111614</column>
-            <column name="enrollment_no">92110133006</column>
-            <column name="first_name">res</column>
-            <column name="middle_name">top</column>
-            <column name="last_name">bottom</column>
-            <column name="mobile_no">9874563215</column>
-            <column name="dob">2022-03-15</column>
-            <column name="gender">female</column>
-            <column name="semester">3</column>
-            <column name="stream">Diploma</column>
-            <column name="department">CE</column>
-            <column name="email_id">top@gmail.com</column>
-            <column name="password">TOPbot123</column>
-            <column name="in_group">0</column>
-            <column name="status">1</column>
-        </table>
-        <table name="mentee_details">
-            <column name="mentee_id">7</column>
-            <column name="gr_no">111615</column>
-            <column name="enrollment_no">92110133007</column>
-            <column name="first_name">sel</column>
-            <column name="middle_name">top</column>
-            <column name="last_name">bottom</column>
-            <column name="mobile_no">9874563216</column>
-            <column name="dob">2002-12-10</column>
-            <column name="gender">female</column>
-            <column name="semester">3</column>
-            <column name="stream">Diploma</column>
-            <column name="department">IT</column>
-            <column name="email_id">sel@gmail.com</column>
-            <column name="password">SELres123</column>
-            <column name="in_group">0</column>
-            <column name="status">0</column>
-        </table>
-        <table name="mentee_details">
-            <column name="mentee_id">8</column>
-            <column name="gr_no">0</column>
-            <column name="enrollment_no">0</column>
             <column name="first_name">pratham</column>
-            <column name="middle_name"></column>
-            <column name="last_name"></column>
-            <column name="mobile_no">7990974178</column>
-            <column name="dob">2022-04-01</column>
+            <column name="middle_name">bhaveshbhai</column>
+            <column name="last_name">buddhadev</column>
+            <column name="mobile_no">7894561230</column>
+            <column name="dob">2022-04-25</column>
             <column name="gender">male</column>
-            <column name="semester">0</column>
-            <column name="stream"></column>
-            <column name="department"></column>
-            <column name="email_id">pratham.buddhadev111596@marwadiuniversity.ac.in</column>
-            <column name="password">Optimus@619</column>
-            <column name="in_group">1</column>
-            <column name="status">1</column>
-        </table>
-        <table name="mentee_details">
-            <column name="mentee_id">9</column>
-            <column name="gr_no">0</column>
-            <column name="enrollment_no">0</column>
-            <column name="first_name">kaushal</column>
-            <column name="middle_name"></column>
-            <column name="last_name"></column>
-            <column name="mobile_no">4567891230</column>
-            <column name="dob">2022-04-08</column>
-            <column name="gender">male</column>
-            <column name="semester">0</column>
-            <column name="stream"></column>
-            <column name="department"></column>
-            <column name="email_id">kaushal.faldu109119@marwadiuniversity.ac.in</column>
-            <column name="password">Kaushal123</column>
-            <column name="in_group">1</column>
+            <column name="semester">4</column>
+            <column name="stream">B.Tech</column>
+            <column name="department">ICT</column>
+            <column name="email_id">prtham.buddhadev111596@marwadiuniversity.ac.in</column>
+            <column name="password">Pratham@123</column>
+            <column name="in_group">0</column>
             <column name="status">1</column>
         </table>
         <!-- Table mentor_details -->
         <table name="mentor_details">
             <column name="mentor_id">1</column>
             <column name="first_name">ASD</column>
-            <column name="middle_name"></column>
-            <column name="last_name"></column>
+            <column name="middle_name">ZXC</column>
+            <column name="last_name">QWE</column>
             <column name="mobile_no">9824777575</column>
             <column name="dob">0000-00-00</column>
-            <column name="gender"></column>
-            <column name="department"></column>
-            <column name="stream"></column>
-            <column name="qualification"></column>
+            <column name="gender">male</column>
+            <column name="department">ICT</column>
+            <column name="stream">BTECH</column>
+            <column name="qualification">PHD</column>
             <column name="email_id">asd@marwadieducation.edu.in</column>
             <column name="password">ASDqwe123</column>
             <column name="status">1</column>
@@ -400,6 +291,16 @@
             <column name="status">1</column>
         </table>
         <!-- Table relation -->
+        <table name="relation">
+            <column name="mentee_id">1</column>
+            <column name="mentor_id">0</column>
+            <column name="parent_id">0</column>
+        </table>
+        <table name="relation">
+            <column name="mentee_id">12</column>
+            <column name="mentor_id">0</column>
+            <column name="parent_id">0</column>
+        </table>
         <!-- Table temp -->
         <!-- Table to_do -->
     </database>

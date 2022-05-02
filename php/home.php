@@ -2,6 +2,7 @@
 session_start();
 // $_SESSION["upd_arr"];
 $arr = array();
+$connarr = array();
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,6 @@ $arr = array();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="../css/home.css">
         <script>$(document).ready(function(){});</script>
-        
     </head>
     <body>
         <table border="1" width="100%">
@@ -110,13 +110,13 @@ $arr = array();
                     <script>
                         $("#menu").html(`
                             <table width="100%">
-                                <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communicate With Mentees</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communicate With Mentees</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
                                 </tr>
                             </table>
                         `);
@@ -138,15 +138,67 @@ $arr = array();
                     ?>
                     <script>
                         $("#menu").html(`
-                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                        <li onmouseover="this.style.background-color='aquamarine'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                        </ul>`);
+                        <table width="100%">
+                                <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                </tr>
+                            </table>
+                        `);
+                    </script>
+                    <script>
+
                     </script>
                     <?php
+                    $sel = "SELECT mentee_id FROM relation WHERE mentee_id = $uid AND parent_id = 0";
+                    if($exe = $conn->query($sel)) {
+                        while($row = $exe->fetch_assoc()) {
+                            ?>
+                            <script>
+
+                                function connectParent() {
+                                    var pnm = document.getElementById("pname").value;
+                                    var pno = document.getElementById("pphone").value;
+
+                                    // alert(pnm+"\n"+pno);
+                                    $.ajax({
+                                        method: "post",
+                                        url: "./functions.php",
+                                        data: {pname: pnm, pphone: pno}
+                                    }).done(function (response) {console.log(response)})
+                                }
+
+                                $("#body").append(`<form>
+                                                        <table width="100%" style="text-align:center">
+                                                            <tr>
+                                                                <td>
+                                                                    <h3>Enter Details to Connect Your Parents</h3>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input style="text-align:center; width: 50%;" type="text" name="pname" id="pname" placeholder="Parent Name" pattern="[a-z]{1,15}" title="Only lower characters are allowed." required>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input style="text-align:center; width: 50%;" type="text" name="phone" id="pphone" placeholder="Mobile No" pattern="[0-9]{10}" title="only 10 numerical value allowed." required>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="submit" value="Connect Parent" onclick="connectParent()" id="">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </form>`);
+                            </script>
+                            <?php
+                        }
+                    }
                 }
 
                 if($_SESSION['role'] == 'parent_details') 
@@ -155,11 +207,11 @@ $arr = array();
                     <script>
                         $("#menu").html(`
                         <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                        <li onmouseover="this.style.background-color='aquamarine'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Mentor</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
+                        <li style="float: left;"><div onmouseover="this.style.background-color='aquamarine'"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a><div></li>
+                        <li style="float: left;"><div onmouseover="this.style.background-color='aquamarine'"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></div></li>
+                        <li style="float: left;"><div onmouseover="this.style.background-color='aquamarine'"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></div></li>
+                        <li style="float: left;"><div onmouseover="this.style.background-color='aquamarine'"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Mentor</a></div></li>
+                        <li style="float: left;"><div onmouseover="this.style.background-color='aquamarine'"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></div></li>
                         </ul>`);
                     </script>
                     <?php
@@ -187,6 +239,10 @@ $arr = array();
                             // $("#getdetail").css("display","block");
                             // var form = document.getElementById("body");
                             var form = document.createElement("form");
+                            form.style = "text-align: center; width: 100%;"
+                            var h3 = document.createElement("h3");
+                            h3.textContent = "Complete Your Profile";
+                            form.appendChild(h3);
                             // document.getElementById("getdetail").style.display = "block";
                             // $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
                         </script>
@@ -206,7 +262,7 @@ $arr = array();
                                         el.type = "text";
                                         el.placeholder = "<?php echo $data; ?>";
                                         el.id = "<?php echo $data; ?>";
-                                        el.style = "text-align: center; width: 80%; height: 30%; margin: 5px";
+                                        el.style = "text-align: center; width: 50%; height: 30%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
                                         el.setAttribute("required","");
                                         // el.required = true;
@@ -227,7 +283,7 @@ $arr = array();
                                         el.type = "text";
                                         el.placeholder = "<?php echo $data; ?>";
                                         el.id = "<?php echo $data; ?>";
-                                        el.style = "text-align: center; width: 80%; margin: 5px";
+                                        el.style = "text-align: center; width: 50%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
                                         el.setAttribute("disabled","disabled");
                                         // el.setAttribute("required","required");
@@ -263,7 +319,7 @@ $arr = array();
                                         url: "./functions.php",
                                         data: {upd_arr: arr}
                                     }).done(function (response) {
-                                        location.reload();
+                                        window.location.reload(true);
                                         console.log(response)
                                     })
                                     // console.log("NJKBUIBWV");
@@ -273,7 +329,7 @@ $arr = array();
                             <script>
                                 var el = document.createElement("input");
                                 el.type = "submit";
-                                el.style = "text-align: center; width: 80%; margin: 5px";
+                                el.style = "text-align: center; width: 50%; margin: 5px";
                                 el.value = "Update Info";
                                 // el.onclick = "updateValue()";
                                 el.setAttribute("onclick","updateValue()");

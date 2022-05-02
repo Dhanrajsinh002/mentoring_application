@@ -6,7 +6,7 @@ body {
 #header {
     background-color: aquamarine;
     text-align: center;
-    display: flex;
+    border-radius: 15px;
 }
 
 #header > div {
@@ -18,7 +18,7 @@ body {
 
 #header > #h1 > img {
     height: 50px;
-    width: 100px;
+    width: 10px;
 }
 
 button {
@@ -68,43 +68,3 @@ button {
 input[type=text] {
     width: max-content;
 }
-
-#chat {
-    position: absolute;
-    top: 35%;
-    left: 25%;
-    margin-top: -200px;
-    margin-left: -200px;
-    height: 600px;
-    width: 1100px;
-    border-radius: 15px;
-    display: none;
-    background-color: whitesmoke;
-}
-
-#chat div {
-    overflow: auto;
-}
-
-/* input {
-    text-align: center;
-    margin-top: 5%;
-    width: 90%;
-    font-size: 20px;
-    background-color: transparent;
-    border: 1px solid black;
-    border-radius: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    cursor: pointer;
-}
-
-input[type="submit"] {
-    height: fit-content;
-    width: fit-content;
-    font-size: 20px;
-    background-color: transparent;
-    border: 1px solid black;
-    border-radius: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    cursor: pointer;
-} */

@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&family=Varela+Round&display=swap');
+body {
+    font-family: 'Varela Round', sans-serif;
+}
+
+#header {
+    background-color: aquamarine;
+    text-align: center;
+    border-radius: 15px;
+}
+
+#header > div {
+    width: 100%;
+    margin: 10px;
+    padding: 20px;
+    font-size: 20px;
+}
+
+#header > #h1 > img {
+    height: 50px;
+    width: 10px;
+}
+
 #mentor_part {
     position: absolute;
     top: 35%;
@@ -9,4 +32,43 @@
     border-radius: 15px;
     display: none;
     background-color: chartreuse;
+}
+
+button {
+    height: fit-content;
+    width: fit-content;
+    font-size: 20px;
+    background-color: transparent;
+    border: 1px solid black;
+    font-family: 'Varela Round', sans-serif;
+    border-radius: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
+}
+
+#getdetail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -200px;
+    height: fit-content;
+    width: 400px;
+    border-radius: 15px;
+    background-color: white;
+    display: none;
+    font-family: 'Varela Round', sans-serif;
+    /* border-color: black; */
+}
+
+#detailtable {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Varela Round', sans-serif;
+}
+
+input[type=text] {
+    width: max-content;
 }

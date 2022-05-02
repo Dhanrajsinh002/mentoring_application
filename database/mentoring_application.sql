@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2022 at 05:43 AM
+-- Generation Time: Apr 29, 2022 at 08:25 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -30,22 +30,22 @@ SET time_zone = "+00:00";
 CREATE TABLE `discussions` (
   `group_id` int(3) NOT NULL,
   `discussion` varchar(5000) NOT NULL,
-  `sender_name` varchar(20) NOT NULL
+  `sender_name` varchar(20) NOT NULL,
+  `date_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `discussions`
 --
 
-INSERT INTO `discussions` (`group_id`, `discussion`, `sender_name`) VALUES
-(1, 'asd', 'ASD'),
-(2, 'Hello Pratham. This is ASD', 'ASD'),
-(1, 'Hello Dhanrajsinh', 'ASD'),
-(1, 'Hello Belvin', 'ASD'),
-(4, 'Hello Kaushal', 'ASD'),
-(4, 'QWERTYUIOP', 'ASD'),
-(5, 'ASDFGHJKL', 'pratham'),
-(5, 'Hello Pratham', 'ASD');
+INSERT INTO `discussions` (`group_id`, `discussion`, `sender_name`, `date_time`) VALUES
+(4, 'asd', 'ASD', '2022-04-09 14:35:05'),
+(4, 'HELLO DEVANG', 'dhanrajsinh', '2022-04-11 09:45:58'),
+(4, 'hello world', 'dhanrajsinh', '2022-04-11 10:22:00'),
+(4, 'how are you?', 'dhanrajsinh', '2022-04-11 10:22:11'),
+(4, 'HELLO PRATHAM`', 'user', '2022-04-11 11:20:56'),
+(4, 'QWERTYUIOP', 'ASD', '2022-04-11 15:03:43'),
+(4, 'hellooo bsdkkkkkkk', 'ASD', '2022-04-20 15:09:19');
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,8 @@ CREATE TABLE `group_details` (
 
 INSERT INTO `group_details` (`group_id`, `group_name`) VALUES
 (4, 'group'),
-(5, 'ertyghujiko');
+(5, 'ertyghujiko'),
+(7, 'bsdk');
 
 -- --------------------------------------------------------
 
@@ -86,7 +87,9 @@ INSERT INTO `group_member` (`group_id`, `mentor_id`, `mentee_id`) VALUES
 (4, 1, 1),
 (4, 1, 2),
 (4, 1, 9),
-(5, 1, 8);
+(5, 1, 8),
+(4, 1, 10),
+(4, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -119,14 +122,7 @@ CREATE TABLE `mentee_details` (
 
 INSERT INTO `mentee_details` (`mentee_id`, `gr_no`, `enrollment_no`, `first_name`, `middle_name`, `last_name`, `mobile_no`, `dob`, `gender`, `semester`, `stream`, `department`, `email_id`, `password`, `in_group`, `status`) VALUES
 (1, 111609, 92110133001, 'dhanrajsinh', 'jyotindrasinh', 'parmar', 7433035109, '2002-08-19', 'male', 4, 'B.Tech', 'ICT', 'dhanrajsinh.parmar111609@marwadiuniversity.ac.in', 'Dhanrajsinh123', 1, 1),
-(2, 111610, 92110133002, 'Devang', 'abc', 'qwe', 7539518426, '2022-03-01', 'female', 5, 'B.Tech', 'ICT', 'abs@gmail.com', 'asdZXC123', 1, 1),
-(3, 111611, 92110133003, 'zxc', 'abc', 'qwe', 7539518421, '2022-03-01', 'male', 5, 'B.Tech', 'ICT', 'asd@gmail.com', 'asdZXC123', 0, 1),
-(4, 111612, 92110133004, 'vbn', 'abc', 'qwe', 7539518422, '2022-03-01', 'male', 5, 'B.Tech', 'ICT', 'zxc@gmail.com', 'asdZXC123', 0, 1),
-(5, 111613, 92110133005, 'bnm', 'abc', 'qwe', 7539518423, '2022-03-01', 'male', 5, 'B.Tech', 'ICT', 'bnm@gmail.com', 'asdZXC123', 0, 1),
-(6, 111614, 92110133006, 'res', 'top', 'bottom', 9874563215, '2022-03-15', 'female', 3, 'Diploma', 'CE', 'top@gmail.com', 'TOPbot123', 0, 1),
-(7, 111615, 92110133007, 'sel', 'top', 'bottom', 9874563216, '2002-12-10', 'female', 3, 'Diploma', 'IT', 'sel@gmail.com', 'SELres123', 0, 0),
-(8, 0, 0, 'pratham', '', '', 7990974178, '2022-04-01', 'male', 0, '', '', 'pratham.buddhadev111596@marwadiuniversity.ac.in', 'Optimus@619', 1, 1),
-(9, 0, 0, 'kaushal', '', '', 4567891230, '2022-04-08', 'male', 0, '', '', 'kaushal.faldu109119@marwadiuniversity.ac.in', 'Kaushal123', 1, 1);
+(12, 111596, 92110133003, 'pratham', 'bhaveshbhai', 'buddhadev', 7894561230, '2022-04-25', 'male', 4, 'B.Tech', 'ICT', 'prtham.buddhadev111596@marwadiuniversity.ac.in', 'Pratham@123', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -155,7 +151,7 @@ CREATE TABLE `mentor_details` (
 --
 
 INSERT INTO `mentor_details` (`mentor_id`, `first_name`, `middle_name`, `last_name`, `mobile_no`, `dob`, `gender`, `department`, `stream`, `qualification`, `email_id`, `password`, `status`) VALUES
-(1, 'ASD', '', '', 9824777575, '0000-00-00', '', '', '', '', 'asd@marwadieducation.edu.in', 'ASDqwe123', 1);
+(1, 'ASD', 'ZXC', 'QWE', 9824777575, '0000-00-00', 'male', 'ICT', 'BTECH', 'PHD', 'asd@marwadieducation.edu.in', 'ASDqwe123', 1);
 
 -- --------------------------------------------------------
 
@@ -196,6 +192,14 @@ CREATE TABLE `relation` (
   `mentor_id` int(3) NOT NULL,
   `parent_id` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `relation`
+--
+
+INSERT INTO `relation` (`mentee_id`, `mentor_id`, `parent_id`) VALUES
+(1, 0, 0),
+(12, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -264,13 +268,13 @@ ALTER TABLE `relation`
 -- AUTO_INCREMENT for table `group_details`
 --
 ALTER TABLE `group_details`
-  MODIFY `group_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `group_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `mentee_details`
 --
 ALTER TABLE `mentee_details`
-  MODIFY `mentee_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `mentee_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `mentor_details`
@@ -282,13 +286,7 @@ ALTER TABLE `mentor_details`
 -- AUTO_INCREMENT for table `parent_details`
 --
 ALTER TABLE `parent_details`
-  MODIFY `parent_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `relation`
---
-ALTER TABLE `relation`
-  MODIFY `mentee_id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `parent_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

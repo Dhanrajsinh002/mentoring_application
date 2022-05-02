@@ -4,6 +4,8 @@ session_start();
 ?>
 <html>
     <head>
+        <link rel="stylesheet" href="../css/discussion.css">
+        <!-- <link rel="stylesheet" href="../css/home.css"> -->
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>$(document).ready(function(){});</script>
@@ -114,33 +116,55 @@ session_start();
 
             // alert(gid+"\n"+msg);
         </script>
-        <!-- <link rel="stylesheet" href="../css/home.css"> -->
-        <link rel="stylesheet" href="../css/discussion.css">
-
     </head>
     <body>
-        <div id="header">
-            <div id="h1">
-                <img src="../images/image-removebg-preview.png" alt="#LOGO">
-            </div>
-            <div id="h2">Discussion</div>    
-            <div id="h3">
-                <table id="ht">
-                    <!-- <tr>
-                        <td>
-                            <button onclick="window.location.href = './signin.html'">Sign IN</button>
-                        </td>
-                        <td>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td>
-                            <button onclick="window.location.href = './signup.html'">Sign UP</button>
-                        </td>
-                    </tr> -->
-                </table>
-            </div>    
-        </div>
-        <div id="menu"></div>
+        <table border="1" width="100%">
+            <tr>
+                <td>
+                    <div id="header">
+                        <table border="1" width="100%" style="text-align: center;">
+                            <tr>
+                                <td width="22%">
+                                    <div id="h1">
+                                        <img style="width: 200px;" src="../images/image-removebg-preview.png" alt="#LOGO">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div id="h2"><h1>Discussion</h1></div>
+                                </td>
+
+                                <td width="30%">
+                                    <div id="h3">
+                                        <table id="ht" border="1" width="100%">
+                                            <!-- <tr>
+                                                <td>
+                                                    <button onclick="window.location.href = './signin.html'">Sign IN</button>
+                                                </td>
+                                                <td>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </td>
+                                                <td>
+                                                    <button onclick="window.location.href = './signup.html'">Sign UP</button>
+                                                </td>
+                                            </tr> -->
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div style="background-color: #333" id="menu"></div>
+                </td>
+            </tr>
+        </table>
+        
+        
         <?php
         if(isset($_SESSION["role"])) {
             ?>
@@ -164,7 +188,7 @@ session_start();
                 while($row = $exe->fetch_assoc()) {
                     ?>
                     <script>
-                        $('#ht').html(`<tr> <td><p><?php echo $row["first_name"] ?></p></td> <td><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
+                        $('#ht').html(`<tr> <td><p><?php echo ucwords($id[0])."&nbsp;".$row["first_name"] ?></p></td> <td align="right"><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
                         // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <?php
@@ -227,7 +251,7 @@ session_start();
                                                         <table style="text-align: center">
                                                             <tr>
                                                                 <td>
-                                                                    <table id="mdfygrp1" >
+                                                                    <table id="mdfygrp1" style="border: 1px solid black; border-radius: 10px;">
                                                                     </table>
                                                                 </td>
                                                             </tr>
@@ -265,15 +289,40 @@ session_start();
 
                     <script>
                         $("#menu").html(`
-                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication With Mentees</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                        </ul>`);
+                            <table width="100%">
+                                <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communicate With Mentees</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                </tr>
+                            </table>
+                        `);
                     </script>
+
+                    <script>
+                        function createGroup() {
+                            var grp = document.getElementById("gname").value;
+                            // alert(grp);
+                            $.ajax({
+                                method: "post",
+                                url: "./functions.php",
+                                data: {grp_nm: grp}
+                            })
+                            .done(function (response) {
+                                // if(confirm(response) == true) {
+                                //     window.location.reload(true);
+                                // } else {
+                                //     window.location.reload(true);
+                                // }
+                                alert(response)
+                                window.location.reload(true);
+                            })
+                        }
+                    </script>
+                    
                     <script>
                         /* $("#mentee").hide();
                         $("#mentor").show(); */
@@ -281,16 +330,16 @@ session_start();
                                         '<table>'+
                                         '<tr>'+
                                         '<td>'+
-                                        '<form action = "./crtmnteegrp.php" method = "post">'+
-                                        // '<form>'+
+                                        // '<form action = "./crtmnteegrp.php" method = "post">'+
+                                        '<form>'+
                                         '<table>'+
                                         '<tr>'+
                                         '    <td>'+
-                                        '        <input type="text" name="gname" id="gname" placeholder="Enter Group Name" pattern="[a-z]{1,15}" title="Only lower characters are allowed." required>'+
+                                        `        <input type="text" name="gname" id="gname" placeholder="Enter Group Name" pattern="[a-zA-Z0-9\s]+" title="No White Space allowed." required>`+
                                         '    </td>'+
                                         '    <td>'+
-                                        // '        <input type="submit" onclick="createGroup(document.getElementById("gname").value)" value="Create Group">'+
-                                        '        <input type="submit" value="Create Group">'+
+                                        '        <input type="submit" onclick="createGroup()" value="Create Group">'+
+                                        // '        <input type="submit" value="Create Group">'+
                                         '    </td>'+
                                         '</tr>'+
                                         '</table>'+
@@ -303,7 +352,7 @@ session_start();
                     </script>
                     <!-- <button>Create Group</button> -->
                     <?php
-                    $selgrp = "SELECT group_name, group_id FROM group_details WHERE group_id IN (SELECT group_id FROM group_member WHERE mentor_id = $uid)";
+                    $selgrp = "SELECT group_name, group_id FROM group_details WHERE group_id IN (SELECT group_id FROM group_details WHERE mentor_id = $uid)";
                     $exeslgp = $conn->query($selgrp);
                     if($exeslgp->num_rows > 0) {
                         while($row = $exeslgp->fetch_assoc()) {
@@ -352,13 +401,15 @@ session_start();
 
                     <script>
                         $("#menu").html(`
-                        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                        <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                        <li style="float: left;"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='red'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
-                        <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                        </ul>`);
+                        <table width="100%">
+                                <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                </tr>
+                            </table>`);
                     </script>
                     <!-- <script>
                         $("#mentee").show();
