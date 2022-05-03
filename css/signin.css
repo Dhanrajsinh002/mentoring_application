@@ -39,10 +39,10 @@ input {
     margin-top: 5%;
     width: 90%;
     height: 50px;
-    font-size: 20px;
+    font-size: 16px;
     /* background-color: transparent; */
     border: none;
-    border-radius: 25px;
+    border-radius: 15px;
     font-family: 'Varela Round', sans-serif;
     /* cursor: pointer; */
     border-radius: 50px;
@@ -53,11 +53,7 @@ input {
 }
 
 input[type="submit"] {
-    /* padding: 1%; */
-    font-size: 20px;
-    /* background-color: red; */
-    /* border: 1px solid black; */
-    /* background: #4169e1; */
+    font-size: 16px;
     border-radius: 50px;
     background: #47a2ec;
     box-shadow:  5px 5px 10px #5a5a5a,
@@ -75,7 +71,3 @@ input[type="submit"]:active {
 a {
     text-decoration: none;
 }
-/* input[type="password"] {
-    text-align: center;
-    width: 80%;
-} */

@@ -13,7 +13,7 @@ body {
     width: 100%;
     margin: 10px;
     padding: 20px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 #header > #h1 > img {
@@ -24,13 +24,21 @@ body {
 button {
     height: fit-content;
     width: fit-content;
-    font-size: 20px;
-    background-color: transparent;
-    border: 1px solid black;
+    font-size: 16px;
+    background: #3f7f6a;
+    color: yellow;
+    -webkit-box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow:  14px 14px 28px #5a5a5a,
+             -14px -14px 28px #ffffff;
     font-family: 'Varela Round', sans-serif;
-    border-radius: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 15px;
+    border: none;
     cursor: pointer;
+}
+
+button:active {
+    transform: translateY(-2px);
+    box-shadow: 3px 2px 25px 1px rgba(0,0,0,0.25);
 }
 
 #getdetail {
@@ -90,21 +98,21 @@ input[type=text] {
     text-align: center;
     margin-top: 5%;
     width: 90%;
-    font-size: 20px;
+    font-size: 16px;
     background-color: transparent;
     border: 1px solid black;
-    border-radius: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 15px;
+    font-family: 'Varela Round', sans-serif;
     cursor: pointer;
 }
 
 input[type="submit"] {
     height: fit-content;
     width: fit-content;
-    font-size: 20px;
+    font-size: 16px;
     background-color: transparent;
     border: 1px solid black;
-    border-radius: 25px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 15px;
+    font-family: 'Varela Round', sans-serif;
     cursor: pointer;
 } */

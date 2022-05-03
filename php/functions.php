@@ -11,6 +11,7 @@ $today = date("Y-m-d H:i:s");
 $id = explode('_',$_SESSION["role"],2);
 $uid = $_SESSION["uid"];
 $role = $_SESSION["role"];
+$target_dir = "../uploaded_files";
 
 if(isset($_POST["cta"])) {
     $mtid = $_POST["mentee_id"];
@@ -120,23 +121,23 @@ if(isset($_POST["mdfygrp"])) {
 
 if(isset($_POST["rmmntid"])) {
     $id = $_POST["rmmntid"];
-    // echo "\nMNTID ".$_POST["mntid"];
     $rmv = "DELETE FROM group_member WHERE mentee_id = $id";
     $conn->query($rmv);
     $setzero = "UPDATE mentee_details SET in_group = 0 WHERE mentee_id = $id";
     $conn->query($setzero);
+    $updrel = "UPDATE relation SET mentor_id = 0 WHERE mentee_id = $id";
+    $conn->query($updrel);
 }
 
 if(isset($_POST["admntid"])) {
-    // echo $_POST["admntid"];
     $mtid = $_POST["admntid"];
     $gid = $_POST['grp_id'];
     $ins = "INSERT INTO group_member VALUES ($gid,$uid,$mtid)";
-    // echo $ins;
-    $exe = $conn->query($ins);
+    $conn->query($ins);
     $upd = "UPDATE mentee_details SET in_group = 1 WHERE mentee_id = $mtid";
-    // echo $upd;
-    $exe = $conn->query($upd);
+    $conn->query($upd);
+    $updrel = "UPDATE relation SET mentor_id = $uid WHERE mentee_id = $mtid";
+    $conn->query($updrel);
 }
 
 // MENTOR TO DO SELECT OLD CHATS
@@ -152,12 +153,20 @@ if(isset($_POST["post_mnt_id"])) {
                 FROM to_do";
     $exe = $conn->query($seltodo);
     if($exe->num_rows > 0) {
-        // if($role == "mentor_details") {
-            
-        // }
+        echo "<tr>
+                <td width='25%'>Date & Time</td>
+                <td>Mentee Name</td>
+                <td></td>
+                <td>To Do Tasks</td>
+            </tr>";
         while($row = $exe->fetch_assoc()) {
             // echo "TASK ".$row["task"]."<br>"."DATE ".$row["date"]."<br>"."MNT-NAME ".$row["Mentee_Name"]."<br>"."MNTR-NAME ".;
-            echo "<tr><td>(".$row['date'].")</td><td>".$row["Mentor_Name"]."</td><td>: - </td><td>".$row['task']."</td></tr>";
+            echo "<tr>
+                    <td><b>[</b>".$row['date']."<b>]</b></td>
+                    <td><b>".$row["Mentee_Name"]."</b></td>
+                    <td>: - </td>
+                    <td>".$row['task']."</td>
+                </tr>";
         }
     }
 
@@ -168,34 +177,53 @@ if(isset($_POST["post_mnt_id"])) {
 if(isset($_POST["post_td_msg"])) {
     $msg = $_POST["post_td_msg"];
     $mnt_id = $_POST["post_ment_id"];
-    $dt = date('Y-m-d');
-    $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$dt')";
-    $conn->query($instodo);
+    $_FILES["upld_file"]["name"] = $_POST["upld_file"];
+    $file = basename($_FILES["upld_file"]["name"]);
+    // $file = (string)rand(10,1000)."_".(string)date("d/m/Y")."_".basename($_FILES["upld_file"]["name"]);
+    $target_file = $target_dir.$file;
+    // exit(0);
+    if(move_uploaded_file($_FILES["upld_file"]["tmp_name"], $target_file)) {
+        $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file','$today')";
+        // echo $msg."\n".$mnt_id."\n".$instodo;
+        if ($conn->query($instodo)) {
+            ?>
+            <script>
+                alert("File Uploaded Successfully✅");
+            </script>
+            <?php
+        } else {
+            ?>
+            <script>
+                alert("File Upload Failed⚠️");
+            </script>
+            <?php
+        }
+    } else {
+        ?>
+            <script>
+                alert("File can not be move to desired location⚠️");
+            </script>
+        <?php
+    }
 }
 
+// first time update profile
+
 if(isset($_POST["upd_arr"])) {
-    // $split = $_SESSION["upd_arr"][0];
-    // $res = preg_match("/'([^']+)'/", $_SESSION["upd_arr"][0], $m);
-    // $updv = $m[1];
-    // // exit(0);
     $table = $_SESSION['role'];
     for($i = 0; $i < count($_POST["upd_arr"]); $i++) {
         $res = preg_match("/'([^']+)'/", $_SESSION["upd_arr"][$i], $m);
         $updv = $m[1];
-        // echo $updv."->".$_POST["upd_arr"][$i]."\n";
         $data = $_POST["upd_arr"][$i];
         $upd = "UPDATE $table SET $updv = '$data' WHERE ".$id[0]."_id = $uid";
-        // echo $upd."\n";
         $conn->query($upd);
     }
-    // echo $id[0]."_id = ".$uid;
 }
 
 if(isset($_POST["pname"])) {
     $pnm = $_POST["pname"];
     $pno = $_POST["pphone"];
 
-    // echo $pnm."\n".$pno;
     $sel = "SELECT parent_id FROM parent_details WHERE first_name = '$pnm' AND mobile_no = $pno";
     if($exe = $conn->query($sel)) {
         while($row = $exe->fetch_assoc()) {
@@ -223,5 +251,14 @@ if(isset($_POST["grp_nm"])) {
         $exeins = $conn->query($ins);
         echo "Group $gp_nm Created Successfully";
     }
+}
+
+// add communication message by mentor to mentee
+
+if(isset($_POST["post_comm_msg"])) {
+    $comm_msg = $_POST["post_comm_msg"];
+    $mentee_id = $_POST["post_ment_id"];
+    $inscomm = "INSERT INTO communication VALUES ($uid,$mentee_id,'$comm_msg','$today')";
+    $conn->query($inscomm);
 }
 ?>

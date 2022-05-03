@@ -11,28 +11,93 @@ session_start();
         <script>
             var mnt_id;
 
-            function assignTodo(mentee_id) {
-                mnt_id = mentee_id;
+            function assignTodo1() {
                 $.ajax({
                     method: "post",
                     url: "./functions.php",
-                    data: {post_mnt_id: mentee_id}
-                }).done(function (response) {$("#messages").append(responses)})
-                $("#mentor_part").css("display","block");
-                // $("#messages").append(responses);
+                    data: {post_mnt_id: mnt_id}
+                }).done(function (response) {
+                    $("#mentor_messages").append(response);
+                })
             }
 
-            function asgnTodoMnt(todo_message) {
-                $.ajax({
-                    method: "post",
-                    url: "./functions.php",
-                    data: {post_td_msg: todo_message,post_ment_id: mnt_id}
-                }).done(function (response) {console.log(response)})
-            }
+            // function asgnTodoMnt(todo_message,file) {
+            //     if(todo_message == "" || file == "") {
+            //         alert("Message is null or File is not selected");
+            //     } else {
+            //         var split_file = file.substr(12);
+            //         alert(todo_message+"\n"+split_file);
+            //         // exit(0);
+            //         $.ajax({
+            //             method: "post",
+            //             url: "./functions.php",
+            //             data: {post_td_msg: todo_message,upld_file: split_file,post_ment_id: mnt_id}
+            //         }).done(function (response) {console.log(response)})
+            //     }
+            // }
 
             function back() {
-                $("#mentor_part").css("display","none");
+                $("#to_do_msg").remove();
+                window.location.href = "./to_do.php";
             }
+
+            function assignTodo(mentee_id) {
+                mnt_id = mentee_id;
+                $("#to_do_msg").append(`
+                    <table width="100%" border="1" align="center">
+                        <tr>
+                            <td>
+                                <table id="mentor_messages" border="1" style="width: 100%; height: 10px; overflow: auto">
+                                    <!-- <tr>
+                                        <td>
+                                            for mentor_messages
+                                        </td>
+                                    </tr> -->
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="text-align: center">
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                <!-- <form height="max-content"> -->
+                                                <form action="./to_do.php" method="post">
+                                                    <table width="100%" style="vertical-align: center; text-align: center">
+                                                        <tr>
+                                                            <td>
+                                                                <input hidden type="text" name="mnt_id" value="${mnt_id}">
+                                                            </td>
+                                                            <td>
+                                                                <!-- for input field -->
+                                                                <!-- <input type="text" name="todo_message" id="todo_message" required> -->
+                                                                <textarea id="todo_message" name="todo_message" rows="4" cols="50" required></textarea>
+                                                            </td>
+                                                            <td>
+                                                                <input type="file" name="upldfile" id="upldfile" required>
+                                                            </td>
+                                                            <td>
+                                                                <!-- <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value,document.getElementById('upldfile').value)" value="Assign"> -->
+                                                                <input type="submit" value="Assign">
+                                                            </td>
+                                                            <td align="center">
+                                                                <button onclick="back()">Close</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                `);
+                assignTodo1();
+            }
+
         </script>
     </head>
     <body>
@@ -52,7 +117,7 @@ session_start();
                                     <div id="h2"><h1>To Do</h1></div>
                                 </td>
 
-                                <td width="30%">
+                                <td width="22%">
                                     <div id="h3">
                                         <table id="ht" border="1" width="100%">
                                             <!-- <tr>
@@ -100,79 +165,72 @@ session_start();
                 ?>
                 <script>
                     $("#dynamic-portion").html(`
-                    <div id="mentor_part">
-                    <table width="100%" border="1">
-                        <tr>
-                            <td>
-                                <div id="main">
-                                    <div id="list"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div>
-                                    <table id="messages" height="50%">
-                                        <!-- <tr>
-                                            <td>
-                                                for messages
-                                            </td>
-                                        </tr> -->
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div>
-                                    <table width="100%" border="1">
-                                        <tr>
-                                            <td>
-                                                <form action="">
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <!-- for input field -->
-                                                                <input type="text" name="todo_message" id="todo_message" required>
-                                                            </td>
-                                                            <td>
-                                                                <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value)" value="Post">
-                                                            </td>
-                                                            <td>
-                                                                <input type="file" name="" id="">
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <button onclick="back()">Back</button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>`);
+                        <table width="100%" border="1" style="text-align: center">
+                            <tr>
+                                <td>
+                                    <div id="main">
+                                        <div id="list"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="to_do_msg" style="text-align: center"></div>
+                                </td>
+                            </tr>
+                        </table>`
+                    );
                 </script>
 
                 <script>
                     $("#menu").html(`
                             <table width="100%">
                                 <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communicate With Mentees</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Parents</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communicate With Mentees</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./private_communicate.php">Communicate With Parents</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
                                 </tr>
                             </table>
                         `);
                 </script>
                 <?php
+
+                if(isset($_POST["todo_message"])) {
+                    $msg = $_POST["todo_message"];
+                    $mnt_id = $_POST["mnt_id"];
+                    $file_name = $_FILES["upldfile"]["name"];
+                    $file = $_FILES["upldfile"]["tmp_name"];
+                    // $file = basename($_FILES["upld_file"]["name"]);
+                    // $file = (string)rand(10,1000)."_".(string)date("d/m/Y")."_".basename($_FILES["upld_file"]["name"]);
+                    $target_file = "../uploaded_files/".$file_name;
+                    // exit(0);
+                    if(move_uploaded_file($file, $target_file)) {
+                        $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file','$today')";
+                        // echo $msg."\n".$mnt_id."\n".$instodo;
+                        if ($conn->query($instodo)) {
+                            ?>
+                            <script>
+                                alert("File Uploaded Successfully✅");
+                            </script>
+                            <?php
+                        } else {
+                            ?>
+                            <script>
+                                alert("File Upload Failed⚠️");
+                            </script>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                            <script>
+                                alert("File can not be move to desired location⚠️");
+                            </script>
+                        <?php
+                    }
+                }
             }
 
             if($_SESSION['role'] == 'mentee_details') {
@@ -181,11 +239,11 @@ session_start();
                     $("#menu").html(`
                     <table width="100%">
                                 <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></td>
-                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='aquamarine'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='aquamarine'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
                                 </tr>
                             </table>`);
                 </script>
@@ -246,13 +304,17 @@ session_start();
                 ?>
                 <script>
                     $("#menu").html(`
-                    <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
-                    <li onmouseover="this.style.background-color='red'" style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></li>
-                    <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></li>
-                    <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></li>
-                    <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communicate_with_mentor.php">Communicate With Mentor</a></li>
-                    <li style="float: left;"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></li>
-                    </ul>`);
+                        <table width="100%">
+                                <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./private_communicate.php">Communicate With Mentor</a></td>
+                                    <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
+                                </tr>
+                            </table>
+                        `);
                 </script>
                 <?php
             }
@@ -329,10 +391,6 @@ session_start();
                             <?php
                         }
                     }
-                }
-
-                if($_SESSION['role'] == 'mentee_details') {
-                    
                 }
 
             }      

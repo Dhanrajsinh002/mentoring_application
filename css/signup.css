@@ -39,10 +39,10 @@ input[type="text"] {
     margin-top: 5%;
     width: 90%;
     height: 40px;
-    font-size: 20px;
+    font-size: 16px;
     /* background-color: transparent; */
     border: none;
-    border-radius: 25px;
+    border-radius: 15px;
     outline: #47a2ec;
     font-family: 'Varela Round', sans-serif;
     /* cursor: pointer; */
@@ -57,11 +57,11 @@ input[type="password"] {
     margin-top: 5%;
     width: 90%;
     height: 40px;
-    font-size: 20px;
+    font-size: 16px;
     outline: #47a2ec;
     /* background-color: transparent; */
     border: none;
-    border-radius: 25px;
+    border-radius: 15px;
     font-family: 'Varela Round', sans-serif;
     /* cursor: pointer; */
     border-radius: 50px;
@@ -82,11 +82,11 @@ input[type="date"] {
     margin-top: 5%;
     width: 90%;
     height: 30px;
-    font-size: 20px;
+    font-size: 16px;
     outline: #47a2ec;
     /* background-color: transparent; */
     border: none;
-    border-radius: 25px;
+    border-radius: 15px;
     font-family: 'Varela Round', sans-serif;
     /* cursor: pointer; */
     border-radius: 50px;
@@ -99,7 +99,7 @@ input[type="submit"], input[type="reset"] {
     margin-top: 15%;
     width: 80%;
     height: max-content;
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 50px;
     border: none;
     background: #47a2ec;
