@@ -92,16 +92,6 @@ session_start();
                 }
             }
 
-            function rmvMnt(id) {
-                $.ajax({
-                    method: "post",
-                    url: "./functions.php",
-                    data : {rmmntid: id}
-                }).done(function (response) {
-                    $(`#${id}`).remove();
-                })
-            }
-
             function addMnt(id) {
                 $.ajax({
                     method: "post",
@@ -110,6 +100,16 @@ session_start();
                 })
                 .done(function (response) {
                     // alert(response);
+                    $(`#${id}`).remove();
+                })
+            }
+            
+            function rmvMnt(id) {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data : {rmmntid: id}
+                }).done(function (response) {
                     $(`#${id}`).remove();
                 })
             }

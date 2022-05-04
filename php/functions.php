@@ -13,14 +13,16 @@ $uid = $_SESSION["uid"];
 $role = $_SESSION["role"];
 $target_dir = "../uploaded_files";
 
-if(isset($_POST["cta"])) {
-    $mtid = $_POST["mentee_id"];
-    $gid = $_SESSION['gid'];
-    $ins = "INSERT INTO group_member VALUES ($gid,$uid,$mtid)";
-    $exe = $conn->query($ins);
-    $upd = "UPDATE mentee_details SET in_group = 1 WHERE mentee_id = $mtid";
-    $exe = $conn->query($upd);
-}
+// if(isset($_POST["cta"])) {
+//     $mtid = $_POST["mentee_id"];
+//     $gid = $_SESSION['gid'];
+//     $ins = "INSERT INTO group_member VALUES ($gid,$uid,$mtid)";
+//     $exe = $conn->query($ins);
+//     $upd = "UPDATE mentee_details SET in_group = 1 WHERE mentee_id = $mtid";
+//     $exe = $conn->query($upd);
+// }
+
+// displaying past discussion of mentor and mentee
 
 if(isset($_POST["group_id"])) {
     $gpid = $_POST["group_id"];
@@ -34,12 +36,14 @@ if(isset($_POST["group_id"])) {
     }
 }
 
-if(isset($_POST["gp_nm"])) {
-    $nm = $_POST["gp_nm"];
-    $ins = "INSERT INTO group_details (group_name) VALUES ('$nm')";
-    echo $ins;
-    // $conn->query($ins);
-}
+// if(isset($_POST["gp_nm"])) {
+//     $nm = $_POST["gp_nm"];
+//     $ins = "INSERT INTO group_details (group_name) VALUES ('$nm')";
+//     echo $ins;
+//     // $conn->query($ins);
+// }
+
+// send discussion chats by mentor
 
 if(isset($_POST["mntrmsg"])) {
     $gid = $_POST['mntr_gp_id'];
@@ -49,6 +53,8 @@ if(isset($_POST["mntrmsg"])) {
     $conn->query($insd);
 }
 
+// send discussion chats by mentee
+
 if(isset($_POST["mentee_msg"])) {
     $gid = $_SESSION['mnt_grp_id'];
     $mntmsg = $_POST['mentee_msg'];
@@ -56,6 +62,8 @@ if(isset($_POST["mentee_msg"])) {
     $insmenmsg = "INSERT INTO discussions VALUES ($gid,'$mntmsg','$unm',current_timestamp())";
     $conn->query($insmenmsg);
 }
+
+// modify group portion handled by mentor
 
 if(isset($_POST["mdfygrp"])) {
     $gpid = $_POST["gp_id"];
@@ -96,7 +104,8 @@ if(isset($_POST["mdfygrp"])) {
         }
     }
 
-    $selmnt = "SELECT mentee_id, gr_no, enrollment_no, first_name, middle_name, last_name, mobile_no, dob, gender, semester, stream, department FROM mentee_details WHERE in_group = 0 AND status = 1";
+    $selmnt = "SELECT mentee_id, gr_no, enrollment_no, first_name, middle_name, last_name, mobile_no, dob, 
+                gender, semester, stream, department FROM mentee_details WHERE in_group = 0 AND status = 1";
     $exe = $conn->query($selmnt);
     if($exe->num_rows > 0) {
         while($row = $exe->fetch_assoc()) {
@@ -119,15 +128,7 @@ if(isset($_POST["mdfygrp"])) {
     }
 }
 
-if(isset($_POST["rmmntid"])) {
-    $id = $_POST["rmmntid"];
-    $rmv = "DELETE FROM group_member WHERE mentee_id = $id";
-    $conn->query($rmv);
-    $setzero = "UPDATE mentee_details SET in_group = 0 WHERE mentee_id = $id";
-    $conn->query($setzero);
-    $updrel = "UPDATE relation SET mentor_id = 0 WHERE mentee_id = $id";
-    $conn->query($updrel);
-}
+// add mentee from group by mentor
 
 if(isset($_POST["admntid"])) {
     $mtid = $_POST["admntid"];
@@ -140,7 +141,19 @@ if(isset($_POST["admntid"])) {
     $conn->query($updrel);
 }
 
-// MENTOR TO DO SELECT OLD CHATS
+// remove mentee from group by mentor
+
+if(isset($_POST["rmmntid"])) {
+    $id = $_POST["rmmntid"];
+    $rmv = "DELETE FROM group_member WHERE mentee_id = $id";
+    $conn->query($rmv);
+    $setzero = "UPDATE mentee_details SET in_group = 0 WHERE mentee_id = $id";
+    $conn->query($setzero);
+    $updrel = "UPDATE relation SET mentor_id = 0 WHERE mentee_id = $id";
+    $conn->query($updrel);
+}
+
+// displaying past to do of mentor and mentee
 
 if(isset($_POST["post_mnt_id"])) {
     // echo $_POST["mnt_id"];
@@ -169,10 +182,71 @@ if(isset($_POST["post_mnt_id"])) {
                 </tr>";
         }
     }
-
 }
 
-// MENTOR ASSIGN TODO TO MENTEE
+// displaying past communication of mentor and mentee
+
+if(isset($_POST["pastMnteeComms"])) {
+    // echo $_POST["mnt_id"];
+    $mid = $_POST["pastMnteeComms"];
+    $seltodo = "SELECT comm, date, 
+                (select first_name from mentee_details where mentee_id in 
+                    (select mentee_id from communnication where mentee_id = $mid)) as Mentee_Name,
+                (select first_name from mentor_details where mentor_id in
+                    (select mentor_id from communnication where mentor_id = $uid)) as Mentor_Name
+                FROM communnication";
+    $exe = $conn->query($seltodo);
+    if($exe->num_rows > 0) {
+        echo "<tr>
+                <td width='20%'><b>Date & Time</b></td>
+                <td><b>Mentee Name</b></td>
+                <td width='2.5%'></td>
+                <td><b>Conversation</b></td>
+            </tr>";
+        while($row = $exe->fetch_assoc()) {
+            // echo "TASK ".$row["task"]."<br>"."DATE ".$row["date"]."<br>"."MNT-NAME ".$row["Mentee_Name"]."<br>"."MNTR-NAME ".;
+            echo "<tr>
+                    <td><b>[</b>".$row['date']."<b>]</b></td>
+                    <td><b>".$row["Mentee_Name"]."</b></td>
+                    <td>: - </td>
+                    <td>".$row['comm']."</td>
+                </tr>";
+        }
+    }
+}
+
+// displaying past communication of mentor and parents
+
+if(isset($_POST["pastParentComms"])) {
+    // echo $_POST["mnt_id"];
+    $mid = $_POST["pastParentComms"];
+    $seltodo = "SELECT comm, date, 
+                (select first_name from parent_details where parent_id in 
+                    (select parent_id from parents_communnication where parent_id = $mid)) as Parent_Name,
+                (select first_name from mentor_details where mentor_id in
+                    (select mentor_id from parents_communnication where mentor_id = $uid)) as Mentor_Name
+                FROM parents_communnication";
+    $exe = $conn->query($seltodo);
+    if($exe->num_rows > 0) {
+        echo "<tr>
+                <td width='20%'><b>Date & Time</b></td>
+                <td><b>Parent Name</b></td>
+                <td width='2.5%'></td>
+                <td><b>Conversation</b></td>
+            </tr>";
+        while($row = $exe->fetch_assoc()) {
+            // echo "TASK ".$row["task"]."<br>"."DATE ".$row["date"]."<br>"."MNT-NAME ".$row["Mentee_Name"]."<br>"."MNTR-NAME ".;
+            echo "<tr>
+                    <td><b>[</b>".$row['date']."<b>]</b></td>
+                    <td><b>".$row["Parent_Name"]."</b></td>
+                    <td>: - </td>
+                    <td>".$row['comm']."</td>
+                </tr>";
+        }
+    }
+}
+
+// MENTOR ASSIGN TODO TO MENTEE with file(not working)
 
 if(isset($_POST["post_td_msg"])) {
     $msg = $_POST["post_td_msg"];
@@ -207,7 +281,7 @@ if(isset($_POST["post_td_msg"])) {
     }
 }
 
-// first time update profile
+// first time profile update
 
 if(isset($_POST["upd_arr"])) {
     $table = $_SESSION['role'];
@@ -219,6 +293,8 @@ if(isset($_POST["upd_arr"])) {
         $conn->query($upd);
     }
 }
+
+// connect mentee and their parents
 
 if(isset($_POST["pname"])) {
     $pnm = $_POST["pname"];
@@ -236,6 +312,8 @@ if(isset($_POST["pname"])) {
         echo "No Results Found";
     }
 }
+
+// add new group created by mentee and check if it is exists or not
 
 if(isset($_POST["grp_nm"])) {
     $gp_nm = $_POST["grp_nm"];
@@ -258,7 +336,16 @@ if(isset($_POST["grp_nm"])) {
 if(isset($_POST["post_comm_msg"])) {
     $comm_msg = $_POST["post_comm_msg"];
     $mentee_id = $_POST["post_ment_id"];
-    $inscomm = "INSERT INTO communication VALUES ($uid,$mentee_id,'$comm_msg','$today')";
+    $inscomm = "INSERT INTO communnication VALUES ($uid,$mentee_id,'$comm_msg','$today')";
+    $conn->query($inscomm);
+}
+
+// add communication message by mentor to parents
+
+if(isset($_POST["parent_comm_msg"])) {
+    $comm_msg = $_POST["parent_comm_msg"];
+    $parent_id = $_POST["post_parent_id"];
+    $inscomm = "INSERT INTO parents_communnication VALUES ($uid,$parent_id,'$comm_msg','$today')";
     $conn->query($inscomm);
 }
 ?>

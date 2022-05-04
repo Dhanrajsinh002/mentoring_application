@@ -6,17 +6,80 @@ session_start();
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="../css/communication.css">
+        <script>$(document).ready(function(){});</script>
         <script>
-            function sendParentChat(prntmessage) {
-                // alert(prntmessage);
-                if(prntmessage == "") {} else {
-                    $.ajax({
-                        method: "post",
-                        url: "./functions.php",
-                        data: {prntmsg: prntmessage}
-                    })
-                    .done(function (response) {console.log(response)})
-                }
+            var parent_id;
+
+            function back() {
+                $("#comm_msg").remove();
+                window.location.reload(true);
+            }
+
+            function commParent(comm_msg) {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {parent_comm_msg: comm_msg,post_parent_id: parent_id}
+                }).done(function (response) {alert(response)})
+            }
+
+            function pastComms() {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {pastParentComms: parent_id}
+                }).done(function (response) {
+                    $("#mentor_messages").append(response);
+                })
+            }
+            
+            function communicate(id) {
+                parent_id = id;
+                $("#comm_msg").append(`
+                <table width="100%" border="1" align="center">
+                        <tr>
+                            <td>
+                                <table id="mentor_messages" border="1" style="width: 100%; height: 10px; overflow: auto">
+                                    <!-- <tr>
+                                        <td>
+                                            for mentor_messages
+                                        </td>
+                                    </tr> -->
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="text-align: center">
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                <form height="max-content">
+                                                    <table width="100%" style="vertical-align: center; text-align: center">
+                                                        <tr>
+                                                            <td>
+                                                                <!-- for input field -->
+                                                                <!-- <input type="text" name="comm_message" id="comm_message" required> -->
+                                                                <textarea id="comm_message" name="comm_message" rows="4" cols="50" required></textarea>
+                                                            </td>
+                                                            <td>
+                                                                <input type="submit" onclick="commParent(document.getElementById('comm_message').value)" value="Post">
+                                                            </td>
+                                                            <td align="center">
+                                                                <button onclick="back()">Close</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                `);
+                pastComms();
             }
         </script>
     </head>
@@ -39,19 +102,7 @@ session_start();
 
                                 <td width="22%">
                                     <div id="h3">
-                                        <table id="ht" border="1" width="100%">
-                                        <!-- <tr>
-                                                <td>
-                                                    <button onclick="window.location.href = './signin.html'">Sign IN</button>
-                                                </td>
-                                                <td>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                </td>
-                                                <td>
-                                                    <button onclick="window.location.href = './signup.html'">Sign UP</button>
-                                                </td>
-                                            </tr> -->
-                                        </table>
+                                        <table id="ht" border="1" width="100%"></table>
                                     </div>
                                 </td>
                             </tr>
@@ -65,6 +116,10 @@ session_start();
                     <div style="background-color: #333" id="menu"></div>
                 </td>
             </tr>
+
+            <tr>
+                <td id="dynamic-portion"></td>
+            </tr>
         </table>
 
         <!-- <div id="getdetail">
@@ -74,11 +129,38 @@ session_start();
             </form>
         </div> -->
         
-        <script>$(document).ready(function(){});</script>
-        <?php 
+        <?php
+        $table = $_SESSION["role"];
+        $id = explode('_',$_SESSION["role"],2);
+        $uid = $_SESSION["uid"];
+
+        $server_name = "localhost";
+        $user_name = "root";
+        $password = "";
+        $db_name = "mentoring_application";
+        $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
+
         if(isset($_SESSION["role"])) {
             if($_SESSION['role'] == 'mentor_details') {
                 ?>
+                <script>
+                    $("#dynamic-portion").html(`
+                        <table width="100%" border="1" style="text-align: center">
+                            <tr>
+                                <td>
+                                    <div id="main">
+                                        <div id="list"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="comm_msg" style="text-align: center"></div>
+                                </td>
+                            </tr>
+                        </table>`
+                    );
+                </script>
                 <script>
                     $("#menu").html(`
                             <table width="100%">
@@ -95,6 +177,46 @@ session_start();
                     $("#h2").html("<h1>Communication with Parents</h1>");
                 </script>
                 <?php
+                $selmnt = "SELECT parent_id, first_name, middle_name, last_name, mobile_no, gender,
+                            occupation, email_id FROM parent_details WHERE parent_id IN 
+                            (SELECT parent_id FROM relation WHERE mentor_id = $uid)";
+                $exe = $conn->query($selmnt);
+                if($exe->num_rows > 0) {
+                    ?>
+                        <script>
+                            $("#list").html(`<table width="100%" id="listtable">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>First Name</th>
+                                                    <th>Middle Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Mobile No</th>
+                                                    <th>Gender</th>
+                                                    <th>Occupation</th>
+                                                    <th>Email</th>
+                                                    <th>Communicate</th>
+                                                </tr>
+                                            </table>`);
+                        </script>
+                    <?php
+                    while($row = $exe->fetch_assoc()) {
+                        ?>
+                        <script>
+                            $("#listtable").append(`<tr align="center">
+                                                    <td><?php echo $row["parent_id"]; ?></td>
+                                                    <td><?php echo $row["first_name"]; ?></td>
+                                                    <td><?php echo $row["middle_name"]; ?></td>
+                                                    <td><?php echo $row["last_name"]; ?></td>
+                                                    <td><?php echo $row["mobile_no"]; ?></td>
+                                                    <td><?php echo $row["gender"]; ?></td>
+                                                    <td><?php echo $row["occupation"]; ?></td>
+                                                    <td><?php echo $row["email_id"]; ?></td>
+                                                    <td><button onclick="communicate(<?php echo $row["parent_id"]; ?>)">Communicate</button></td>
+                                                </tr>`);
+                        </script>
+                        <?php
+                    }
+                }
             }
 
             if($_SESSION['role'] == 'mentee_details') {
@@ -132,16 +254,7 @@ session_start();
                 </script>
                 <?php
             }
-            $table = $_SESSION["role"];
-            $id = explode('_',$_SESSION["role"],2);
-            $uid = $_SESSION["uid"];
 
-            $server_name = "localhost";
-            $user_name = "root";
-            $password = "";
-            $db_name = "mentoring_application";
-
-            $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
             if(!$conn) {
                 die("Connection Failed: ".mysqli_connect_error());
             } else {
@@ -156,49 +269,6 @@ session_start();
                     </script>
                     <?php
                 }
-
-                /* if($exenull = mysqli_query($conn,$null)) {
-                    $row = mysqli_num_rows($exenull);
-                    // echo $row;
-                    if($row != 0) {
-                        $col = $conn->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'mentoring_application' AND TABLE_NAME = '$table'");
-                        $type = $conn->query("DESCRIBE $table");
-                        while($row = $type->fetch_assoc()) {
-                            $res[] = $row;
-                        }
-                        $columnArr = array_column($res, 'COLUMN_NAME');
-                        // print_r($columnArr);
-                        // print_r(count($columnArr));
-                        ?>
-                            <script>
-                                var form = document.createElement("form");
-                                form.setAttribute("method","post");
-                                form.setAttribute("action","#");
-                            </script>
-                        <?php
-
-                        for($i = 1; $i < count($columnArr)-2; $i++) {
-                            ?>
-                            <script>
-                                var <?php $columnArr[$i]?> = document.createElement("input");
-                                <?php $columnArr[$i]?>.setAttribute("type","text");
-                                form.appendChild(<?php $columnArr[$i]?>);
-                            </script>
-                            <?php
-                        }
-                        ?>
-                        <script>
-                            document.getElementsByTagName("body")[0].appendChild(form);
-                        </script>
-                        <?php
-                    }
-                    // if($exenull->num_rows > 0) {
-                    //     while($nrow = $exenull->fetch_assoc()) {
-                    //         echo $nrow;
-                    //     }
-                    // }
-                } */
-
             }      
         }
         else {

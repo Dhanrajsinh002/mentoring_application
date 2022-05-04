@@ -23,6 +23,16 @@ session_start();
                 }).done(function (response) {alert(response)})
             }
 
+            function pastComms() {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {pastMnteeComms: mentee_id}
+                }).done(function (response) {
+                    $("#mentor_messages").append(response);
+                })
+            }
+
             function communicate(id) {
                 mentee_id = id;
                 $("#comm_msg").append(`
@@ -55,9 +65,6 @@ session_start();
                                                             <td>
                                                                 <input type="submit" onclick="commMentee(document.getElementById('todo_message').value)" value="Post">
                                                             </td>
-                                                            <!-- <td>
-                                                                <input type="file" name="" id="">
-                                                            </td> -->
                                                             <td align="center">
                                                                 <button onclick="back()">Close</button>
                                                             </td>
@@ -72,6 +79,7 @@ session_start();
                         </tr>
                     </table>
                 `);
+                pastComms();
             }
         </script>
     </head>
