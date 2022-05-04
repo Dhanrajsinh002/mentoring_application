@@ -1,7 +1,12 @@
 [
 {"type":"header","version":"5.1.1","comment":"Export to JSON plugin for PHPMyAdmin"},
 {"type":"database","name":"mentoring_application"},
-{"type":"table","name":"discussions","database":"mentoring_application","data":
+{"type":"table","name":"communnication","database":"mentoring_application","data":
+[
+{"mentor_id":"1","mentee_id":"1","comm":"this is our first conversation.","date":"2022-05-04 11:31:17"}
+]
+}
+,{"type":"table","name":"discussions","database":"mentoring_application","data":
 [
 {"group_id":"4","discussion":"asd","sender_name":"ASD","date_time":"2022-04-09 14:35:05"},
 {"group_id":"4","discussion":"HELLO DEVANG","sender_name":"dhanrajsinh","date_time":"2022-04-11 09:45:58"},
@@ -14,19 +19,13 @@
 }
 ,{"type":"table","name":"group_details","database":"mentoring_application","data":
 [
-{"group_id":"4","group_name":"group"},
-{"group_id":"5","group_name":"ertyghujiko"},
-{"group_id":"7","group_name":"bsdk"}
+{"group_id":"11","mentor_id":"1","group_name":"4TK1"},
+{"group_id":"12","mentor_id":"1","group_name":"2TK1"}
 ]
 }
 ,{"type":"table","name":"group_member","database":"mentoring_application","data":
 [
-{"group_id":"4","mentor_id":"1","mentee_id":"1"},
-{"group_id":"4","mentor_id":"1","mentee_id":"2"},
-{"group_id":"4","mentor_id":"1","mentee_id":"9"},
-{"group_id":"5","mentor_id":"1","mentee_id":"8"},
-{"group_id":"4","mentor_id":"1","mentee_id":"10"},
-{"group_id":"4","mentor_id":"1","mentee_id":"6"}
+{"group_id":"11","mentor_id":"1","mentee_id":"1"}
 ]
 }
 ,{"type":"table","name":"mentee_details","database":"mentoring_application","data":
@@ -40,21 +39,21 @@
 {"mentor_id":"1","first_name":"ASD","middle_name":"ZXC","last_name":"QWE","mobile_no":"9824777575","dob":"0000-00-00","gender":"male","department":"ICT","stream":"BTECH","qualification":"PHD","email_id":"asd@marwadieducation.edu.in","password":"ASDqwe123","status":"1"}
 ]
 }
+,{"type":"table","name":"parents_communnication","database":"mentoring_application","data":
+[
+{"mentor_id":"1","parent_id":"1","comm":"hello jyotindrasinh.","date":"2022-05-04 11:55:00"}
+]
+}
 ,{"type":"table","name":"parent_details","database":"mentoring_application","data":
 [
-{"parent_id":"1","first_name":"","middle_name":"","last_name":"","mobile_no":"9624010494","dob":"0000-00-00","gender":"","occupation":"","email_id":"","password":"","status":"1"},
-{"parent_id":"2","first_name":"Devang","middle_name":"abc","last_name":"qwe","mobile_no":"7539518426","dob":"2022-03-01","gender":"male","occupation":"Business Man","email_id":"abs@gmail.com","password":"Devang123","status":"1"}
+{"parent_id":"1","first_name":"jyotindrasinh","middle_name":"jaysinhji","last_name":"parmar","mobile_no":"9624010494","dob":"0000-00-00","gender":"male","occupation":"businessman","email_id":"jyt@gmail.com","password":"Jyt@12345","status":"1"},
+{"parent_id":"2","first_name":"devang","middle_name":"abc","last_name":"qwe","mobile_no":"7539518426","dob":"2022-03-01","gender":"male","occupation":"Business Man","email_id":"abs@gmail.com","password":"Devang123","status":"1"}
 ]
 }
 ,{"type":"table","name":"relation","database":"mentoring_application","data":
 [
-{"mentee_id":"1","mentor_id":"0","parent_id":"0"},
-{"mentee_id":"12","mentor_id":"0","parent_id":"0"}
-]
-}
-,{"type":"table","name":"temp","database":"mentoring_application","data":
-[
-
+{"mentee_id":"1","mentor_id":"1","parent_id":"1"},
+{"mentee_id":"12","mentor_id":"0","parent_id":"2"}
 ]
 }
 ,{"type":"table","name":"to_do","database":"mentoring_application","data":

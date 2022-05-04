@@ -1,5 +1,24 @@
 
 <!--
+Table data for `communnication`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''communnication'''
+|-
+ ! mentor_id
+ ! mentee_id
+ ! comm
+ ! date
+|-
+ | 1
+ | 1
+ | this is our first conversation.
+ | 2022-05-04 11:31:17
+|}
+
+
+<!--
 Table data for `discussions`
 -->
 
@@ -56,16 +75,16 @@ Table data for `group_details`
 |+'''group_details'''
 |-
  ! group_id
+ ! mentor_id
  ! group_name
 |-
- | 4
- | group
+ | 11
+ | 1
+ | 4TK1
 |-
- | 5
- | ertyghujiko
-|-
- | 7
- | bsdk
+ | 12
+ | 1
+ | 2TK1
 |}
 
 
@@ -80,29 +99,9 @@ Table data for `group_member`
  ! mentor_id
  ! mentee_id
 |-
- | 4
+ | 11
  | 1
  | 1
-|-
- | 4
- | 1
- | 2
-|-
- | 4
- | 1
- | 9
-|-
- | 5
- | 1
- | 8
-|-
- | 4
- | 1
- | 10
-|-
- | 4
- | 1
- | 6
 |}
 
 
@@ -204,6 +203,25 @@ Table data for `mentor_details`
 
 
 <!--
+Table data for `parents_communnication`
+-->
+
+{| class="wikitable sortable" style="text-align:center;"
+|+'''parents_communnication'''
+|-
+ ! mentor_id
+ ! parent_id
+ ! comm
+ ! date
+|-
+ | 1
+ | 1
+ | hello jyotindrasinh.
+ | 2022-05-04 11:55:00
+|}
+
+
+<!--
 Table data for `parent_details`
 -->
 
@@ -223,19 +241,19 @@ Table data for `parent_details`
  ! status
 |-
  | 1
- | 
- | 
- | 
+ | jyotindrasinh
+ | jaysinhji
+ | parmar
  | 9624010494
  | 0000-00-00
- | 
- | 
- | 
- | 
+ | male
+ | businessman
+ | jyt@gmail.com
+ | Jyt@12345
  | 1
 |-
  | 2
- | Devang
+ | devang
  | abc
  | qwe
  | 7539518426
@@ -260,25 +278,12 @@ Table data for `relation`
  ! parent_id
 |-
  | 1
- | 0
- | 0
+ | 1
+ | 1
 |-
  | 12
  | 0
- | 0
-|}
-
-
-<!--
-Table data for `temp`
--->
-
-{| class="wikitable sortable" style="text-align:center;"
-|+'''temp'''
-|-
- ! uname
- ! uphone
- ! umail
+ | 2
 |}
 
 
@@ -292,6 +297,7 @@ Table data for `to_do`
  ! mentor_id
  ! mentee_id
  ! task
+ ! file
  ! date
 |}
 
