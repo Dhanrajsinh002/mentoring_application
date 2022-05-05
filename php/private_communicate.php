@@ -15,6 +15,14 @@ session_start();
                 window.location.reload(true);
             }
 
+            function parent_comm(parent_msg) {
+                $.ajax({
+                    method: "post",
+                    url: "./functions.php",
+                    data: {prnt_comm_msg: parent_msg}
+                }).done(function (response) {alert(response)})
+            }
+
             function commParent(comm_msg) {
                 $.ajax({
                     method: "post",
@@ -220,20 +228,7 @@ session_start();
             }
 
             if($_SESSION['role'] == 'mentee_details') {
-                ?>
-                <script>
-                    $("#menu").html(`
-                        <table width="100%">
-                            <tr style="border-collaps: collaps; list-style-type: none; margin: 0; padding: 0; overflow: hidden;">
-                                <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./home.php">Home</a></td>
-                                <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./discussion.php">Discussion</a></td>
-                                <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./to_do.php">To-Do</a></td>
-                                <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./communication.php">Communication</a></td>
-                                <td style="border-collaps: collaps;" width="16.6%"><div onmouseout="this.style.color='#333'" onmouseover="this.style.background-color='yellow'"><a onmouseout="this.style.color='white'" onmouseover="this.style.color='yellow'" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="./profile.php">Profile</a></td>
-                            </tr>
-                        </table>`);
-                </script>
-                <?php
+                header("Location:./communication.php");
             }
 
             if($_SESSION['role'] == 'parent_details') {
@@ -252,7 +247,88 @@ session_start();
                         </table>`);
                     $("#h2").html("<h1>Communication with Mentor</h1>");
                 </script>
+                <script>
+                    $("#dynamic-portion").append(`
+                        <table width="100%" border="1">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <table width="100%" border="1" id="parent_comm_msg" height="50%">
+                                            <tr>
+                                                <th colspan="4">
+                                                    <h3>Your Messages will be Appear Here!⬇️</h3>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <table width="100%" border="1">
+                                            <tr>
+                                                <td>
+                                                    <form style="height: fit-content; text-align: center;">
+                                                        <table width="100%" border="1" align="center" style="vertical-align: center; text-align: center;">
+                                                            <tr>
+                                                                <td>
+                                                                    <!-- for input field -->
+                                                                    <textarea id="parent_comm_message" name="parent_comm_message" rows="4" placeholder="Your Message" cols="50" required></textarea>
+                                                                    <!-- <input type="text" name="parent_comm_message" id="parent_comm_message" placeholder="Your Message" required> -->
+                                                                </td>
+                                                                <td>
+                                                                    <input type="submit" onclick="parent_comm(document.getElementById('parent_comm_message').value)" value="Post">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    `);
+                </script>
                 <?php
+                $selprntcomm = "SELECT (SELECT first_name FROM mentor_details WHERE mentor_id IN
+                                (SELECT mentor_id FROM relation Where parent_id = $uid)) AS Mentor_Name,
+                                (SELECT first_name FROM parent_details WHERE parent_id = $uid) AS Parent_Name,
+                                comm, date, who FROM parents_communnication WHERE parent_id = $uid ORDER BY date DESC";
+                if($exe = $conn->query($selprntcomm)) {
+                    ?>
+                    <script>
+                        $("#parent_comm_msg").append(`
+                            <tr>
+                                <th width="13.01%">Date & Time</th>
+                                <th width="20%">Who</th>
+                                <th>Communication</th>
+                            </tr>
+                        `);
+                    </script>
+                    <?php
+                    while($row = $exe->fetch_assoc()) {
+                        ?>
+                        <script>
+                            $("#parent_comm_msg").append(`
+                                <tr>
+                                    <td><?php echo $row["date"]; ?></td>
+                                    <?php
+                                        if($row["who"] == "mentor") {
+                                            echo "<td align='center'>Mentor ".$row["Mentor_Name"]."</td>";
+                                        } else {
+                                            echo "<td align='center'>Parent ".$row["Parent_Name"]."</td>";
+                                        }
+                                    ?>
+                                    <td><?php echo $row["comm"]; ?></td>
+                                </tr>
+                            `);
+                        </script>
+                        <?php
+                    }
+                }
             }
 
             if(!$conn) {

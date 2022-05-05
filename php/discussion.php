@@ -427,7 +427,7 @@ session_start();
                             <?php */
                         }
                     }
-                    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid)";
+                    $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid) ORDER BY date_time DESC";
                     // echo $sel;
                     $exe = $conn->query($sel);
                     if($exe->num_rows > 0) {
@@ -443,6 +443,19 @@ session_start();
 
                 if($_SESSION['role'] == 'parent_details') {
                     ?>
+                    <div>
+                        <table border="1" width="100%">
+                            <tr>
+                                <td>
+                                    <table border="1" width="100%" id="showChatToParent">
+                                        <tr>
+                                            <th colspan="3"><h3>You can only see your Son's/Daughter's Discussions with Mentor & Other Mentees</h3></th>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <script>
                         $("#menu").html(`
                         <table width="100%">
@@ -458,6 +471,31 @@ session_start();
                         `);
                     </script>
                     <?php
+                    $selprntgrp = "SELECT discussion, sender_name, date_time FROM discussions
+                                    WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id IN
+                                    (SELECT mentee_id FROM relation WHERE parent_id = $uid)) ORDER BY date_time DESC";
+                    if($exe = $conn->query($selprntgrp)) {
+                        ?>
+                        <script>
+                            $("#showChatToParent").append(`<tr>
+                                                            <th width="15%">Date & Time</th>
+                                                            <th width="20%">Who</th>
+                                                            <th>Discussion</th>
+                                                        </tr>`);
+                        </script>
+                        <?php
+                        while($row = $exe->fetch_assoc()) {
+                            ?>
+                            <script>
+                                $("#showChatToParent").append(`<tr>
+                                                                <td width="15%"> <b> [ </b><?php echo $row['date_time']; ?><b> ] </b></td>
+                                                                <td><b><?php echo $row['sender_name'];?></b></td>
+                                                                <td><?php echo $row['discussion']?></td>
+                                                            </tr>`);
+                            </script>
+                            <?php
+                        }
+                    }
                 }
             }      
         }

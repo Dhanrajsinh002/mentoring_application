@@ -63,7 +63,7 @@ session_start();
                                         <tr>
                                             <td>
                                                 <!-- <form height="max-content"> -->
-                                                <form action="./to_do.php" method="post">
+                                                <form action="./to_do.php" method="post" enctype="multipart/form-data">
                                                     <table width="100%" style="vertical-align: center; text-align: center">
                                                         <tr>
                                                             <td>
@@ -79,7 +79,7 @@ session_start();
                                                             </td>
                                                             <td>
                                                                 <!-- <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value,document.getElementById('upldfile').value)" value="Assign"> -->
-                                                                <input type="submit" value="Assign">
+                                                                <input type="submit" value="Assign" name="sendTODO">
                                                             </td>
                                                             <td align="center">
                                                                 <button onclick="back()">Close</button>
@@ -159,7 +159,19 @@ session_start();
         </div> -->
         
         
-        <?php 
+        <?php
+
+        $table = $_SESSION["role"];
+        $id = explode('_',$_SESSION["role"],2);
+        $uid = $_SESSION["uid"];
+
+        $server_name = "localhost";
+        $user_name = "root";
+        $password = "";
+        $db_name = "mentoring_application";
+
+        $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
+
         if(isset($_SESSION["role"])) {
             if($_SESSION['role'] == 'mentor_details') {
                 ?>
@@ -198,38 +210,68 @@ session_start();
                 </script>
                 <?php
 
-                if(isset($_POST["todo_message"])) {
+                if(isset($_POST["sendTODO"])) {
+                    $today = date("Y-m-d H:i:s");
                     $msg = $_POST["todo_message"];
                     $mnt_id = $_POST["mnt_id"];
-                    $file_name = $_FILES["upldfile"]["name"];
-                    $file = $_FILES["upldfile"]["tmp_name"];
-                    // $file = basename($_FILES["upld_file"]["name"]);
-                    // $file = (string)rand(10,1000)."_".(string)date("d/m/Y")."_".basename($_FILES["upld_file"]["name"]);
-                    $target_file = "../uploaded_files/".$file_name;
-                    // exit(0);
-                    if(move_uploaded_file($file, $target_file)) {
-                        $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file','$today')";
-                        // echo $msg."\n".$mnt_id."\n".$instodo;
-                        if ($conn->query($instodo)) {
-                            ?>
-                            <script>
-                                alert("File Uploaded Successfully✅");
-                            </script>
-                            <?php
+                    $targate_dir = "../uploaded_files/".$id[0]."_files/".$_SESSION["uname"]."/";
+                    // $file_name = basename($_FILES["upldfile"]["name"]);
+                    $file_name = (string)rand(10,1000)."_".(string)date("d/m/Y")."_".basename($_FILES["upldfile"]["name"]);
+                    // $file = $_FILES["upldfile"]["name"];
+                    $target_file = $targate_dir.$file_name;
+
+                    if(!file_exists($targate_dir)) {
+                        mkdir($targate_dir);
+
+                        if(move_uploaded_file($file_name, $target_file)) {
+                            $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file_name','$today','mentor')";
+                            // echo $msg."\n".$mnt_id."\n".$instodo;
+                            if ($conn->query($instodo)) {
+                                ?>
+                                <script>
+                                    alert("File Uploaded Successfully✅");
+                                </script>
+                                <?php
+                            } else {
+                                ?>
+                                <script>
+                                    alert("File Upload Failed⚠️");
+                                </script>
+                                <?php
+                            }
                         } else {
                             ?>
-                            <script>
-                                alert("File Upload Failed⚠️");
-                            </script>
+                                <script>
+                                    alert("File can not be move to desired location⚠️");
+                                </script>
                             <?php
                         }
                     } else {
-                        ?>
-                            <script>
-                                alert("File can not be move to desired location⚠️");
-                            </script>
-                        <?php
+                        if(move_uploaded_file($file_name, $target_file)) {
+                            $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file_name','$today','mentor')";
+                            // echo $msg."\n".$mnt_id."\n".$instodo;
+                            if ($conn->query($instodo)) {
+                                ?>
+                                <script>
+                                    alert("File Uploaded Successfully✅");
+                                </script>
+                                <?php
+                            } else {
+                                ?>
+                                <script>
+                                    alert("File Upload Failed⚠️");
+                                </script>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                                <script>
+                                    alert("File can not be move to desired location⚠️");
+                                </script>
+                            <?php
+                        }
                     }
+                    // $file = basename($_FILES["upld_file"]["name"]);
                 }
             }
 
@@ -255,11 +297,11 @@ session_start();
                         <tr>
                             <td>
                                 <div>
-                                    <table id="messages" height="50%">
+                                    <table width="100%" border="1" id="mentee_todo_msg" height="50%">
                                         <tr>
-                                            <td>
+                                            <th colspan="4">
                                                 <h3>Your Messages will be Appear Here!⬇️</h3>
-                                            </td>
+                                            </th>
                                         </tr>
                                     </table>
                                 </div>
@@ -276,13 +318,14 @@ session_start();
                                                         <tr>
                                                             <td>
                                                                 <!-- for input field -->
-                                                                <input type="text" name="todo_message" id="todo_message" placeholder="Your Message" required>
-                                                            </td>
-                                                            <td>
-                                                                <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value)" value="Post">
+                                                                <!-- <input type="text" name="todo_message" id="todo_message" placeholder="Your Message" required> -->
+                                                                <textarea id="todo_message" name="todo_message" rows="4" placeholder="Your Message" cols="50" required></textarea>
                                                             </td>
                                                             <td>
                                                                 <input type="file" name="" id="">
+                                                            </td>
+                                                            <td>
+                                                                <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value)" value="Post">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -298,6 +341,45 @@ session_start();
                     `);
                 </script>
                 <?php
+                $selmnsttodomsg = "SELECT (SELECT first_name FROM mentor_details WHERE mentor_id IN
+                                    (SELECT mentor_id FROM to_do WHERE mentee_id = $uid)) AS Mentor_Name,
+                                    (SELECT first_name FROM mentee_details WHERE mentee_id IN
+                                    (SELECT mentee_id FROM to_do WHERE mentor_id = $uid)) AS Mentee_Name,
+                                    task, file, date, who FROM to_do WHERE mentee_id = $uid ORDER BY date DESC";
+                if($exe = $conn->query($selmnsttodomsg)) {
+                    ?>
+                    <script>
+                        $("#mentee_todo_msg").append(`
+                                <tr>
+                                    <th width="13.01%">Date & Time</th>
+                                    <th width="10%">Who</th>
+                                    <th>Task</th>
+                                    <th width="30%">File</th>
+                                </tr>
+                            `);
+                    </script>
+                    <?php
+                    while($row = $exe->fetch_assoc()) {
+                        ?>
+                        <script>
+                            $("#mentee_todo_msg").append(`
+                                <tr>
+                                    <td><?php echo $row["date"]; ?></td>
+                                    <?php
+                                        if($row["who"] == "mentor") {
+                                            echo "<td align='center'>".$row["Mentor_Name"]."</td>";
+                                        } else {
+                                            echo "<td align='center'>".$row["Mentee_Name"]."</td>";
+                                        }
+                                    ?>
+                                    <td><?php echo $row["task"]; ?></td>
+                                    <td><?php echo $row["file"]; ?></td>
+                                </tr>
+                            `);
+                        </script>
+                        <?php
+                    }
+                }
             }
 
             if($_SESSION['role'] == 'parent_details') {
@@ -317,17 +399,47 @@ session_start();
                         `);
                 </script>
                 <?php
+                $selprnttodo = "SELECT (SELECT first_name FROM mentor_details WHERE mentor_id IN (SELECT mentor_id FROM relation WHERE parent_id = $uid)) AS Mentor_Name,
+                                (SELECT first_name FROM mentee_details WHERE mentee_id IN (SELECT mentee_id FROM relation WHERE parent_id = $uid)) AS Mentee_Name,
+                                task, file, date, who FROM to_do WHERE mentee_id IN (SELECT mentee_id FROM relation WHERE parent_id = $uid) ORDER BY date DESC";
+                if($exe = $conn->query($selprnttodo)) {
+                    ?>
+                    <script>
+                        $("#dynamic-portion").append(`<table id="showPrntMsg">
+                                                        <tr>
+                                                            <th colspan="4"><h3>You can only see your Son's/Daughter's To Do Tasks Given by Mentor</h3></th>    
+                                                        </tr>
+                                                        <tr>
+                                                            <th width="13.01%">Date & Time</th>
+                                                            <th width="20%">Who</th>
+                                                            <th align="left">Task</th>
+                                                            <th width="30%" align="left">File</th>
+                                                        </tr>
+                                                    </table>`);
+                    </script>
+                    <?php
+                    while($row = $exe->fetch_assoc()) {
+                        ?>
+                        <script>
+                            $("#showPrntMsg").append(`
+                                <tr>
+                                    <td><?php echo $row["date"]; ?></td>
+                                    <?php
+                                        if($row["who"] == "mentor") {
+                                            echo "<td align='center'>Mentor ".$row["Mentor_Name"]."</td>";
+                                        } else {
+                                            echo "<td align='center'>Mentee ".$row["Mentee_Name"]."</td>";
+                                        }
+                                    ?>
+                                    <td><?php echo $row["task"]; ?></td>
+                                    <td><?php echo $row["file"]; ?></td>
+                                </tr>`);
+                        </script>
+                        <?php
+                    }
+                }
             }
-            $table = $_SESSION["role"];
-            $id = explode('_',$_SESSION["role"],2);
-            $uid = $_SESSION["uid"];
-
-            $server_name = "localhost";
-            $user_name = "root";
-            $password = "";
-            $db_name = "mentoring_application";
-
-            $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
+            
             if(!$conn) {
                 die("Connection Failed: ".mysqli_connect_error());
             } else {
