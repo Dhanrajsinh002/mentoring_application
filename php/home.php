@@ -13,11 +13,11 @@ $connarr = array();
         <script>$(document).ready(function(){});</script>
     </head>
     <body>
-        <table border="1" width="100%">
+        <table  width="100%">
             <tr>
                 <td>
                     <div id="header">
-                        <table border="1" width="100%" style="text-align: center;">
+                        <table  width="100%" style="text-align: center;">
                             <tr>
                                 <td width="22%">
                                     <div id="h1">
@@ -31,7 +31,7 @@ $connarr = array();
 
                                 <td width="22%">
                                     <div id="h3">
-                                        <table id="ht" border="1" width="100%"></table>
+                                        <table id="ht"  width="100%"></table>
                                     </div>
                                 </td>
                             </tr>
@@ -42,7 +42,7 @@ $connarr = array();
 
             <tr>
                 <td>
-                    <div style="background-color: #333" id="menu"></div>
+                    <div style="border-radius: 15px; background-color: #333" id="menu"></div>
                 </td>
             </tr>
 

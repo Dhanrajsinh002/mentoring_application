@@ -10,7 +10,7 @@
             <tr>
                 <td>
                     <form action="./temp.php" method="POST">
-                        <table border="1">
+                        <table >
                             <tr>
                                 <td colspan="2">
                                     <input type="text" name="uname" id="" placeholder="Username" pattern="[A-Za-z]{1,15}" title="Only lower characters are allowed." required>
@@ -167,7 +167,7 @@
                     //     //     echo "<br>".$total;
                     //     // }
                     // }
-                    echo "<table border='1'><tr><th>ID</th> <th>UserName</th> <th>Email ID</th> <th>Phone</th> <th>Date of Birth</th> <th>Gender</th> <th>Operations</th></tr>";
+                    echo "<table ><tr><th>ID</th> <th>UserName</th> <th>Email ID</th> <th>Phone</th> <th>Date of Birth</th> <th>Gender</th> <th>Operations</th></tr>";
                     while($row = $exe->fetch_assoc()) {
                         echo "<tr id=".$row["mentee_id"].">
                                 <td>".$row["mentee_id"]."</td>

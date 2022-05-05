@@ -47,7 +47,7 @@
             <tr>
                 <td>
                     <form action="./update.php" method="POST">
-                        <table border="1">
+                        <table >
                             <tr>
                                 <input type="hidden" name="id" value="<?php echo $id ?>">
                                 <td colspan="2">

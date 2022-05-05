@@ -47,10 +47,10 @@ session_start();
             function communicate(id) {
                 mentee_id = id;
                 $("#comm_msg").append(`
-                    <table width="100%" border="1" align="center">
+                    <table width="100%"  align="center">
                         <tr>
                             <td>
-                                <table id="mentor_messages" border="1" style="width: 100%; height: 10px; overflow: auto">
+                                <table id="mentor_messages"  style="width: 100%; height: 10px; overflow: auto">
                                     <!-- <tr>
                                         <td>
                                             for mentor_messages
@@ -95,11 +95,11 @@ session_start();
         </script>
     </head>
     <body>
-        <table border="1" width="100%">
+        <table  width="100%">
             <tr>
                 <td>
                     <div id="header">
-                        <table border="1" width="100%" style="text-align: center;">
+                        <table  width="100%" style="text-align: center;">
                             <tr>
                                 <td width="22%">
                                     <div id="h1">
@@ -113,7 +113,7 @@ session_start();
 
                                 <td width="22%">
                                     <div id="h3">
-                                        <table id="ht" border="1" width="100%"></table>
+                                        <table id="ht"  width="100%"></table>
                                     </div>
                                 </td>
                             </tr>
@@ -124,7 +124,7 @@ session_start();
 
             <tr>
                 <td>
-                    <div style="background-color: #333" id="menu"></div>
+                    <div style="border-radius: 15px; background-color: #333" id="menu"></div>
                 </td>
             </tr>
 
@@ -164,7 +164,7 @@ session_start();
                     ?>
                     <script>
                         $("#dynamic-portion").html(`
-                            <table width="100%" border="1" style="text-align: center">
+                            <table width="100%"  style="text-align: center">
                                 <tr>
                                     <td>
                                         <div id="main">
@@ -261,11 +261,11 @@ session_start();
                         <script>
                             $("#dynamic-portion").html(`
                                 <div id="mentee_part">
-                                <table width="100%" border="1">
+                                <table width="100%" >
                                     <tr>
                                         <td>
                                             <div>
-                                                <table width="100%" border="1" id="mentee_comm_msg" height="50%">
+                                                <table width="100%"  id="mentee_comm_msg" height="50%">
                                                     <tr>
                                                         <th colspan="4">
                                                             <h3>Your Messages will be Appear Here!⬇️</h3>
@@ -278,11 +278,11 @@ session_start();
                                     <tr>
                                         <td>
                                             <div>
-                                                <table width="100%" border="1">
+                                                <table width="100%" >
                                                     <tr>
                                                         <td>
                                                             <form style="height: fit-content; text-align: center;">
-                                                                <table width="100%" border="1" align="center" style="vertical-align: center; text-align: center;">
+                                                                <table width="100%"  align="center" style="vertical-align: center; text-align: center;">
                                                                     <tr>
                                                                         <td>
                                                                             <!-- for input field -->
@@ -315,8 +315,8 @@ session_start();
                             $("#mentee_comm_msg").append(`
                                     <tr>
                                         <th width="13.01%">Date & Time</th>
-                                        <th width="10%">Who</th>
-                                        <th>Communication</th>
+                                        <th width="20%">Who</th>
+                                        <th align='left'>Communication</th>
                                     </tr>
                                 `);
                         </script>
@@ -329,9 +329,9 @@ session_start();
                                             <td><?php echo $row["date"]; ?></td>
                                             <?php
                                                 if($row["who"] == "mentor") {
-                                                    echo "<td align='center'>".$row["Mentor_Name"]."</td>";
+                                                    echo "<td align='center'>Mentor ".$row["Mentor_Name"]."</td>";
                                                 } else {
-                                                    echo "<td align='center'>".$row["Mentee_Name"]."</td>";
+                                                    echo "<td align='center'>Mentee ".$row["Mentee_Name"]."</td>";
                                                 }
                                             ?>
                                             <td><?php echo $row["comm"]; ?></td>

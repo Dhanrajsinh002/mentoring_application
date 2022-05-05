@@ -21,7 +21,7 @@ session_start();
     </head>
     <body>
         <div>
-            <table border="1" id="mnlst">
+            <table  id="mnlst">
                 <!-- <tr>
                     <td>
                         <form action="" method="post">

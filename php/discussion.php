@@ -118,11 +118,11 @@ session_start();
         </script>
     </head>
     <body>
-        <table border="1" width="100%">
+        <table  width="100%">
             <tr>
                 <td>
                     <div id="header">
-                        <table border="1" width="100%" style="text-align: center;">
+                        <table  width="100%" style="text-align: center;">
                             <tr>
                                 <td width="22%">
                                     <div id="h1">
@@ -136,7 +136,7 @@ session_start();
 
                                 <td width="22%">
                                     <div id="h3">
-                                        <table id="ht" border="1" width="100%">
+                                        <table id="ht"  width="100%">
                                             <!-- <tr>
                                                 <td>
                                                     <button onclick="window.location.href = './signin.html'">Sign IN</button>
@@ -159,7 +159,7 @@ session_start();
 
             <tr>
                 <td>
-                    <div style="background-color: #333" id="menu"></div>
+                    <div style="border-radius: 15px; background-color: #333" id="menu"></div>
                 </td>
             </tr>
         </table>
@@ -434,7 +434,12 @@ session_start();
                         while($row = $exe->fetch_assoc()) {
                             ?>
                             <script>
-                                $("#showChatMant").append("<tr> <td> <b> [ </b><?php echo $row['date_time']; ?><b> ] </b></td> <td><b><?php echo $row['sender_name'];?></b></td> <td><?php echo $row['discussion']?></td> </tr>");
+                                $("#showChatMant").append(`
+                                    <tr> 
+                                        <td> <b> [ </b><?php echo $row['date_time']; ?><b> ] </b></td>
+                                        <td><b><?php echo $row['sender_name'];?></b></td>
+                                        <td><?php echo $row['discussion']?></td>
+                                    </tr>`);
                             </script>
                             <?php
                         }
@@ -444,10 +449,10 @@ session_start();
                 if($_SESSION['role'] == 'parent_details') {
                     ?>
                     <div>
-                        <table border="1" width="100%">
+                        <table  width="100%">
                             <tr>
                                 <td>
-                                    <table border="1" width="100%" id="showChatToParent">
+                                    <table  width="100%" id="showChatToParent">
                                         <tr>
                                             <th colspan="3"><h3>You can only see your Son's/Daughter's Discussions with Mentor & Other Mentees</h3></th>
                                         </tr>

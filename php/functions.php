@@ -407,7 +407,7 @@ if(isset($_POST["showmntpr"])) {
                 FROM mentee_details WHERE mentee_id = $mntId";
     if($exe = $conn->query($selprf)) {
         while($row = $exe->fetch_assoc()) {
-            echo "<table width='100%' border='1'>
+            echo "<table width='100%' >
                         <tr>
                             <th colspan='2'>Mentee's Profile</th>
                         </tr>
@@ -471,7 +471,7 @@ if(isset($_POST["showmntpr"])) {
             while($row = $exeprntprf->fetch_assoc()) {
                 ?>
                 <script>
-                    $("#prntPrf").html(`<table border='1' width='100%'>
+                    $("#prntPrf").html(`<table  width='100%'>
                                             <tr>
                                                 <th colspan="2">Mentee's Parent Profile</th>
                                             </tr>
