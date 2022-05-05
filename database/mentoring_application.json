@@ -3,7 +3,10 @@
 {"type":"database","name":"mentoring_application"},
 {"type":"table","name":"communnication","database":"mentoring_application","data":
 [
-{"mentor_id":"1","mentee_id":"1","comm":"this is our first conversation.","date":"2022-05-04 11:31:17"}
+{"mentor_id":"1","mentee_id":"1","comm":"this is our first conversation.","date":"2022-05-05 14:12:45","who":"mentor"},
+{"mentor_id":"1","mentee_id":"1","comm":"Yes you are right.","date":"2022-05-05 14:12:59","who":"mentee"},
+{"mentor_id":"1","mentee_id":"12","comm":"hello pratham. how are you?","date":"2022-05-05 15:35:56","who":"mentor"},
+{"mentor_id":"1","mentee_id":"12","comm":"Im Fine.","date":"2022-05-05 15:51:05","who":"mentee"}
 ]
 }
 ,{"type":"table","name":"discussions","database":"mentoring_application","data":
@@ -14,7 +17,12 @@
 {"group_id":"4","discussion":"how are you?","sender_name":"dhanrajsinh","date_time":"2022-04-11 10:22:11"},
 {"group_id":"4","discussion":"HELLO PRATHAM`","sender_name":"user","date_time":"2022-04-11 11:20:56"},
 {"group_id":"4","discussion":"QWERTYUIOP","sender_name":"ASD","date_time":"2022-04-11 15:03:43"},
-{"group_id":"4","discussion":"hellooo bsdkkkkkkk","sender_name":"ASD","date_time":"2022-04-20 15:09:19"}
+{"group_id":"4","discussion":"hellooo bsdkkkkkkk","sender_name":"ASD","date_time":"2022-04-20 15:09:19"},
+{"group_id":"11","discussion":"This is our first conversation","sender_name":"ASD","date_time":"2022-05-05 08:56:36"},
+{"group_id":"11","discussion":"Yes you are right.","sender_name":"dhanrajsinh","date_time":"2022-05-05 17:49:13"},
+{"group_id":"11","discussion":"Helle There.","sender_name":"pratham","date_time":"2022-05-05 19:25:07"},
+{"group_id":"11","discussion":"Hello Pratham","sender_name":"ASD","date_time":"2022-05-05 19:25:38"},
+{"group_id":"11","discussion":"Im Fine.","sender_name":"Mentee dhanrajsinh","date_time":"2022-05-05 20:11:15"}
 ]
 }
 ,{"type":"table","name":"group_details","database":"mentoring_application","data":
@@ -25,13 +33,14 @@
 }
 ,{"type":"table","name":"group_member","database":"mentoring_application","data":
 [
-{"group_id":"11","mentor_id":"1","mentee_id":"1"}
+{"group_id":"11","mentor_id":"1","mentee_id":"1"},
+{"group_id":"11","mentor_id":"1","mentee_id":"12"}
 ]
 }
 ,{"type":"table","name":"mentee_details","database":"mentoring_application","data":
 [
 {"mentee_id":"1","gr_no":"111609","enrollment_no":"92110133001","first_name":"dhanrajsinh","middle_name":"jyotindrasinh","last_name":"parmar","mobile_no":"7433035109","dob":"2002-08-19","gender":"male","semester":"4","stream":"B.Tech","department":"ICT","email_id":"dhanrajsinh.parmar111609@marwadiuniversity.ac.in","password":"Dhanrajsinh123","in_group":"1","status":"1"},
-{"mentee_id":"12","gr_no":"111596","enrollment_no":"92110133003","first_name":"pratham","middle_name":"bhaveshbhai","last_name":"buddhadev","mobile_no":"7894561230","dob":"2022-04-25","gender":"male","semester":"4","stream":"B.Tech","department":"ICT","email_id":"prtham.buddhadev111596@marwadiuniversity.ac.in","password":"Pratham@123","in_group":"0","status":"1"}
+{"mentee_id":"12","gr_no":"111596","enrollment_no":"92110133003","first_name":"pratham","middle_name":"bhaveshbhai","last_name":"buddhadev","mobile_no":"7894561230","dob":"2022-04-25","gender":"male","semester":"4","stream":"B.Tech","department":"ICT","email_id":"prtham.buddhadev111596@marwadiuniversity.ac.in","password":"Pratham@123","in_group":"1","status":"1"}
 ]
 }
 ,{"type":"table","name":"mentor_details","database":"mentoring_application","data":
@@ -41,7 +50,8 @@
 }
 ,{"type":"table","name":"parents_communnication","database":"mentoring_application","data":
 [
-{"mentor_id":"1","parent_id":"1","comm":"hello jyotindrasinh.","date":"2022-05-04 11:55:00"}
+{"mentor_id":"1","parent_id":"1","comm":"hello jyotindrasinh.","date":"2022-05-05 14:20:16","who":"mentor"},
+{"mentor_id":"1","parent_id":"1","comm":"Im Fine.","date":"2022-05-05 18:47:53","who":"parent"}
 ]
 }
 ,{"type":"table","name":"parent_details","database":"mentoring_application","data":
@@ -53,12 +63,14 @@
 ,{"type":"table","name":"relation","database":"mentoring_application","data":
 [
 {"mentee_id":"1","mentor_id":"1","parent_id":"1"},
-{"mentee_id":"12","mentor_id":"0","parent_id":"2"}
+{"mentee_id":"12","mentor_id":"1","parent_id":"2"}
 ]
 }
 ,{"type":"table","name":"to_do","database":"mentoring_application","data":
 [
-
+{"mentor_id":"1","mentee_id":"1","task":"cnanl,cnc","file":"C:xampp\tmpphp3508.tmp","date":"2022-05-05 14:17:19","who":"mentor"},
+{"mentor_id":"1","mentee_id":"1","task":"cnanl,cnc","file":"normalization tables.txt","date":"2022-05-05 14:17:43","who":"mentor"},
+{"mentor_id":"1","mentee_id":"1","task":"compete it by today.","file":"learn python.pdf","date":"2022-05-05 15:11:10","who":"mentee"}
 ]
 }
 ]

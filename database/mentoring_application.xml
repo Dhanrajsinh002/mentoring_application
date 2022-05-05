@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Host: 127.0.0.1
-- Generation Time: May 04, 2022 at 11:59 AM
+- Generation Time: May 05, 2022 at 07:02 PM
 - Server version: 10.4.22-MariaDB
 - PHP Version: 8.1.2
 -->
@@ -21,7 +21,8 @@
                   `mentor_id` int(3) NOT NULL,
                   `mentee_id` int(3) NOT NULL,
                   `comm` varchar(250) NOT NULL,
-                  `date` datetime NOT NULL
+                  `date` datetime NOT NULL,
+                  `who` varchar(6) NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             </pma:table>
             <pma:table name="discussions">
@@ -91,7 +92,8 @@
                   `mentor_id` int(3) NOT NULL,
                   `parent_id` int(3) NOT NULL,
                   `comm` varchar(250) NOT NULL,
-                  `date` datetime NOT NULL
+                  `date` datetime NOT NULL,
+                  `who` varchar(6) NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             </pma:table>
             <pma:table name="parent_details">
@@ -124,7 +126,8 @@
                   `mentee_id` int(3) NOT NULL,
                   `task` varchar(500) NOT NULL,
                   `file` varchar(50) NOT NULL,
-                  `date` datetime NOT NULL
+                  `date` datetime NOT NULL,
+                  `who` varchar(6) NOT NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
             </pma:table>
         </pma:database>
@@ -139,7 +142,29 @@
             <column name="mentor_id">1</column>
             <column name="mentee_id">1</column>
             <column name="comm">this is our first conversation.</column>
-            <column name="date">2022-05-04 11:31:17</column>
+            <column name="date">2022-05-05 14:12:45</column>
+            <column name="who">mentor</column>
+        </table>
+        <table name="communnication">
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">1</column>
+            <column name="comm">Yes you are right.</column>
+            <column name="date">2022-05-05 14:12:59</column>
+            <column name="who">mentee</column>
+        </table>
+        <table name="communnication">
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">12</column>
+            <column name="comm">hello pratham. how are you?</column>
+            <column name="date">2022-05-05 15:35:56</column>
+            <column name="who">mentor</column>
+        </table>
+        <table name="communnication">
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">12</column>
+            <column name="comm">Im Fine.</column>
+            <column name="date">2022-05-05 15:51:05</column>
+            <column name="who">mentee</column>
         </table>
         <!-- Table discussions -->
         <table name="discussions">
@@ -184,6 +209,36 @@
             <column name="sender_name">ASD</column>
             <column name="date_time">2022-04-20 15:09:19</column>
         </table>
+        <table name="discussions">
+            <column name="group_id">11</column>
+            <column name="discussion">This is our first conversation</column>
+            <column name="sender_name">ASD</column>
+            <column name="date_time">2022-05-05 08:56:36</column>
+        </table>
+        <table name="discussions">
+            <column name="group_id">11</column>
+            <column name="discussion">Yes you are right.</column>
+            <column name="sender_name">dhanrajsinh</column>
+            <column name="date_time">2022-05-05 17:49:13</column>
+        </table>
+        <table name="discussions">
+            <column name="group_id">11</column>
+            <column name="discussion">Helle There.</column>
+            <column name="sender_name">pratham</column>
+            <column name="date_time">2022-05-05 19:25:07</column>
+        </table>
+        <table name="discussions">
+            <column name="group_id">11</column>
+            <column name="discussion">Hello Pratham</column>
+            <column name="sender_name">ASD</column>
+            <column name="date_time">2022-05-05 19:25:38</column>
+        </table>
+        <table name="discussions">
+            <column name="group_id">11</column>
+            <column name="discussion">Im Fine.</column>
+            <column name="sender_name">Mentee dhanrajsinh</column>
+            <column name="date_time">2022-05-05 20:11:15</column>
+        </table>
         <!-- Table group_details -->
         <table name="group_details">
             <column name="group_id">11</column>
@@ -200,6 +255,11 @@
             <column name="group_id">11</column>
             <column name="mentor_id">1</column>
             <column name="mentee_id">1</column>
+        </table>
+        <table name="group_member">
+            <column name="group_id">11</column>
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">12</column>
         </table>
         <!-- Table mentee_details -->
         <table name="mentee_details">
@@ -235,7 +295,7 @@
             <column name="department">ICT</column>
             <column name="email_id">prtham.buddhadev111596@marwadiuniversity.ac.in</column>
             <column name="password">Pratham@123</column>
-            <column name="in_group">0</column>
+            <column name="in_group">1</column>
             <column name="status">1</column>
         </table>
         <!-- Table mentor_details -->
@@ -259,7 +319,15 @@
             <column name="mentor_id">1</column>
             <column name="parent_id">1</column>
             <column name="comm">hello jyotindrasinh.</column>
-            <column name="date">2022-05-04 11:55:00</column>
+            <column name="date">2022-05-05 14:20:16</column>
+            <column name="who">mentor</column>
+        </table>
+        <table name="parents_communnication">
+            <column name="mentor_id">1</column>
+            <column name="parent_id">1</column>
+            <column name="comm">Im Fine.</column>
+            <column name="date">2022-05-05 18:47:53</column>
+            <column name="who">parent</column>
         </table>
         <!-- Table parent_details -->
         <table name="parent_details">
@@ -296,9 +364,33 @@
         </table>
         <table name="relation">
             <column name="mentee_id">12</column>
-            <column name="mentor_id">0</column>
+            <column name="mentor_id">1</column>
             <column name="parent_id">2</column>
         </table>
         <!-- Table to_do -->
+        <table name="to_do">
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">1</column>
+            <column name="task">cnanl,cnc</column>
+            <column name="file">C:xampp	mpphp3508.tmp</column>
+            <column name="date">2022-05-05 14:17:19</column>
+            <column name="who">mentor</column>
+        </table>
+        <table name="to_do">
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">1</column>
+            <column name="task">cnanl,cnc</column>
+            <column name="file">normalization tables.txt</column>
+            <column name="date">2022-05-05 14:17:43</column>
+            <column name="who">mentor</column>
+        </table>
+        <table name="to_do">
+            <column name="mentor_id">1</column>
+            <column name="mentee_id">1</column>
+            <column name="task">compete it by today.</column>
+            <column name="file">learn python.pdf</column>
+            <column name="date">2022-05-05 15:11:10</column>
+            <column name="who">mentee</column>
+        </table>
     </database>
 </pma_xml_export>
