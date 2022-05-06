@@ -215,13 +215,13 @@ session_start();
                     $msg = $_POST["todo_message"];
                     $mnt_id = $_POST["mnt_id"];
                     $targate_dir = "../uploaded_files/".$id[0]."_files/".$_SESSION["uname"]."/";
-                    // $file_name = basename($_FILES["upldfile"]["name"]);
-                    $file_name = (string)rand(10,1000)."_".(string)date("d/m/Y")."_".basename($_FILES["upldfile"]["name"]);
+                    $file_name = basename($_FILES["upldfile"]["name"]);
+                    // $file_name = strval(rand(10,1000))."_".strval(date("d/m/Y"))."_".basename($_FILES["upldfile"]["name"]);
                     // $file = $_FILES["upldfile"]["name"];
-                    $target_file = $targate_dir.$file_name;
+                    $target_file = $targate_dir.basename($_FILES["upldfile"]["name"]);;
 
                     if(!file_exists($targate_dir)) {
-                        mkdir($targate_dir);
+                        mkdir($targate_dir,0777,true);
 
                         if(move_uploaded_file($file_name, $target_file)) {
                             $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file_name','$today','mentor')";

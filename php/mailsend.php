@@ -45,7 +45,7 @@ try {
 }
 ?>
 
-<html>
+<!-- <html>
     <head>
         <title>Reset Code</title>
     </head>
@@ -73,4 +73,4 @@ try {
             </table>
         </form>
     </body>
-</html>
+</html> -->
