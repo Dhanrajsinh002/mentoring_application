@@ -5,7 +5,6 @@ session_start();
 <html>
     <head>
         <link rel="stylesheet" href="../css/discussion.css">
-        <!-- <link rel="stylesheet" href="../css/home.css"> -->
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>$(document).ready(function(){});</script>
@@ -13,7 +12,6 @@ session_start();
             var gid;
             var flag = 0;
             var True1 = "<?php echo ($_SESSION['role']); ?>";
-            // alert("");
 
             function createGroup(grp_name) {
                 $.ajax({
@@ -25,7 +23,6 @@ session_start();
 
             function showChat(gpid) {
                 gid = gpid;
-                // alert(gpid);
                 $("#chat").css("display","block");
                 $.ajax({
                     method: "post",
@@ -39,34 +36,27 @@ session_start();
                         $("#showChatMant").html(response)
                     }
                 })
-                // document.getElementById("chat").style.display = 'block';
             }
 
             function sendMenteeChat(mntmessage) {
-                // console.log("MENTEE_MSG CALLED");
                 if(mntmessage == "") {} else {
-                    // console.log("MENTEE_MSG CALLED");
                     $.ajax({
                         method: "post",
                         url: "./functions.php",
                         data: {mentee_msg: mntmessage}
                     })
-                    .done(function (response) {alert(response)}) // $("#grps").html(response)
-                    // console.log("MENTEE_MSG CALLED");
-                    // $("#chat").css("display","block");
+                    .done(function (response) {alert(response)})
                 }
             }
 
             function sendMentorChat(mntrmessage) {
-                // alert(message);
                 if(mntrmessage == "") {} else {
                     $.ajax({
                         method: "post",
                         url: "./functions.php",
                         data: {mntrmsg: mntrmessage,mntr_gp_id: gid}
                     })
-                    .done(function (response) {console.log(response)}) //$("#grps").append(`<tr><td>${response}</td></tr>`)
-                    // $("#chat").css("display","block");
+                    .done(function (response) {console.log(response)})
                 }
             }
 
@@ -99,7 +89,6 @@ session_start();
                     data: {admntid: id, grp_id: gid}
                 })
                 .done(function (response) {
-                    // alert(response);
                     $(`#${id}`).remove();
                 })
             }
@@ -114,7 +103,6 @@ session_start();
                 })
             }
 
-            // alert(gid+"\n"+msg);
         </script>
     </head>
     <body>
@@ -137,17 +125,6 @@ session_start();
                                 <td width="22%">
                                     <div id="h3">
                                         <table id="ht"  width="100%">
-                                            <!-- <tr>
-                                                <td>
-                                                    <button onclick="window.location.href = './signin.html'">Sign IN</button>
-                                                </td>
-                                                <td>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                </td>
-                                                <td>
-                                                    <button onclick="window.location.href = './signup.html'">Sign UP</button>
-                                                </td>
-                                            </tr> -->
                                         </table>
                                     </div>
                                 </td>
@@ -183,13 +160,11 @@ session_start();
                 die("Connection Failed: ".mysqli_connect_error());
             } else {
                 $sel = "SELECT first_name FROM $table WHERE ".$id[0]."_id = $uid";
-                // $null = "SELECT * FROM $table WHERE middle_name = '' AND ".$id[0]."_id = $uid";
                 $exe = $conn->query($sel);
                 while($row = $exe->fetch_assoc()) {
                     ?>
                     <script>
                         $('#ht').html(`<tr> <td><p><?php echo ucwords($id[0])."&nbsp;".$row["first_name"] ?></p></td> <td align="right"><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
-                        // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <?php
                 }
@@ -207,7 +182,6 @@ session_start();
                                                 <td>
                                                     <div style="overflow: auto;">
                                                         <table id="showchats">
-                                                            <!-- <tr></tr> -->
                                                         </table>
                                                     </div>
                                                 </td>
@@ -305,18 +279,12 @@ session_start();
                     <script>
                         function createGroup() {
                             var grp = document.getElementById("gname").value;
-                            // alert(grp);
                             $.ajax({
                                 method: "post",
                                 url: "./functions.php",
                                 data: {grp_nm: grp}
                             })
                             .done(function (response) {
-                                // if(confirm(response) == true) {
-                                //     window.location.reload(true);
-                                // } else {
-                                //     window.location.reload(true);
-                                // }
                                 alert(response)
                                 window.location.reload(true);
                             })
@@ -324,7 +292,6 @@ session_start();
                     </script>
                     
                     <script>
-                        /* $("#mentee").hide();
                         $("#mentor").show(); */
                         $('#bt').append('<tr>'+
                                         '<table>'+
@@ -348,9 +315,7 @@ session_start();
                                         '</tr>'+
                                         '</table>'+
                                         '</tr>');
-                        // document.getElementById("getdetail").style.display = 'block';
                     </script>
-                    <!-- <button>Create Group</button> -->
                     <?php
                     $selgrp = "SELECT group_name, group_id FROM group_details WHERE group_id IN (SELECT group_id FROM group_details WHERE mentor_id = $uid)";
                     $exeslgp = $conn->query($selgrp);
@@ -411,10 +376,6 @@ session_start();
                                 </tr>
                             </table>`);
                     </script>
-                    <!-- <script>
-                        $("#mentee").show();
-                        $("#mentor").hide();
-                    </script> -->
                     <?php
                     $uid = $_SESSION['uid'];
                     $selgrp = "SELECT group_id FROM group_member WHERE mentee_id = $uid";
@@ -422,13 +383,9 @@ session_start();
                     if($exe->num_rows > 0) {
                         while($row = $exe->fetch_assoc()) {
                             $_SESSION['mnt_grp_id'] = $row['group_id'];
-                            /* ?>
-                                <script>alert(<?php echo $_SESSION['mnt_grp_id'];?>);</script>
-                            <?php */
                         }
                     }
                     $sel = "SELECT discussion, sender_name, date_time FROM discussions WHERE group_id IN (SELECT group_id FROM group_member WHERE mentee_id = $uid) ORDER BY date_time DESC";
-                    // echo $sel;
                     $exe = $conn->query($sel);
                     if($exe->num_rows > 0) {
                         while($row = $exe->fetch_assoc()) {

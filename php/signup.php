@@ -13,16 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST["gender"];
     $pass = $_POST["cpass"];
 
-    // echo "Username ".$name ."<br>";
-    // echo "Phone ".$phone."<br>";
-    // echo "EMAIL ".$mail."<br>";
-    // echo "DOB ".$dob."<br>";
-    // echo "GENDER ".$gender."<br>";
-    // echo "PASSWORD ".$pass."<br>";
-
     $mrole = role($mail);
-    // echo "ROLE ".$mrole[0]."<br>";
-    // echo "ROLE TYPE ".gettype($mrole[0]);
     
     $server_name = "localhost";
     $user_name = "root";
@@ -39,7 +30,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 parent_details pa WHERE me.first_name = '$name' OR me.mobile_no = $phone OR me.email_id = '$mail'
                 OR mo.first_name = '$name' OR mo.mobile_no = $phone OR mo.email_id = '$mail'
                 OR pa.first_name = '$name' OR pa.mobile_no = $phone OR pa.email_id = '$mail'";
-        // exit(0);
         $exe = $conn->query($sel);
 
         if($exe->num_rows > 0) {
@@ -72,21 +62,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 }
                 header("Location:../signin.html");
-                // insertData($name,$phone,$mail);
             }
     
             else if($mrole[0] == "@marwadieducation.edu.in") {
                 $ins = "INSERT INTO mentor_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
                 $conn->query($ins);
                 header("Location:../signin.html");
-                // insertData($name,$phone,$mail);
             }
     
             else if($mrole[0] == "@gmail.com") {
                 $ins = "INSERT INTO parent_details (first_name,email_id,mobile_no,dob,gender,password) VALUES ('$name','$mail',$phone,'$dob','$gender','$pass')";
                 $conn->query($ins);
                 header("Location:../signin.html");
-                // insertData($name,$phone,$mail);
             }
 
             else {

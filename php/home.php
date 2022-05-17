@@ -1,6 +1,5 @@
 <?php
 session_start();
-// $_SESSION["upd_arr"];
 $arr = array();
 $connarr = array();
 ?>
@@ -49,15 +48,7 @@ $connarr = array();
             <tr>
                 <td id="body"></td>
             </tr>
-        </table>
-        
-        
-        <!-- <div id="getdetail" style = "text-align: center; position: absolute; top: 50%; left: 50%; margin-top: -200px; 
-                                    margin-left: -200px; height: 400px; width: 400px; 
-                                    border-radius: 15px; background-color: white; display: none;">
-            <form id="getdetails" ></form>
-        </div> -->
-        
+        </table>       
         
         <?php
         if(isset($_SESSION["role"])) {
@@ -87,7 +78,6 @@ $connarr = array();
                     ?>
                     <script>
                             $('#ht').html(`<tr> <td><p><?php echo ucwords($id[0])."&nbsp;".$row["first_name"] ?></p></td> <td align="right"><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
-                        // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <?php
                 }
@@ -142,7 +132,6 @@ $connarr = array();
                                     var pnm = document.getElementById("pname").value;
                                     var pno = document.getElementById("pphone").value;
 
-                                    // alert(pnm+"\n"+pno);
                                     $.ajax({
                                         method: "post",
                                         url: "./functions.php",
@@ -203,31 +192,24 @@ $connarr = array();
                 if($exenull = mysqli_query($conn,$null)) 
                 {
                     $row = mysqli_num_rows($exenull);
-                    // echo $row;
                     if($row != 0) 
                     {
                         $col = $conn->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'mentoring_application' AND TABLE_NAME = '$table'");
                         $type = $conn->query("DESCRIBE $table");
                         
-                        while($rows = /* $type */ $col->fetch_assoc()) 
+                        while($rows = $col->fetch_assoc()) 
                         {
                             $res[] = $rows;
                         }
 
                         $columnArr = array_column($res, 'COLUMN_NAME');
-                        // print_r($columnArr);
-                        // print_r(count($columnArr));
                         ?>
                         <script>
-                            // $("#getdetail").css("display","block");
-                            // var form = document.getElementById("body");
                             var form = document.createElement("form");
                             form.style = "text-align: center; width: 100%;"
                             var h3 = document.createElement("h3");
                             h3.textContent = "Complete Your Profile";
                             form.appendChild(h3);
-                            // document.getElementById("getdetail").style.display = "block";
-                            // $("#getdetail").append(`<table><form action="./functions.php" method="post" id="dtform"></form></table>`);
                         </script>
                         <?php
                         
@@ -247,12 +229,8 @@ $connarr = array();
                                         el.id = "<?php echo $data; ?>";
                                         el.style = "text-align: center; width: 50%; height: 30%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
-                                        el.setAttribute("required","");
-                                        // el.required = true;
-                                        
-                                        // var form = document.getElementById("body");
+                                        el.setAttribute("required","");                                        
                                         form.appendChild(el);
-                                        // $("#body").append(form);
                                     </script>
                                     <?php
                                 }
@@ -269,12 +247,7 @@ $connarr = array();
                                         el.style = "text-align: center; width: 50%; margin: 5px";
                                         el.value = "<?php echo $nullrow[$data] ?>";
                                         el.setAttribute("disabled","disabled");
-                                        // el.setAttribute("required","required");
-
-                                        // var form = document.getElementById("body");
                                         form.appendChild(el);
-                                        // document.body.appendChild(form)
-                                        // $("#body").append(form);
                                     </script>
                                     <?php
                                 }
@@ -296,7 +269,6 @@ $connarr = array();
                                         <?php
                                     }
                                     ?>
-                                    // console.log(arr);
                                     $.ajax({
                                         method: "post",
                                         url: "./functions.php",
@@ -305,8 +277,6 @@ $connarr = array();
                                         window.location.reload(true);
                                         console.log(response)
                                     })
-                                    // console.log("NJKBUIBWV");
-                                    // alert("NJKBUIBWV");
                                 }
                             </script>
                             <script>
@@ -314,9 +284,7 @@ $connarr = array();
                                 el.type = "submit";
                                 el.style = "text-align: center; width: 50%; margin: 5px";
                                 el.value = "Update Info";
-                                // el.onclick = "updateValue()";
                                 el.setAttribute("onclick","updateValue()");
-                                // var form = document.getElementById("body");
                                 form.appendChild(el);
                                 $("#body").append(form);
                             </script>
@@ -328,7 +296,6 @@ $connarr = array();
                 {
                     ?>
                         <script>
-                            // $("#getdetail").css("display","block");
                             document.getElementById("getdetail").style.display = "none";
                         </script>
                     <?php

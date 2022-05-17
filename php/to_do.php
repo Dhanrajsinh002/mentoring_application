@@ -5,7 +5,6 @@ session_start();
     <head>
         <title>Welcome to Portal</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- <link rel="stylesheet" href="../css/home.css"> -->
         <link rel="stylesheet" href="../css/to_do.css">
         <script>$(document).ready(function(){});</script>
         <script>
@@ -120,17 +119,6 @@ session_start();
                                 <td width="22%">
                                     <div id="h3">
                                         <table id="ht"  width="100%">
-                                            <!-- <tr>
-                                                <td>
-                                                    <button onclick="window.location.href = './signin.html'">Sign IN</button>
-                                                </td>
-                                                <td>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                </td>
-                                                <td>
-                                                    <button onclick="window.location.href = './signup.html'">Sign UP</button>
-                                                </td>
-                                            </tr> -->
                                         </table>
                                     </div>
                                 </td>
@@ -150,14 +138,6 @@ session_start();
                 <td id="dynamic-portion"></td>
             </tr>
         </table>
-        
-        <!-- <div id="getdetail">
-            <form action="">
-                <table>
-                </table>
-            </form>
-        </div> -->
-        
         
         <?php
 
@@ -444,13 +424,11 @@ session_start();
                 die("Connection Failed: ".mysqli_connect_error());
             } else {
                 $sel = "SELECT first_name FROM $table WHERE ".$id[0]."_id = $uid";
-                // $null = "SELECT * FROM $table WHERE middle_name = '' AND ".$id[0]."_id = $uid";
                 $exe = $conn->query($sel);
                 while($row = $exe->fetch_assoc()) {
                     ?>
                     <script>
                         $('#ht').html(`<tr> <td><p><?php echo ucwords($id[0])."&nbsp;".$row["first_name"] ?></p></td> <td align="right"><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
-                        // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <?php
                 }

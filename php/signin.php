@@ -43,7 +43,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         </script>
                         <?php
-                        // echo "Invalid Email ID or Password";
                     }
                 }
             }
@@ -58,8 +57,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if($exe->num_rows > 0) {
                 while($row = $exe->fetch_assoc()) {
-                    // echo $row["password"]."<br>".$pass;
-                    // exit(0);
                     if($row["password"] == $pass) {
                         $_SESSION["role"] = "mentor_details";
                         $_SESSION["uid"] = $row["mentor_id"];
@@ -76,7 +73,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         </script>
                         <?php
-                        // echo "Invalid Email ID or Password";
                     }
                 }
             }
@@ -107,7 +103,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                         </script>
                         <?php
-                        // echo "Invalid Email ID or Password";
                     }
                 }
             }

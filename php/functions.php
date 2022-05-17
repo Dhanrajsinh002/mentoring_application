@@ -402,61 +402,63 @@ if(isset($_POST["prnt_comm_msg"])) {
 
 if(isset($_POST["showmntpr"])) {
     $mntId = $_POST["showmntpr"];
+    $prntprf;
     $selprf = "SELECT gr_no, enrollment_no, first_name, middle_name, last_name,
                 mobile_no, dob, gender, semester, stream, department, email_id
                 FROM mentee_details WHERE mentee_id = $mntId";
     if($exe = $conn->query($selprf)) {
         while($row = $exe->fetch_assoc()) {
-            echo "<table width='100%' >
+            $prntprf = $row["first_name"];
+            echo "<table width='100%' border='1'>
                         <tr>
-                            <th colspan='2'>Mentee's Profile</th>
+                            <th colspan='2'>".$row["first_name"]."'s Profile</th>
                         </tr>
                         <tr>
-                            <th>GR Number</th>
+                            <th width='20%' >GR Number</th>
                             <td>".$row['gr_no']."</td>
                         </tr>
                         <tr>
-                            <th>Enrollment Number</th>
+                            <th width='20%' >Enrollment Number</th>
                             <td>".$row['enrollment_no']."</td>
                         </tr>
                         <tr>
-                            <th>First Name</th>
+                            <th width='20%' >First Name</th>
                             <td>".$row['first_name']."</td>
                         </tr>
                         <tr>
-                            <th>Middle Name</th>
+                            <th width='20%' >Middle Name</th>
                             <td>".$row['middle_name']."</td>
                         </tr>
                         <tr>
-                            <th>Last Name</th>
+                            <th width='20%' >Last Name</th>
                             <td>".$row['last_name']."</td>
                         </tr>
                         <tr>
-                            <th>Mobile Number</th>
+                            <th width='20%' >Mobile Number</th>
                             <td>".$row['mobile_no']."</td>
                         </tr>
                         <tr>
-                            <th>Date of Birth</th>
+                            <th width='20%' >Date of Birth</th>
                             <td>".$row['dob']."</td>
                         </tr>
                         <tr>
-                            <th>Gender</th>
+                            <th width='20%' >Gender</th>
                             <td>".$row['gender']."</td>
                         </tr>
                         <tr>
-                            <th>Semester</th>
+                            <th width='20%' >Semester</th>
                             <td>".$row['semester']."</td>
                         </tr>
                         <tr>
-                            <th>Stream</th>
+                            <th width='20%' >Stream</th>
                             <td>".$row['stream']."</td>
                         </tr>
                         <tr>
-                            <th>Department</th>
+                            <th width='20%' >Department</th>
                             <td>".$row['department']."</td>
                         </tr>
                         <tr>
-                            <th>Email ID</th>
+                            <th width='20%' >Email ID</th>
                             <td>".$row['email_id']."</td>
                         </tr>
                         <tr>
@@ -471,41 +473,41 @@ if(isset($_POST["showmntpr"])) {
             while($row = $exeprntprf->fetch_assoc()) {
                 ?>
                 <script>
-                    $("#prntPrf").html(`<table  width='100%'>
+                    $("#prntPrf").html(`<table  width='100%' border='1'>
                                             <tr>
-                                                <th colspan="2">Mentee's Parent Profile</th>
+                                                <th colspan="2"><?php echo $prntprf?>'s Parent Profile</th>
                                             </tr>
 
                                             <tr>
-                                                <th>First Name</th>
+                                                <th width='20%' >First Name</th>
                                                 <td><?php echo $row["first_name"];?></td>
                                             </tr>
                                             <tr>
-                                                <th>Middle Name</th>
+                                                <th width='20%' >Middle Name</th>
                                                 <td><?php echo $row["middle_name"];?></td>
                                             </tr>
                                             <tr>
-                                                <th>Last Name</th>
+                                                <th width='20%' >Last Name</th>
                                                 <td><?php echo $row["last_name"];?></td>
                                             </tr>
                                             <tr>
-                                                <th>Mobile Number</th>
+                                                <th width='20%' >Mobile Number</th>
                                                 <td><?php echo $row["mobile_no"];?></td>
                                             </tr>
                                             <tr>
-                                                <th>Date of Birth</th>
+                                                <th width='20%' >Date of Birth</th>
                                                 <td><?php echo $row["dob"];?></td>
                                             </tr>
                                             <tr>
-                                                <th>Gender</th>
+                                                <th width='20%' >Gender</th>
                                                 <td><?php echo $row["gender"];?></td>
                                             </tr>
                                             <tr>
-                                                <th>Occupation</th>
+                                                <th width='20%' >Occupation</th>
                                                 <td><?php echo $row["occupation"];?></td>
                                             </tr>
                                             <tr>
-                                                <th>Email ID</th>
+                                                <th width='20%' >Email ID</th>
                                                 <td><?php echo $row["email_id"];?></td>
                                             </tr>
                                         </table>`);

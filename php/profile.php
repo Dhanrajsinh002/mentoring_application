@@ -11,17 +11,13 @@ session_start();
             var flag = 0;
 
             function showMenteePrf(id) {
-                // alert(id);
-                // exit(0);
-                // alert(flag);
                 if(flag == 0) {
                     $.ajax({
                     method: "post",
                     url: "./functions.php",
                     data: {showmntpr: id}
                     }).done(function (response) {
-                        // flag = 1;
-                        $("#showmntpr").append(response);
+                        $("#showmntpr").html(response);
                     })
                 }
                 else {
@@ -206,23 +202,27 @@ session_start();
                                     `);
                                 </script>
                                 <?php
+                                $num_rec = 0;
                                 while($row = $exe->fetch_assoc()) {
+                                    $num_rec += 1;
                                     ?>
                                     <script>
                                         $("#appendCol").append(`
-                                            <td><button onclick="showMenteePrf(<?php echo $row["mentee_id"]?>)"><?php echo $row["first_name"]?></button></td>
-                                        `);
-                                    </script>
-                                    <script>
-                                        $("#appendRow").append(`
-                                            <td><button onclick="showMenteePrf(<?php echo $row["mentee_id"]?>)"><?php echo $row["first_name"]?></button></td>
-                                            <tr>
-                                                <td id="showmntpr"></td>
-                                            </tr>
+                                            <th><button onclick="showMenteePrf(<?php echo $row["mentee_id"]?>)"><?php echo $row["first_name"]?></button></th>
                                         `);
                                     </script>
                                     <?php
                                 }
+                                ?>
+                                <script>
+                                    $("#appendRow").append(`
+                                        
+                                        <tr>
+                                            <td colspan="<?php echo $num_rec?>" id="showmntpr"></td>
+                                        </tr>
+                                    `);
+                                </script>
+                                <?php
                             }
                         }
                     }
@@ -406,13 +406,11 @@ session_start();
                 }
 
                 $sel = "SELECT first_name FROM $table WHERE ".$id[0]."_id = $uid";
-                // $null = "SELECT * FROM $table WHERE middle_name = '' AND ".$id[0]."_id = $uid";
                 $exe = $conn->query($sel);
                 while($row = $exe->fetch_assoc()) {
                     ?>
                     <script>
                         $('#ht').html(`<tr> <td><p><?php echo ucwords($id[0])."&nbsp;".$row["first_name"] ?></p></td> <td align="right"><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
-                        // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <?php
                 }

@@ -149,13 +149,11 @@ session_start();
                 die("Connection Failed: ".mysqli_connect_error());
             } else {
                 $sel = "SELECT first_name FROM $table WHERE ".$id[0]."_id = $uid";
-                // $null = "SELECT * FROM $table WHERE middle_name = '' AND ".$id[0]."_id = $uid";
                 $exe = $conn->query($sel);
                 while($row = $exe->fetch_assoc()) {
                     ?>
                     <script>
                         $('#ht').html(`<tr> <td><p><?php echo ucwords($id[0])."&nbsp;".$row["first_name"] ?></p></td> <td align="right"><button onclick='window.location.href="./logout.php"'>Logout</button></td> </tr>`);
-                        // document.getElementById("getdetail").style.display = 'block';
                     </script>
                     <?php
                 }
