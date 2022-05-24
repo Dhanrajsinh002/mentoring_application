@@ -292,7 +292,7 @@ session_start();
                     </script>
                     
                     <script>
-                        $("#mentor").show(); */
+                        $("#mentor").show();
                         $('#bt').append('<tr>'+
                                         '<table>'+
                                         '<tr>'+

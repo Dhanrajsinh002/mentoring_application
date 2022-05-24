@@ -409,7 +409,7 @@ if(isset($_POST["showmntpr"])) {
     if($exe = $conn->query($selprf)) {
         while($row = $exe->fetch_assoc()) {
             $prntprf = $row["first_name"];
-            echo "<table width='100%' border='1'>
+            echo "<table width='100%'>
                         <tr>
                             <th colspan='2'>".$row["first_name"]."'s Profile</th>
                         </tr>
@@ -473,7 +473,7 @@ if(isset($_POST["showmntpr"])) {
             while($row = $exeprntprf->fetch_assoc()) {
                 ?>
                 <script>
-                    $("#prntPrf").html(`<table  width='100%' border='1'>
+                    $("#prntPrf").html(`<table  width='100%'>
                                             <tr>
                                                 <th colspan="2"><?php echo $prntprf?>'s Parent Profile</th>
                                             </tr>
