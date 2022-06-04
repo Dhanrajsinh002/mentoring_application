@@ -58,7 +58,7 @@ if(isset($_POST["mdfygrp"])) {
     $gpid = $_POST["gp_id"];
     $selmnt = "SELECT mentee_id, gr_no, enrollment_no, first_name, middle_name, last_name, mobile_no, dob, gender, semester, stream, department FROM mentee_details WHERE mentee_id IN (SELECT mentee_id FROM group_member WHERE group_id = $gpid)";
     $exe = $conn->query($selmnt);
-    echo "<tr style='border: 1px solid black; border-radius: 10px;'>
+    echo "<tr style='border-spacing: 5px; border: 1px solid black; border-radius: 10px;'>
                 <th>ID</th>
                 <th>GR No.</th>
                 <th>Enrollment No</th>
@@ -66,8 +66,6 @@ if(isset($_POST["mdfygrp"])) {
                 <th>Middle Name</th>
                 <th>Last Name</th>
                 <th>Mobile No</th>
-                <th>Date of Birth</th>
-                <th>Gender</th>
                 <th>Semester</th>
                 <th>Stream</th>
                 <th>Department</th>
@@ -75,7 +73,7 @@ if(isset($_POST["mdfygrp"])) {
                 </tr>";
     if($exe->num_rows > 0) {
         while($row = $exe->fetch_assoc()) {
-            echo "<tr style='border: 1px solid black; border-radius: 10px;' id=".$row["mentee_id"].">
+            echo "<tr style='border-spacing: 5px; border: 1px solid black; border-radius: 10px;' id=".$row["mentee_id"].">
                     <td>".$row["mentee_id"]."</td> 
                     <td>".$row["gr_no"]."</td> 
                     <td>".$row["enrollment_no"]."</td> 
@@ -83,8 +81,6 @@ if(isset($_POST["mdfygrp"])) {
                     <td>".$row["middle_name"]."</td> 
                     <td>".$row["last_name"]."</td> 
                     <td>".$row["mobile_no"]."</td> 
-                    <td>".$row["dob"]."</td> 
-                    <td>".$row["gender"]."</td> 
                     <td>".$row["semester"]."</td> 
                     <td>".$row["stream"]."</td> 
                     <td>".$row["department"]."</td>
@@ -516,5 +512,18 @@ if(isset($_POST["showmntpr"])) {
             }
         }
     }
+}
+
+// Profile Update
+if(isset($_POST["upd_prf"])) {
+    $table = $_SESSION['role'];
+    for($i = 0; $i < count($_POST["upd_prf"]); $i++) {
+        $res = preg_match("/'([^']+)'/", $_SESSION["upd_prf"][$i], $m);
+        $updv = $m[1];
+        $data = $_POST["upd_prf"][$i];
+        $upd = "UPDATE $table SET $updv = '$data' WHERE ".$id[0]."_id = $uid";
+        $conn->query($upd);
+    }
+    echo "Sucessfull Updated!!";
 }
 ?>

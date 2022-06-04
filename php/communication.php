@@ -365,7 +365,7 @@ session_start();
                     if($exe = $conn->query($selprntcomm)) {
                         ?>
                         <script>
-                        $("#dynamic-portion").append(`<table id="showPrntMsg">
+                        $("#dynamic-portion").append(`<table width="100%" id="showPrntMsg">
                                                             <tr>
                                                                 <th colspan="4"><h3>You can see your Son's/Daughter's Personal Communications With Mentor</h3></th>    
                                                             </tr>

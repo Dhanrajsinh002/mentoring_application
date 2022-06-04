@@ -219,7 +219,8 @@ $connarr = array();
                             {
                                 $data = $columnArr[$i];
                                 array_push($arr,"document.getElementById('$data').value");
-                                if(!($nullrow[$data])) 
+                                if($data == "password") {}
+                                else if(!($nullrow[$data])) 
                                 {
                                     ?>
                                     <script>

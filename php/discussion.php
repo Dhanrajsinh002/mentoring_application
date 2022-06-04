@@ -221,11 +221,11 @@ session_start();
                                             </tr>
                                             <tr>
                                                 <td align="center">
-                                                    <div style="display: none; overflow: auto; width: 100%" id="divmdgrp">
-                                                        <table style="text-align: center">
+                                                    <div style="display: none; overflow: auto; width: 100%;" id="divmdgrp">
+                                                        <table style="text-align: center;">
                                                             <tr>
                                                                 <td>
-                                                                    <table id="mdfygrp1" style="border: 1px solid black; border-radius: 10px;">
+                                                                    <table id="mdfygrp1" style="border: 1px solid black; border-radius: 10px; border-spacing: 15px;">
                                                                     </table>
                                                                 </td>
                                                             </tr>
@@ -279,15 +279,17 @@ session_start();
                     <script>
                         function createGroup() {
                             var grp = document.getElementById("gname").value;
-                            $.ajax({
-                                method: "post",
-                                url: "./functions.php",
-                                data: {grp_nm: grp}
-                            })
-                            .done(function (response) {
-                                alert(response)
-                                window.location.reload(true);
-                            })
+                            if(grp =="") {} else {
+                                $.ajax({
+                                    method: "post",
+                                    url: "./functions.php",
+                                    data: {grp_nm: grp}
+                                })
+                                .done(function (response) {
+                                    alert(response)
+                                    window.location.reload(true);
+                                })
+                            }
                         }
                     </script>
                     
@@ -299,11 +301,13 @@ session_start();
                                         '<td>'+
                                         // '<form action = "./crtmnteegrp.php" method = "post">'+
                                         '<form>'+
-                                        '<table>'+
+                                        '<table style="text-align: center;">'+
                                         '<tr>'+
                                         '    <td>'+
                                         `        <input type="text" name="gname" id="gname" placeholder="Enter Group Name" pattern="[a-zA-Z0-9\s]+" title="No White Space allowed." required>`+
                                         '    </td>'+
+                                        '</tr>'+
+                                        '<tr>'+
                                         '    <td>'+
                                         '        <input type="submit" onclick="createGroup()" value="Create Group">'+
                                         // '        <input type="submit" value="Create Group">'+

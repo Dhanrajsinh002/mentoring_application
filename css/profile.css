@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&family=Varela+Round&display=swap');
 body {
     font-family: 'Varela Round', sans-serif;
+    background-color: #D1D8EC;
 }
 
 #header {
-    background-color: aquamarine;
+    background-color: #81bae9;
     text-align: center;
     border-radius: 15px;
 }
@@ -25,15 +26,20 @@ button {
     height: fit-content;
     width: fit-content;
     font-size: 16px;
-    background: #3f7f6a;
+    background: #1f8feb;
+    border: 2px solid yellow;
     color: yellow;
     -webkit-box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
     box-shadow:  5px 5px 9px #5a5a5a,
-             -5px -5px 9px #ffffff;
+             -5px -5px 9px #ffffff00;
     font-family: 'Varela Round', sans-serif;
     border-radius: 15px;
-    border: none;
     cursor: pointer;
+}
+
+button:active {
+    transform: translateY(2px);
+    box-shadow: 3px 2px 25px 1px rgba(0,0,0,0.25);
 }
 
 #getdetail {
@@ -70,4 +76,28 @@ button {
 
 input[type=text] {
     width: max-content;
+    border: 2px solid #0075d4;
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
+}
+
+input[type=submit] {
+    padding: 5px;
+    width: max-content;
+    border: 2px solid yellow;
+    border-radius: 15px;
+    font-family: 'Varela Round', sans-serif;
+    cursor: pointer;
+    background: #1f8feb;
+    color: yellow;
+    -webkit-box-shadow: 12px 12px 24px #b2b8c9, -12px -12px 24px #f0f8ff;
+    box-shadow:  5px 5px 9px #5a5a5a,
+             -5px -5px 9px #ffffff00;
+}
+
+input[type="submit"]:active {
+    transform: translateY(2px);
+    box-shadow: 3px 2px 25px 1px rgba(0,0,0,0.25);
 }

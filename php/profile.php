@@ -1,5 +1,6 @@
 <?php
 session_start();
+$arr = array();
 ?>
 <html>
     <head>
@@ -17,6 +18,7 @@ session_start();
                     url: "./functions.php",
                     data: {showmntpr: id}
                     }).done(function (response) {
+                        // console.log(response);
                         $("#showmntpr").html(response);
                     })
                 }
@@ -62,7 +64,15 @@ session_start();
             </tr>
 
             <tr>
-                <td id="dynamic-portion"></td>
+                <td id="dynamic-portion">
+                    <table width="100%"  style="text-align: center">
+                        <tr>
+                            <td>
+                                <div id="main"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         </table>
         
@@ -83,6 +93,155 @@ session_start();
                 die("Connection Failed: ".mysqli_connect_error());
             } else {
 
+                $selPrf = "SELECT * FROM $table WHERE ".$id[0]."_id = $uid";
+
+                    if($exe = mysqli_query($conn,$selPrf)) {
+                        $row = mysqli_num_rows($exe);
+
+                        if($row != 0) {
+                            $col = $conn->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'mentoring_application' AND TABLE_NAME = '$table'");
+                            $type = $conn->query("DESCRIBE $table");
+
+                            while($rows = $col->fetch_assoc()) 
+                            {
+                                $res[] = $rows;
+                            }
+
+                            $columnArr = array_column($res, 'COLUMN_NAME');
+                            ?>
+                            <script>
+                                var form = document.createElement("form");
+                                form.style = "text-align: center; width: 100%;";
+                                var tb = document.createElement("table");
+                                // tb.setAttribute("id","mtb");
+                                tb.style = "width: 100%; text-align: center; border: 2px solid black; border-radius: 15px; font-size: 20px;";
+                                form.appendChild(tb);
+                                $("#main").append(form);
+                                // var h3 = document.createElement("h3");
+                                // h3.textContent = "My Profile";
+                                // form.appendChild(h3);
+                            </script>
+                            <?php
+
+                            while($row = $exe->fetch_assoc()) 
+                            {
+                                for($i = 1; $i < count($columnArr)-2; $i++) 
+                                {
+                                    $data = $columnArr[$i];
+                                    array_push($arr,"document.getElementById('$data').value");
+                                    // echo $data;
+                                    if($data == "password") 
+                                    {
+                                        ?>
+                                        <script>
+                                            var tr1 = document.createElement("tr");
+                                            tb.appendChild(tr1);
+
+                                            var td1 = document.createElement("th");
+                                            td1.style = "width: 20%";
+                                            tr1.appendChild(td1);
+
+                                            var lb = document.createElement("label");
+                                            // lb.setAttribute("hidden","");
+                                            td1.appendChild(lb);
+                                            // form.appendChild(lb);
+
+                                            var td2 = document.createElement("td");
+                                            tr1.appendChild(td2);
+
+                                            var el = document.createElement("input");
+                                            el.type = "text";
+                                            el.placeholder = "<?php echo $data; ?>";
+                                            el.id = "<?php echo $data; ?>";
+                                            el.style = "text-align: center; width: 50%; margin: 5px";
+                                            el.value = "<?php echo $row[$data]; ?>";
+                                            el.setAttribute("hidden","");
+                                            td2.appendChild(el);
+                                            // form.appendChild(el);
+                                        </script>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <script>
+                                            var tr1 = document.createElement("tr");
+                                            tb.appendChild(tr1);
+
+                                            var td1 = document.createElement("th");
+                                            td1.style = "width: 20%";
+                                            tr1.appendChild(td1);
+
+                                            var lb = document.createElement("label");
+                                            lb.innerHTML = "<?php echo $data; ?>";
+                                            td1.appendChild(lb);
+                                            // form.appendChild(lb);
+
+                                            var td2 = document.createElement("td");
+                                            tr1.appendChild(td2);
+
+                                            var el = document.createElement("input");
+                                            el.type = "text";
+                                            el.placeholder = "<?php echo $data; ?>";
+                                            el.id = "<?php echo $data; ?>";
+                                            el.style = "text-align: center; width: 50%; margin: 5px";
+                                            el.value = "<?php echo $row[$data]; ?>";
+                                            el.setAttribute("required","");
+                                            td2.appendChild(el);
+                                            // form.appendChild(el);
+                                        </script>
+                                        <?php
+                                    }
+                                }
+                                $_SESSION["upd_prf"] = $arr;
+                            }
+                            ?>
+                            <script>
+                                function updateValue() {
+                                    var arr = [];
+                                    <?php
+                                    for($i = 0; $i < count($_SESSION["upd_prf"]); $i++) {
+                                        ?>
+                                        if(<?php echo $_SESSION["upd_prf"][$i] ?> == "") {
+                                            return false;
+                                        } else {
+                                            arr.push(<?php echo $_SESSION["upd_prf"][$i] ?>)
+                                        }
+                                        <?php
+                                    }
+                                    ?>
+                                    $.ajax({
+                                        method: "post",
+                                        url: "./functions.php",
+                                        data: {upd_prf: arr}
+                                    }).done(function (response) {
+                                        alert(response);
+                                        window.location.reload(true);
+                                        
+                                    })
+                                }
+                            </script>
+                            <script>
+                                var tr1 = document.createElement("tr");
+                                tb.appendChild(tr1);
+
+                                var td3 = document.createElement("td");
+                                td3.setAttribute("colspan","2");
+                                tr1.appendChild(td3);
+
+                                var el = document.createElement("input");
+                                el.type = "submit";
+                                el.style = "text-align: center; width: 50%; margin: 5px";
+                                el.value = "Update Profile";
+                                el.setAttribute("onclick","updateValue()");
+                                td3.appendChild(el);
+                                // form.appendChild(el);
+                                // $("#body").append(form);
+                            </script>
+                        <?php
+
+                        }
+
                 if($_SESSION['role'] == 'mentor_details') {
                     ?>
                     <script>
@@ -100,131 +259,57 @@ session_start();
                             `);
                     </script>
                     <script>
-                        $("#dynamic-portion").html(`
-                            <table width="100%"  style="text-align: center">
-                                <tr>
-                                    <td>
-                                        <div id="main"></div>
-                                    </td>
-                                </tr>
-                            </table>`
-                        );
+                        $("#dynamic-portion").append(`
+                        <table id="mtb" width="100%"  style="text-align: center; border: 2px solid black; border-radius: 15px">
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+                        `);
+                        $("#mtb").append(`
+                            <tr>
+                                <td colspan="2" id="otherProfiles"></td>
+                            </tr>
+                        `);
                     </script>
                     <?php
-                    
-                    $selprf = "SELECT mentor_id, first_name, middle_name, last_name, mobile_no, dob, gender, department, stream,
-                                qualification, email_id FROM mentor_details WHERE mentor_id = $uid";
-                    if($exe = $conn->query($selprf)) {
+                    }
+                    $selmntprf = "SELECT mentee_id, first_name FROM mentee_details WHERE mentee_id IN 
+                                    (SELECT mentee_id FROM relation WHERE mentor_id = $uid)";
+                    if($exe = $conn->query($selmntprf)) {
+                        ?>
+                        <script>
+                            $("#otherProfiles").append(`
+                                <table id="appendRow" width="100%" align="center">
+                                    <tr>
+                                        <th colspan="2">Your Mentee's Profile</th>
+                                    </tr>
+                                    <tr id="appendCol"></tr>
+                                </table>
+                            `);
+                        </script>
+                        <?php
+                        $num_rec = 0;
                         while($row = $exe->fetch_assoc()) {
+                            $num_rec += 1;
                             ?>
                             <script>
-                                $("#main").append(`
-                                    <table id="decorate" style="border: 2px solid black; width: 100%; border-radius: 15px; font-size: 20px;" cellpadding="6.5%">
-                                        <tr>
-                                            <th colspan="2">My Profile</th>
-                                        </tr>
-
-                                        <tr>
-                                            <th>First Name</th>
-                                            <td><?php echo $row["first_name"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Middle Name</th>
-                                            <td><?php echo $row["middle_name"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Last Name</th>
-                                            <td><?php echo $row["last_name"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Mobile Number</th>
-                                            <td><?php echo $row["mobile_no"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Date of Birth</th>
-                                            <td><?php echo $row["dob"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Gender</th>
-                                            <td><?php echo $row["gender"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Department</th>
-                                            <td><?php echo $row["department"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Stream</th>
-                                            <td><?php echo $row["stream"]?></td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <th>Qualification</th>
-                                            <td><?php echo $row["qualification"]?></td>
-                                        </tr>
-    
-                                        <tr>
-                                            <th>Email ID</th>
-                                            <td><?php echo $row["email_id"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th colspan="2">
-                                                <button onclick="./update_profile.php?mentor_id=<?php echo $row["mentor_id"]?>">Update Profile</button>
-                                            </th>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="2" id="otherProfiles"></td>
-                                        </tr>
-                                    </table>
+                                $("#appendCol").append(`
+                                    <th><button onclick="showMenteePrf(<?php echo $row["mentee_id"]?>)"><?php echo $row["first_name"]?></button></th>
                                 `);
                             </script>
                             <?php
-                            $selmntprf = "SELECT mentee_id, first_name FROM mentee_details WHERE mentee_id IN 
-                                            (SELECT mentee_id FROM relation WHERE mentor_id = $uid)";
-                            if($exe = $conn->query($selmntprf)) {
-                                ?>
-                                <script>
-                                    $("#otherProfiles").append(`
-                                        <table id="appendRow" width="100%" align="center">
-                                            <tr>
-                                                <th colspan="2">Your Mentee's Profile</th>
-                                            </tr>
-                                            <tr id="appendCol"></tr>
-                                        </table>
-                                    `);
-                                </script>
-                                <?php
-                                $num_rec = 0;
-                                while($row = $exe->fetch_assoc()) {
-                                    $num_rec += 1;
-                                    ?>
-                                    <script>
-                                        $("#appendCol").append(`
-                                            <th><button onclick="showMenteePrf(<?php echo $row["mentee_id"]?>)"><?php echo $row["first_name"]?></button></th>
-                                        `);
-                                    </script>
-                                    <?php
-                                }
-                                ?>
-                                <script>
-                                    $("#appendRow").append(`
-                                        
-                                        <tr>
-                                            <td colspan="<?php echo $num_rec?>" id="showmntpr"></td>
-                                        </tr>
-                                    `);
-                                </script>
-                                <?php
-                            }
                         }
+                        ?>
+                        <script>
+                            $("#appendRow").append(`
+                                
+                                <tr>
+                                    <td colspan="<?php echo $num_rec?>" id="showmntpr"></td>
+                                </tr>
+                            `);
+                        </script>
+                        <?php
                     }
                 }
     
@@ -243,87 +328,6 @@ session_start();
                                 </table>`);
                     </script>
                     <?php
-
-                    $selmntprf = "SELECT mentee_id, gr_no, enrollment_no, first_name, middle_name, last_name, mobile_no, dob,
-                                gender, semester, stream, department, email_id FROM mentee_details WHERE 
-                                mentee_id = $uid";
-                    if($exe = $conn->query($selmntprf)) {
-                        while($row = $exe->fetch_assoc()) {
-                            ?>
-                            <script>
-                                $("#dynamic-portion").append(`
-                                    <table id="decorate" style="border: 2px solid black; width: 100%; border-radius: 15px; font-size: 20px;" cellpadding="6.5%">
-                                        <tr>
-                                            <th>GR Number</th>
-                                            <td><?php echo $row["gr_no"]?></td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <th>Enrollment Number</th>
-                                            <td><?php echo $row["enrollment_no"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>First Name</th>
-                                            <td><?php echo $row["first_name"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Middle Name</th>
-                                            <td><?php echo $row["middle_name"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Last Name</th>
-                                            <td><?php echo $row["last_name"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Mobile Number</th>
-                                            <td><?php echo $row["mobile_no"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Date of Birth</th>
-                                            <td><?php echo $row["dob"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Gender</th>
-                                            <td><?php echo $row["gender"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Semester</th>
-                                            <td><?php echo $row["semester"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Stream</th>
-                                            <td><?php echo $row["stream"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Department</th>
-                                            <td><?php echo $row["department"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Email ID</th>
-                                            <td><?php echo $row["email_id"]?></td>
-                                        </tr>
-
-                                        <tr>
-                                            <th colspan="2">
-                                                <button onclick="./update_profile.php?mentee_id=<?php echo $row["mentee_id"]?>">Update Profile</button>
-                                            </th>
-                                        </tr>
-                                    </table>
-                                `);
-                            </script>
-                            <?php
-                        }
-                    }
                 }
     
                 if($_SESSION['role'] == 'parent_details') {
@@ -343,66 +347,6 @@ session_start();
                             `);
                     </script>
                     <?php
-                    $selprntprf = "SELECT parent_id, first_name, middle_name, last_name, mobile_no, dob, gender,
-                                    occupation, email_id FROM parent_details WHERE parent_id = $uid";
-                    if($exe = $conn->query($selprntprf)) {
-                        while($row = $exe->fetch_assoc()) {
-                            ?>
-                            <script>
-                                $("#dynamic-portion").append(`
-                                    <table id="decorate" style="border: 2px solid black; width: 100%; border-radius: 15px; font-size: 25px;" cellpadding="11%">
-                        
-                                        <tr>
-                                            <th width="20%">First Name</th>
-                                            <td><?php echo $row["first_name"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th>Middle Name</th>
-                                            <td><?php echo $row["middle_name"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th>Last Name</th>
-                                            <td><?php echo $row["last_name"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th>Mobile Number</th>
-                                            <td><?php echo $row["mobile_no"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th>Date of Birth</th>
-                                            <td><?php echo $row["dob"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th>Gender</th>
-                                            <td><?php echo $row["gender"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th>Occupation</th>
-                                            <td><?php echo $row["occupation"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th>Email ID</th>
-                                            <td><?php echo $row["email_id"]?></td>
-                                        </tr>
-                        
-                                        <tr>
-                                            <th colspan="2">
-                                                <button onclick="./update_profile.php?parent_id=<?php echo $row["parent_id"]?>">Update Profile</button>
-                                            </th>
-                                        </tr>
-                                    </table>
-                                `);
-                            </script>
-                            <?php
-                        }
-                    }
                 }
 
                 $sel = "SELECT first_name FROM $table WHERE ".$id[0]."_id = $uid";
