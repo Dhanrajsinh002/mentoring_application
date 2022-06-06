@@ -69,3 +69,12 @@ input[type=text] {
     font-family: 'Varela Round', sans-serif;
     font-size: 16px;
 }
+
+textarea.form-control {
+    width: max-content;
+    border: 2px solid #0075d4;
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
+}

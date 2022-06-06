@@ -191,67 +191,39 @@ session_start();
                 <?php
 
                 if(isset($_POST["sendTODO"])) {
-                    $today = date("Y-m-d H:i:s");
                     $msg = $_POST["todo_message"];
                     $mnt_id = $_POST["mnt_id"];
                     $targate_dir = "../uploaded_files/".$id[0]."_files/".$_SESSION["uname"]."/";
-                    $file_name = basename($_FILES["upldfile"]["name"]);
-                    // $file_name = strval(rand(10,1000))."_".strval(date("d/m/Y"))."_".basename($_FILES["upldfile"]["name"]);
-                    // $file = $_FILES["upldfile"]["name"];
-                    $target_file = $targate_dir.basename($_FILES["upldfile"]["name"]);;
+                    $file_name = strval(rand(10,1000))."_".date("d-m-Y")."_".basename($_FILES["upldfile"]["name"]);
+                    $path = $targate_dir . $file_name;
 
                     if(!file_exists($targate_dir)) {
                         mkdir($targate_dir,0777,true);
+                    }
 
-                        if(move_uploaded_file($file_name, $target_file)) {
-                            $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file_name','$today','mentor')";
-                            // echo $msg."\n".$mnt_id."\n".$instodo;
-                            if ($conn->query($instodo)) {
-                                ?>
-                                <script>
-                                    alert("File Uploaded Successfully✅");
-                                </script>
-                                <?php
-                            } else {
-                                ?>
-                                <script>
-                                    alert("File Upload Failed⚠️");
-                                </script>
-                                <?php
-                            }
+                    if(move_uploaded_file($_FILES["upldfile"]["tmp_name"], $path)) {
+                        $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file_name',CURRENT_TIMESTAMP(),'mentor')";
+                        // echo $msg."\n".$mnt_id."\n".$instodo;
+                        if ($conn->query($instodo)) {
+                            ?>
+                            <script>
+                                alert("File Uploaded Successfully✅");
+                            </script>
+                            <?php
                         } else {
                             ?>
-                                <script>
-                                    alert("File can not be move to desired location⚠️");
-                                </script>
+                            <script>
+                                alert("File Upload Failed⚠️");
+                            </script>
                             <?php
                         }
                     } else {
-                        if(move_uploaded_file($file_name, $target_file)) {
-                            $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file_name','$today','mentor')";
-                            // echo $msg."\n".$mnt_id."\n".$instodo;
-                            if ($conn->query($instodo)) {
-                                ?>
-                                <script>
-                                    alert("File Uploaded Successfully✅");
-                                </script>
-                                <?php
-                            } else {
-                                ?>
-                                <script>
-                                    alert("File Upload Failed⚠️");
-                                </script>
-                                <?php
-                            }
-                        } else {
-                            ?>
-                                <script>
-                                    alert("File can not be move to desired location⚠️");
-                                </script>
-                            <?php
-                        }
+                        ?>
+                            <script>
+                                alert("File can not be move to desired location⚠️");
+                            </script>
+                        <?php
                     }
-                    // $file = basename($_FILES["upld_file"]["name"]);
                 }
             }
 

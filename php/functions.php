@@ -7,7 +7,6 @@ $password = "";
 $db_name = "mentoring_application";
 $conn = mysqli_connect($server_name, $user_name, $password, $db_name);
 
-$today = date("Y-m-d H:i:s");
 $id = explode('_',$_SESSION["role"],2);
 $uid = $_SESSION["uid"];
 $unm = $_SESSION["uname"];
@@ -263,36 +262,27 @@ if(isset($_POST["pastParentComms"])) {
 
 // MENTOR ASSIGN TODO TO MENTEE with file(not working)
 
-if(isset($_POST["post_td_msg"])) {
+if(isset($_POST["sendTODO"])) {
     $msg = $_POST["post_td_msg"];
     $mnt_id = $_POST["post_ment_id"];
-    $_FILES["upld_file"]["name"] = $_POST["upld_file"];
-    $file = basename($_FILES["upld_file"]["name"]);
-    // $file = (string)rand(10,1000)."_".(string)date("d/m/Y")."_".basename($_FILES["upld_file"]["name"]);
-    $target_file = $target_dir.$file;
-    // exit(0);
-    if(move_uploaded_file($_FILES["upld_file"]["tmp_name"], $target_file)) {
-        $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file','$today','mentor')";
+    $targate_dir = "../uploaded_files/".$id[0]."_files/".$_SESSION["uname"]."/";
+    $file_name = strval(rand(10,1000))."_".date("d-m-Y")."_".basename($_FILES["upldfile"]["name"]);
+    $path = $targate_dir . $file_name;
+
+    if(!file_exists($targate_dir)) {
+        mkdir($targate_dir,0777,true);
+    }
+
+    if(move_uploaded_file($_FILES["upldfile"]["tmp_name"], $path)) {
+        $instodo = "INSERT INTO to_do VALUES ($uid,$mnt_id,'$msg','$file_name',CURRENT_TIMESTAMP(),'mentor')";
         // echo $msg."\n".$mnt_id."\n".$instodo;
         if ($conn->query($instodo)) {
-            ?>
-            <script>
-                alert("File Uploaded Successfully✅");
-            </script>
-            <?php
+            echo "File Uploaded Successfully✅";
         } else {
-            ?>
-            <script>
-                alert("File Upload Failed⚠️");
-            </script>
-            <?php
+            echo "File Upload Failed⚠️";
         }
     } else {
-        ?>
-            <script>
-                alert("File can not be move to desired location⚠️");
-            </script>
-        <?php
+        echo "File can not be move to desired location⚠️";
     }
 }
 
@@ -351,7 +341,7 @@ if(isset($_POST["grp_nm"])) {
 if(isset($_POST["post_comm_msg"])) {
     $comm_msg = $_POST["post_comm_msg"];
     $mentee_id = $_POST["post_ment_id"];
-    $inscomm = "INSERT INTO communnication VALUES ($uid,$mentee_id,'$comm_msg','$today','mentor')";
+    $inscomm = "INSERT INTO communnication VALUES ($uid,$mentee_id,'$comm_msg',CURRENT_TIMESTAMP(),'mentor')";
     $conn->query($inscomm);
 }
 
@@ -360,7 +350,7 @@ if(isset($_POST["post_comm_msg"])) {
 if(isset($_POST["parent_comm_msg"])) {
     $comm_msg = $_POST["parent_comm_msg"];
     $parent_id = $_POST["post_parent_id"];
-    $inscomm = "INSERT INTO parents_communnication VALUES ($uid,$parent_id,'$comm_msg','$today','mentor')";
+    $inscomm = "INSERT INTO parents_communnication VALUES ($uid,$parent_id,'$comm_msg',CURRENT_TIMESTAMP(),'mentor')";
     $conn->query($inscomm);
 }
 
@@ -375,7 +365,7 @@ if(isset($_POST["mnt_comm_msg"])) {
             $mntr_id = $row["mentor_id"];
         }
     }
-    $ins_comm_msg = "INSERT INTO communnication VALUES ($mntr_id,$uid,'$msg','$today','mentee')";
+    $ins_comm_msg = "INSERT INTO communnication VALUES ($mntr_id,$uid,'$msg',CURRENT_TIMESTAMP(),'mentee')";
     $conn->query($ins_comm_msg);
 }
 
@@ -389,7 +379,7 @@ if(isset($_POST["prnt_comm_msg"])) {
         while($row = $exe->fetch_assoc()) {
             $mntrid = $row["mentor_id"];
         }
-        $sendprntcomm = "INSERT INTO parents_communnication VALUES ($mntrid,$uid,'$prntmsg','$today','parent')";
+        $sendprntcomm = "INSERT INTO parents_communnication VALUES ($mntrid,$uid,'$prntmsg',CURRENT_TIMESTAMP(),'parent')";
         $conn->query($sendprntcomm);
     }
 }
