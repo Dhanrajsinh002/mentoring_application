@@ -3,3 +3,5 @@
 (done) -> discussion - commu. - to-do (re order)
 (undone) -> add different sign for all three users to identify
 (undone) -> show recent activity in home page for respective user
+(undone) -> download file button in todo or anywhere it need
+(undone) -> remaining to-do in mentee and parent part

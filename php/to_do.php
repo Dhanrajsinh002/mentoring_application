@@ -265,19 +265,23 @@ session_start();
                                     <table width="100%" >
                                         <tr>
                                             <td>
-                                                <form style="height: fit-content; text-align: center;">
+                                                <form action="./to_do.php" method="post" enctype="multipart/form-data">
                                                     <table width="100%"  align="center" style="vertical-align: center; text-align: center;">
                                                         <tr>
+                                                            <td>
+                                                                <input hidden type="text" name="mntee_id" value="${mnt_id}"> 
+                                                            </td>
                                                             <td>
                                                                 <!-- for input field -->
                                                                 <!-- <input type="text" name="todo_message" id="todo_message" placeholder="Your Message" required> -->
                                                                 <textarea id="todo_message" name="todo_message" rows="4" placeholder="Your Message" cols="50" required></textarea>
                                                             </td>
                                                             <td>
-                                                                <input type="file" name="" id="">
+                                                                <input type="file" name="mnt_upld_file" id="mnt_upld_file">
                                                             </td>
                                                             <td>
                                                                 <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value)" value="Post">
+                                                                <!-- <input type="submit" onclick="asgnTodoMnt(document.getElementById('todo_message').value)" value="Post"> -->
                                                             </td>
                                                         </tr>
                                                     </table>

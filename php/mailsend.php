@@ -25,7 +25,7 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->Username = 'noreply9448@gmail.com'; // YOUR gmail email
-    $mail->Password = 'n0r5plym19l'; // YOUR gmail password
+    $mail->Password = 'ichhgcicnilgnxrd'; // YOUR gmail password
     // Sender and recipient settings
     $mail->setFrom('noreply9448@gmail.com', 'REPLY');
     $mail->addAddress("$fmail", "$user");
@@ -45,7 +45,7 @@ try {
 }
 ?>
 
-<!-- <html>
+<html>
     <head>
         <title>Reset Code</title>
     </head>
@@ -73,4 +73,4 @@ try {
             </table>
         </form>
     </body>
-</html> -->
+</html>

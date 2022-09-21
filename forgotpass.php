@@ -26,17 +26,17 @@ if(($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST["cpass"])) {
     else {
         if($role[0] == "@marwadiuniversity.ac.in") {
             $upd = "UPDATE mentee_details SET password = '$pass' WHERE first_name = '$unm'";
-            echo $upd;
+            // echo $upd;
             $exe = $conn->query($upd);
         }
         else if($role[0] == "@marwadieducation.edu.in") {
             $upd = "UPDATE mentor_details SET password = '$pass' WHERE first_name = '$unm'";
-            echo $upd;
+            // echo $upd;
             $exe = $conn->query($upd);
         }
         else {
             $upd = "UPDATE parent_details SET password = '$pass' WHERE first_name = '$unm'";
-            echo $upd;
+            // echo $upd;
             $exe = $conn->query($upd);
         }
         
