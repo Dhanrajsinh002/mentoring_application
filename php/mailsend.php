@@ -24,12 +24,12 @@ try {
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
-    $mail->Username = 'noreply9448@gmail.com'; // YOUR gmail email
-    $mail->Password = 'ichhgcicnilgnxrd'; // YOUR gmail password
+    $mail->Username = ''; // YOUR gmail email
+    $mail->Password = ''; // YOUR gmail password
     // Sender and recipient settings
-    $mail->setFrom('noreply9448@gmail.com', 'REPLY');
+    $mail->setFrom('', 'REPLY');
     $mail->addAddress("$fmail", "$user");
-    $mail->addReplyTo('noreply9448@gmail.com', 'REPLY'); // to set the reply to
+    $mail->addReplyTo('', 'REPLY'); // to set the reply to
     // Setting the email content
     $mail->IsHTML(true);
     $mail->Subject = "Reset Password";
